@@ -1,0 +1,83 @@
+/* Override defaults from basic.css */
+
+div.document {
+    max-width: 1100px;
+    width: 100%;
+}
+
+div.body {
+    max-width: 1000px;
+}
+
+dl.field-list {
+    grid-template-column: 15em auto;
+}
+
+dl.field-list > dt {
+    border-right: 1px solid black;
+}
+
+dl.field-list > dt:after {
+    content: "";
+}
+
+pre {
+    padding: 7px 10px;
+}
+
+/* Override Alabaster's defaults */
+
+div.body p, div.body dd, div.body li {
+    line-height: 1.8em;
+    text-align: justify;
+}
+
+/* Others */
+
+code {
+    color: black;
+    padding: 4px;
+    font-size: 1em;
+}
+
+dl.field-list > dd > p:first-child {
+    font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+    text-decoration: underline;
+}
+
+.smallcaps {
+    font-variant: small-caps;
+    font-size: large;
+}
+
+.scheduleVar {
+    font-style: italic;
+}
+
+.runbutton {
+    background-color: rgb(170, 0, 170);
+    border: 1px; border-radius: 3px;
+    padding: 2px 4px 2px 4px;
+}
+
+.button {
+    background-color: rgb(238, 130, 238);
+    border: 1px; border-radius: 3px;
+    padding: 2px 4px 2px 4px;
+}
+
+.joblist {
+    background-color: rgb(230, 230, 240);
+    border: 1px; border-radius: 3px;
+    padding: 2px 4px 2px 4px;
+}
+
+.jobtype {
+    border: 1px;
+}
+
+.guitab {
+   background-color: rgb(180, 180, 190);
+   border: 1px; border-radius: 3px;
+   padding: 2px 4px 2px 4px;
+}
