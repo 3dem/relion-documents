@@ -68,6 +68,8 @@ html_static_path = ['_static']
 
 # -- Options for LaTeX output ------------------------------------------------
 
+latex_documents = [("index", "relion.tex", "RELION 3.1", "RELION developers", "manual", "toctree_only")]
+
 latex_elements = {
    'preamble': r'''
       %% Some tricks for PDF generation.
