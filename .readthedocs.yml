@@ -1,7 +1,7 @@
 version: 2
 
 formats:
-    - pdd
+    - pdf
 
 sphinx:
     configuration: source/conf.py
