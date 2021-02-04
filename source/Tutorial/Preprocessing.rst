@@ -8,26 +8,25 @@ Getting organised
 -----------------
 
 We recommend to create a single directory per project, i.e. per structure you want to determine.
-We'll call this the project directory. **It is important to always launch the RELION graphical user-interface (GUI) from the project directory.** Inside the project directory you should make a separate directory to store all your raw micrographs or micrograph movies in MRC or TIFF format.
+We'll call this the project directory. **It is important to always launch the RELION graphical user-interface (GUI) from the project directory.** Inside the project directory you should make a separate directory to store all your raw micrographs or micrograph movies in MRC, TIFF or EER format.
 We like to call this directory ``Movies/`` if all movies are in one directory, or for example ``Movies/15jan16/`` and ``Movies/23jan16/`` if they are in different directories (e.g. because they were collected on different dates).
 If for some reason you do not want to place your movies inside the |RELION| project directory, then inside the project directory you can also make a symbolic link to the directory where your movies are stored.
 
-Single-image micrographs should have a ``.mrc`` extension, movies can have a ``.mrc``, ``.mrcs``, ``.tif`` or ``.tiff`` extension.
+Single-image micrographs should have a ``.mrc`` extension, movies can have a ``.mrc``, ``.mrcs``, ``.tif``, ``.tiff`` or ``.eer`` extension.
 When you unpacked the tutorial test data, the (``Movies/``) directory was created.
 It should contain 24 movies in compressed TIFF format, a gain-reference file (``gain.mrc``) and a ``NOTES`` file with information about the experiment.
 
 We will start by launching the |RELION| GUI.
 As said before, this GUI always needs to be launched from the project directory.
 To prevent errors with this, the GUI will ask for confirmation the first time you launch it in a new directory.
-Therefore, the first time you launch the GUI in a new directory, you should not use the ``&`` character to launch it in the background.
 Make sure you are inside the project directory, and launch the GUI by typing:
 
 ::
 
-    relion
+    relion &
 
 
-and answer ``y`` to set up a new |RELION| project here.
+and answer ``Yes`` when prompted to set up a new |RELION| project here.
 
 The first thing to do is to import the set of recorded micrograph movies into the pipeline.
 Select ``Import`` from the job-type browser on the left, and fill in the following parameters on the :guitab:`Movies/mics` tab:
@@ -94,7 +93,7 @@ For these three reasons, we now favour running our own implementation.
 
 On the :guitab:`I/O` tab set:
 
-:Input movies STAR file:: Import/movies/movies.star
+:Input movies STAR file:: Import/job001/movies.star
 
      (Note that the :button:`Browse` button will only list movie :textsc:`star` files.)
 
@@ -107,6 +106,10 @@ On the :guitab:`I/O` tab set:
 :Dose per frame (e/A2): 1.277
 
 :Pre-exposure (e/A2): 0
+
+:EER fractionation: 32
+
+    (This option will be ignored for TIFF files.)
 
 :Do dose-weighting?: Yes
 
@@ -190,10 +193,13 @@ CTF estimation
 Next, we will estimate the CTF parameters for each corrected micrograph.
 You can use the :jobtype:`CTF estimation` job-type as a wrapper to Kai Zhang's :textsc:`gctf` to execute on the GPU, or you can also use Alexis Rohou and Niko Grigorieff's |CTFFIND4.1| to execute efficiently on the CPU.
 We now prefer |CTFFIND4.1|, as it is the only open-source option, and because it allows reading in the movie-averaged power spectra calculation by |RELION|'s own implementation of the |MotionCor2| algorithm.
-On the :guitab:`I/O` tab, use the :button:`Browse` button to select the `corrected_micrographs.star` file of the :jobtype:`Motion correction` job.
-Then fill in the other settings as follows:
+Fill in the settings as follows:
 
 On the :guitab:`I/O`:
+
+:Input micrographs STAR file:: Motioncorr/job002/corrected_micrographs.star
+
+     (You can again use the :button:`Browse` button to select the `corrected_micrographs.star` file of the :jobtype:`Motion correction` job.)
 
 :Use micrograph without dose-weighting?: No
 

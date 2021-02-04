@@ -1,42 +1,51 @@
-Autopicking
-===========
+Particle picking
+================
+
+Select a subset of the micrographs
+----------------------------------
+
+We will now use a template-free auto-picking procedure based on a Laplacian-of-Gaussian (LoG) filter to select an initial set of particles.
+These particles will then be used in a :jobtype:`2D classification` job to generate 2D class averages.
+The tutorial up until |RELION|-3.1 would suggest to use the resulting class averages as templates for a second, reference-based :jobtype:`Auto-picking` job.
+Since |RELION|-3.2, there is also an integrated |Topaz| wrapper in the :jobtype:`Auto-picking` job, which will be used instead.
+In addition, we will use a new automated 2D class average selection procedure to select particles that contribute to good classes without any user interaction.
+The selected particles will then be used to train the neural network in |Topaz| to specifically pick particles for this data set.
+Alternatively, one could run |Topaz| picking with their default neural network straight away.
+In that case, one could skip the jobs of LoG-picking, 2D classification, automated 2D class selection and re-training of the |Topaz| network below, and proceed straight to the last :jobtype:`Auto-picking` job on this page.
+
+One typically trains the |Topaz| neural network on a relatively small subset of the micrographs.
+In order to select a subset of the micrographs, go to the :jobtype:`Subset selection` job, and on the :guitab:`I/O` tab leave everything empty, except:
+
+:OR select from micrographs.star:: CtfFind/job003/micrographs\_ctf.star
+
+Then, on the :guitab:`Subsets` tab, set:
+
+:OR split into subsets?: Yes
+:Randomise order before making subsets?: No
+:Subset size:: 10
+:OR number of subsets:: -1
+
+Then press :runbutton:`Run!`, which will create star files with subsets of 10 micrographs in the output directory. We will only use the first one ``Select/job005/micrographs_split1.star``.
+
+Note that if one would have preferred a more user-interactive way of selecting micrographs for training, one could have also selected certain micrographs in the GUI of the previous :jobtype:`Manual picking` job, to then save a file called ``micrographs_selected.star`` inside that output directory.
+
 
 LoG-based auto-picking
 ----------------------
 
-We will now use a template-free auto-picking procedure based on a Laplacian-of-Gaussian (LoG) filter to select an initial set of particles.
-These particles will then be used in a :jobtype:`2D classification` job to generate templates for a second :jobtype:`Auto-picking` job.
-Because we do not need many particles in the first round, we will only perform LoG-based auto-picking on the first 3 micrographs.
-Note that in general, one would probably perform LoG-based picking on all available micrographs to get as good templates as possible.
-However, here we only use a few micrographs to speed up the calculations in this tutorial.
+Now, proceed to the :jobtype:`Auto-picking` job, and on the :guitab:`I/O` tab set:
 
-First, in order to select a few micrographs, go to the :jobtype:`Subset selection` job, and on the :guitab:`I/O` tab leave everything empty, except:
-
-:OR select from picked coords:: ManualPick/job004/coords\_suffix\_manualpick.star
-
-     (which was generated when we saved a few manually picked coordinates.
-     We are not going to use the coordinates here, we are only using that job to make a subset selecton of the micrographs.)
-
-We used an alias `5mics` for this job.
-When you press :runbutton:`Run!`, the same pop-up window of the :jobtype:`Manual picking` job will appear again, i.e. the one with all the :button:`pick` and :button:`CTF` buttons.
-Use the 'File' menu to 'Invert selection'; click on the check box in front of the first five micrographs to select those; and then use the 'File' menu again to 'Save selection'.
-This will result in a file called ``ManualPick/job004/micrographs_selected.star``, which we will use for the :jobtype:`Auto-picking` job below.
-
-Then, proceed to the :jobtype:`Auto-picking` job, and on the :guitab:`I/O` tab set:
-
-:Input micrographs for autopick:: Select/job005/micrographs\_selected.star
+:Input micrographs for autopick:: Select/job005/micrographs\_split1.star
 
 :Pixel size in micrographs (A): -1
 
      (The pixel size will be set automatically from the information in the input STAR file.)
 
-:2D references:: \
-
-     (Leave this empty for template-free LoG-based auto-picking.)
-
-:OR\: provide a 3D reference?: No
+:Use reference-based template-matching?: No
 
 :OR\: use Laplacian-of-Gaussian?: Yes
+
+:OR\: use Topaz?: No
 
 
 On the :guitab:`Laplacian` tab, set:
@@ -67,34 +76,10 @@ On the :guitab:`Laplacian` tab, set:
      Good values depend on the contrast of micrographs and may need to be interactively explored; for low contrast micrographs, values of ~ 1.5 may be reasonable, but this value is too low for the high-contrast micrographs in this tutorial.)
 
 
-Ignore the :guitab:`References` tab, and on the :guitab:`autopicking` tab, the first four options will be ignored.
-Set the rest as follows:
+Ignore the :guitab:`Topaz`, :guitab:`References`, :guitab:`autopicking` and :guitab:`Helix` tabs, and run using a single MPI processor  on the :guitab:`Running tab`.
+Perhaps an alias like ``LoG`` would be meaningful? Using a single processor, these calculations take about 15 seconds on our computer.
 
-:Write FOM maps?: No
-
-     (This will be used in the template-based picking below.)
-
-:Read FOM maps?: No
-
-     (This will be used in the template-based picking below.)
-
-:Shrink factor:: 0
-
-     (By setting shrink to 0, the autopicking program will downscale the micrographs to the resolution of the lowpass filter on the references.
-     This will go much faster and require less memory, which is convenient for doing this tutorial quickly.
-     Values between 0 and 1 will be the resulting fraction of the micrograph size.
-     Note that this will lead to somewhat less accurate picking than using shrink=1, i.e. no downscaling.
-     A more detailed description of this new parameter is given in the next subsection.)
-
-:Use GPU acceleration?: No
-
-     (LoG-based picking has not been GPU-accelerated as the calculations are very quick anyway.)
-
-
-Ignore the :guitab:`Helix` tab, and run using a single MPI processor  on the :guitab:`Running tab`.
-Perhaps an alias like `LoG` would be meaningful? Using a single processor, these calculations take about 15 seconds on our computer.
-
-You can check the results by clicking the `coords_suffix_autopick` option from the :button:`Display:` button.
+You can check the results by clicking the ``autopick.star`` option from the :button:`Display:` button.
 One could manually add/delete particles in the pop-up window that appears at this stage.
 In addition, one could choose to pick more or fewer particle by running a new job while adjusting the default threshold on the :guitab:`Laplacian` tab, and/or the parameters for the stddev and avg of the noise on the :guitab:`autopicking` tab.
 However, at this stage we are merely after a more-or-less OK initial set of particles for the generation of templates for a second auto-picking job, so in many cases this is probably not necessary.
@@ -113,7 +98,7 @@ On the corresponding :guitab:`I/O` tab, set:
      It doesn't matter as there are only coordinate files for the three selected micrographs anyway.
      Warning that coordinates files are missing for the rest of the micrographs will appear in red in the bottom window of the GUI.)
 
-:Coordinate-file suffix:: AutoPick/job006/coords\_suffix\_autopick.star
+:Input coordinates:: AutoPick/job006/autopick.star
 
      (Use the `Browse` button to select this file)
 
@@ -124,11 +109,6 @@ On the corresponding :guitab:`I/O` tab, set:
      As of |RELION|-3.0, this functionality has been extended with an option to 're-center refined coordinates' on a user-specified X,Y,Z-coordinate in the 3D reference used for a :jobtype:`3D classification` or :jobtype:`3D auto-refine` job.
      This will adjust the X and Y origin coordinates of all particles, such that a reconstruction of the newly extracted particles will be centered on that X,Y,Z position.
      This is useful for focused refinements.)
-
-:Manually set pixel size?: No
-
-     (This is only necessary when the input micrograph :textsc:`star` file does NOT contain CTF information.)
-
 
 On the :guitab:`extract` tab you set the parameters for the actual particle extraction:
 
@@ -165,19 +145,32 @@ On the :guitab:`extract` tab you set the parameters for the actual particle extr
 
 :Re-scaled sized (pixels)?: 64
 
-As we will later on also use the same job-type to extract all template-based auto-picked particles, it may be a good idea to give this job an alias like `LoG`.
+:Use autopick FOM threshold?: No
+
+     (This option allows to only extract those particles with the highest figure-of-merits from the autopicking procedure. We will use this later on to extract particles picked by |Topaz|.)
+
+As we will later on also use the same job-type to extract all template-based auto-picked particles, it may be a good idea to give this job an alias like ``LoG``.
 Ignore the :guitab:`Helix` tab, and run using a single MPI processor.
 
-Your particles will be extracted into MRC stacks (which always have an `.mrcs` extension in |RELION|) in a new directory called `Extract/job007/Movies/`.
-It's always a good idea to quickly check that all has gone OK by visualising your extracted particles selecting `out: particles.star` from the :button:`Display:` button.
+Your particles will be extracted into MRC stacks (which always have an ``.mrcs`` extension in |RELION|) in a new directory called ``Extract/job007/Movies/``.
+It's always a good idea to quickly check that all has gone OK by visualising your extracted particles selecting ``out: particles.star`` from the :button:`Display:` button.
 Right-mouse clicking in the display window may be used for example to select all particles (`Invert selection`) and calculating the average of all unaligned particles (`Show average of selection`).
 
 
-Making templates for auto-picking
----------------------------------
+2D class averaging to select good particles
+-------------------------------------------
 
 To calculate templates for the subsequent auto-picking of all micrographs, we will use the :jobtype:`2D classification` job-type.
-On the :guitab:`I/O` tab, select the `Extract/job007/particles.star` file (using the :button:`Browse` button), and on the :guitab:`CTF` tab set:
+
+On the :guitab:`I/O` tab, set:
+
+:Input images STAR file: Extract/job007/particles.star 
+
+:Continue from here: \ 
+
+     (Note that any :jobtype:`2D classification`, :jobtype:`3D initial model`, :jobtype:`3D classification`, or :jobtype:`3D auto-refine` jobs may be continued in case it stalls, by providing the `_optimiser.star` file from the last completed iteration.)
+
+On the :guitab:`CTF` tab set:
 
 :Do CTF-correction?: Yes
 
@@ -207,15 +200,12 @@ On the :guitab:`Optimisation` tab, set:
 
 :Number of iterations:: 25
 
-     (We hardly ever change this)
+     (For the default EM-algorithm, one normally doesn't change the default of 25 iterations)
 
-:Use fast subsets for large data sets?: No
+:Use gradient-driven algorithm?: No
 
-     (If set to Yes, the first 5 iterations will be done with random subsets of only K\*100 particles, with K being the number of classes; the next 5 with K\*300 particles, the next 5 with 30\% of the data set; and the final ones with all data.
-     This was inspired by a cisTEM implementation by Tim Grant, Niko Grigorieff et al.
-     This option may be useful to make classification of very large data sets.
-     With hundreds of thousands of particles it is much faster.
-     For a small data set like this one, it is not needed.)
+     (This is a new option in |RELION|-3.2, which runs much faster than the standard EM-algorithm for large data set, and has been observed to yield better class average images in many cases.
+     It is however slower for data sets with only a few thousand particles, which is the main reason we are not using it here.)
 
 :Mask diameter (A):: 200
 
@@ -233,13 +223,13 @@ On the :guitab:`Optimisation` tab, set:
      Here we don't really need it, but it could have been set to 10-15A anyway.
      Difficult classifications, i.e. with very noisy data, often benefit from limiting the resolution.)
 
+:Center class averages?: Yes
+
+     (This is a new option in |RELION|-3.2. It will re-center all class average images every iteration based on their center of mass. 
+     This is useful for their subsequent use in template-based auto-picking, but also for the automated 2D class average image selection in the next section.)
 
 On the :guitab:`Sampling` tab we hardly ever change the defaults.
-Six degrees angular sampling is enough for most projects, although some large icosahedral viruses may benefit from finer angular samplings.
-In that case, one could first run 25 iterations with a sampling of 6 degrees, and then continue that same run (using the :button:`Continue!` button) for an additional five iteration (by setting `Number of iterations: 30` on the :guitab:`Optimisation` tab) with a sampling of say 2 degrees.
-For this data set, this is NOT necessary at all.
-It is useful to note that the same :button:`Continue!` button may also be used to resume a job that has somehow failed before, in which case one would not change any of the parameters.
-For continuation of :jobtype:`2D classification`, :jobtype:`3D initial model`, :jobtype:`3D classification`, or :jobtype:`3D auto-refine` jobs one always needs to specify the `_optimiser.star` file from the iteration from which one continues on the :guitab:`I/O` tab.
+Six degrees angular sampling is enough for most projects, although some large icosahedral viruses or some filamentous structures may benefit from finer angular samplings.
 
 Ignore the :guitab:`Helix` tab, and on the :guitab:`Compute` tab, set:
 
@@ -274,7 +264,7 @@ Ignore the :guitab:`Helix` tab, and on the :guitab:`Compute` tab, set:
 :Copy particles to scratch directory?: \
 
      (This is useful if you don't have enough RAM to pre-read all particles, but you do have a fast (SSD?) scratch disk on your computer.
-     In that case, specify the name of the scratch disk where you can make a temporary directory, e.g. /ssd)
+     In that case, specify the name of the scratch disk where you can make a temporary directory, e.g. ``/ssd``)
 
 :Combine iterations through disc?: No
 
@@ -286,40 +276,54 @@ Ignore the :guitab:`Helix` tab, and on the :guitab:`Compute` tab, set:
 
      (If you have a suitable GPU, this job will go much faster.)
 
-:Which GPUs to use:: 0:1:2:3
+:Which GPUs to use:: 0:1
 
      (This will depend on the available GPUs on your system! If you leave this empty, the program will try to figure out which GPUs to use, but you can explicitly tell it which GPU IDs , e.g. 0 or 1, to use.
-     If you use multiple MPI-processors, you can run each MPI process on a specified GPU.
-     GPU IDs for different MPI processes are separated by colons, e.g. 0:1:0:1 will run MPI process 0 and 2 on GPU 0, and MPI process 1 and 3 will run on GPU 1.)
+     If you use multiple MPI-processors, you can run each MPI process on a specified GPU. Our machine has 2 GPUs, and we will use on MPI process on each GPU in this example.
+     GPU IDs for different MPI processes are separated by colons, e.g. 0:1:0:1 will run MPI process 0 and 2 on GPU 0, and MPI process 1 and 3 will run on GPU 1. GPU IDs for different threads are separated by commas, so when using a single MPI process one could still use multiple GPUs, e.g. 0,1,2,3. Combinations of colons and commas are also possible.)
 
 
-On the :guitab:`Running` tab, specify the 'Number of MPI processors' and the 'Number of threads' to use.
-The total number of requested CPUs, or cores, will be the product of the two values.
-Note that :jobtype:`2D classification`, :jobtype:`3D classification`, :jobtype:`3D initial model` and :jobtype:`3D auto-refine` use one MPI process as a master, which does not do any calculations itself, but sends jobs to the other MPI processors.
-Therefore, if one specifies 4 GPUs above, running with five MPI processes would be a good idea.
-Threads offer the advantage of more efficient RAM usage, whereas MPI parallelization scales better than threads.
-Often, for :jobtype:`3D classification` and :jobtype:`3D auto-refine` jobs you will probably want to use many threads in order to share the available RAM on each (multi-core) computing node. 2D classification is less memory-intensive, so you may not need so many threads.
-However, the points where communication between MPI processors (the bottle-neck in scalability there) becomes limiting in comparison with running more threads, is different on many different clusters, so you may need to play with these parameters to get optimal performance for your setup.
-We pre-read all particles into RAM, used parallel disc I/O, 4 GPUs and 5 MPI process with 6 threads each, and our job finished in approximately three minutes.
+On the :guitab:`Running` tab, specify:
+
+:Number of MPI procs: 3
+
+     (Note that `when using the EM-algorithm`, :jobtype:`2D classification`, :jobtype:`3D classification`, :jobtype:`3D initial model` and :jobtype:`3D auto-refine` use one MPI process as a master, which does not do any calculations itself, but sends jobs to the other MPI processors.
+     Therefore, we often run the EM-algorithm using a single worker MPI process on each of the available GPUs, so we specify 3 here to include the master and one workers on each of the two GPUs.)
+
+:Number of threads: 8
+
+     (Threads offer the advantage of more efficient RAM usage, whereas MPI parallelization may scale better than threads for iterations with many particles.
+     Often, you may want to adjust the number of threads to make full use of all the CPU cores on your computer.
+     The total number of requested CPUs, or cores, will be the product of the number of MPI processors and the number of threads.)
 
 Because we will run more :jobtype:`2D classification` jobs, it may again be a good idea to use a meaningful alias, for example `LoG`.
-You can look at the resulting class averages using the :button:`Display:` button to select `out: run_it025_model.star` from.
+You can look at the resulting class averages using the :button:`Display:` button to select `out: run_it025_optimiser.star` from.
 On the pop-up window, you may want to choose to look at the class averages in a specific order, e.g. based on `rlnClassDistribution` (in reverse order, i.e. from high-to-low instead of the default low-to-high) or on `rlnAccuracyRotations`.
 
 
-Selecting templates for auto-picking
-------------------------------------
+Selecting good 2D classes for Topaz training
+--------------------------------------------
 
 Selection of suitable class average images is done in the :jobtype:`Subset selection` job-type.
-On the :guitab:`I/O` tab, remove the picked coords entry from before, and select the `Class2D/LoG/run_it025_model.star` file using the :button:`Browse` button on the line with `Select classes from model.star:`.
+Up until |RELION|-3.1, this step was always done interactively by the user, who would select good class averages by clicking on them in the GUI.
+As of |RELION|-3.2, there is also an automated procedure, based on a neural network that was trained on thousands of 2D class averages. 
+This option will be used below. 
+
+On the :guitab:`I/O` tab, remove the `micrographs.star` file entry from before, and set:
+
+:Select classes from job:: Class2D/job008/run\_it025\_optimiser.star
 
 On the :guitab:`Class options` tab, give:
 
-:Re-center the class averages?: Yes
+:Automatically select 2D classes?: Yes
 
-     (This option allows automated centering of the 2D class averages.
-     The images are centered based on their center-of-mass, and the calculations for this require that the particles are WHITE (not black).
-     Re-centering is often necessary, as class averages may become non-centered in the 2D classification run.
+:Minimum threshold for auto-selection: 0.5
+
+     (The score ranges from 0 for absolute rubbish class average images to 1 for gorgeous ones.)
+
+:Re-center the class averages?: No
+
+     (This option allows automated centering of the 2D class averages, but we already did that during 2D class averaging.
      In particular when using class average images for auto-picking it is important that the are centered, as otherwise all your particle coordinates will become systematically off-centered.) 
 
 :Regroup the particles?: No
@@ -328,145 +332,127 @@ On the :guitab:`Class options` tab, give:
      By default, the latter are calculated independently per micrograph.
      This option allows to grouping particles from multiple micrographs together in these calcutaions. |RELION| will warn you (in classification or auto-refine runs) when your groups become too small.)
 
+On the :guitab:`Subsets` tab, make sure you switch to ``No`` again the following option:
 
-Ignore the other tabs, and use an alias like `templates4autopick`.
-You may again want to order the class averages based on their `rlnClassDistribution`.
-Select a few class averages that represent different views of your particle.
-Don't repeat very similar views, and don't include bad class averages.
-We selected four templates from our run.
-Selection is done by left-clicking on the class averages.
-You can save your selection of class averages from the right-click pop-up menu using the `Save selected classes` option.
+:OR\: split into subsets? No 
+
+Ignore the other tabs, and run the job. You can visualise the results of the automated class selection by selecting ``rank_optimiser.star`` from the :button:`Display:` button, and sort the images on ``rlnClassScore``, in reverse order. Do you want to adjust the threshold for auto-selection?
 
 
-Auto-picking
-------------
+Re-training the TOPAZ neural network
+------------------------------------
 
-We will now use the selected 2D class averages as templates in a reference-based run of the :jobtype:`Auto-picking` job-type.
-However, before we will run the auto-picking on all micrographs, we will need to optimise four of its main parameters on the :guitab:`autopicking` tab: the `Picking threshold`, the `Minimum inter-particle distance`, the `Maximum stddev noise`, and the `Minimum avg noise`.
-This will be done on only a few micrographs in order to save time.
-We will use the same five micrographs we selected for the LoG-based auto-picking before.
+In older versions of the |RELION| tutorial, one would now use the selected 2D class averages as templates for reference-based auto-picking. 
+Instead, the new wrapper to |Topaz| will be used to first re-train the neural network in |Topaz| and then to pick the entire data set using the retrained network.
 
-Then, on the :guitab:`I/O` tab of the :jobtype:`Auto-picking` job-type, set:
+On the :guitab:`I/O` tab of the :jobtype:`Auto-picking` job-type, set:
 
-:Input micrographs for autopick:: Select/5mics/micrographs.star
+:Input micrographs for autopick:: Select/job005/micrographs\_split1.star
 
 :Pixel size in micrographs (A): -1
 
-     (The pixel size will be set automatically from the information in the input STAR file.)
-
-:2D references:: Select/templates4autopick/class\_averages.star
-
-:OR\: provide a 3D reference?: No
+:Use reference-based template-matching?: No
 
 :OR\: use Laplacian-of-Gaussian?: No
 
+:OR\: use Topaz?: Yes
 
-Ignore the :guitab:`Laplacian`, and on the :guitab:`References` tab, set:
+On the :guitab:`Topaz` tab, set:
 
-:Lowpass filter references (A):: 20
+:Topaz executable: /where/ever/it/is/topaz
 
-     (It is very important to use a low-pass filter that is significantly LOWER than the final resolution you aim to obtain from the data, to keep ``Einstein-from-noise`` artifacts at bay)
+     (The location of the Topaz executable. 
+     You can control the default of this field by setting environment variable ``RELION_TOPAZ_EXECUTABLE``.
+     If you need to activate conda environment, please make a wrapper shell script to do so and specify it. 
+     At LMB, we use the following script as topaz executable:
 
-:Highpass filter (A):: -1
+     ``#!/bin/bash``
+     
+     ``source /public/EM/anaconda3/bin/activate topaz``
+     
+     ``topaz $@``
 
-     (If you give a positive value, e.g. 200, then the micrograph will be high-pass filtered prior to autopicking.
-     This can help in case of strong grey-scale gradients across the micrograph.)
+     )
 
-:Pixel size in references (A):: 3.54
+:Perform topaz training?: Yes
 
-     (If a negative value is given, the references are assumed to be on the same scale as the input micrographs.
-     If this is not the case, e.g. because you rescaled particles that were used to create the references upon their extraction, then provide a positive value with the correct pixel size in the references here.
-     As we downscaled the particles by a factor of 4 (i.e. from 256 to 64) in the :jobtype:`Particle extraction` job, **the pixel size in the references is now 4 × 0.885 = 3.54 Å**)
+:Nr of particles per micrograph: 300
 
-:Mask diameter (A): -1
+:Input picked coordinates for training: \ 
+     (This option can be used to train on manually selected particles from a :jobtype:`Manual picking` job.
+     We will use the automatically selected particles from the previous step instead.)
 
-    (When a negative value is given, the diameter of the mask will be determined automatically from the input reference images to be the same as the one used in the :jobtype:`2D classification` job.)
+:OR train on a set of particles?: Yes
 
-:Angular sampling (deg):: 5
+:Particles STAR file for training: Select/job009/particles.star
 
-     (This value seems to work fine in almost all cases.)
+:Perform topaz picking?: No
 
-:References have inverted contrast?: Yes
+:Particle diameter (A): 180
 
-     (Because we have black particles in the micrographs, and the references we will use are white.)
+:Additional topaz arguments: \ 
 
-:Are References CTF corrected?: Yes
-
-     (Because we performed 2D class averaging with the CTF correction.)
-
-:Ignore CTFs until first peak:: No
-
-     (Only use this option if you also did so in the :jobtype:`2D classification` job that you used to create the references.)
-
-On the :guitab:`autopicking` tab, set:
-
-:Picking threshold:: 0.8
-
-     (This is the threshold in the FOM maps for the peak-search algorithms.
-     Particles with FOMs below this value will not be picked.)
-
-:Minimum inter-particle distance (A):: 200
-
-     (This is the maximum allowed distance between two neighbouring particles.
-     An iterative clustering algorithm will remove particles that are nearer than this distance to each other.
-     Useful values for this parameter are often in the range of 50-60\% of the particle diameter.)
-
-:Maximum stddev noise:: -1
-
-     (This is useful to prevent picking in carbon areas, or areas with big contamination features.
-     Peaks in areas where the background standard deviation in the normalized micrographs is higher than this value will be ignored.
-     Useful values are probably in the range 1.0 to 1.2.
-     Set to -1 to switch off the feature to eliminate peaks due to high background standard deviations.)
-
-:Minimum avg noise:: -999
-
-     (This is useful to prevent picking in carbon areas, or areas with big contamination features.
-     Peaks in areas where the background standard deviation in the normalized micrographs is higher than this value will be ignored.
-     Useful values are probably in the range -0.5 to 0.
-     Set to -999 to switch off the feature to eliminate peaks due to low average background densities.)
-
-:Write FOM maps?: Yes
-
-     (See the explanation below.)
-
-:Read FOM maps?: No
-
-     (See the explanation below.)
-
-:Shrink factor:: 0
-
-     (By setting shrink to 0, the autopicking program will downscale the micrographs to the resolution of the lowpass filter on the references.
-     This will go much faster and require less memory, which is convenient for doing this tutorial quickly.
-     Values between 0 and 1 will be the resulting fraction of the micrograph size.
-     Note that this will lead to somewhat less accurate picking than using shrink=1, i.e. no downscaling.
-     A more detailed description of this new parameter is given in the next subsection.)
+On the :guitab:`autopicking` tab, you can ignore everything except the below:
 
 :Use GPU acceleration?: Yes
 
-     (Only if you have a suitable GPU!)
+     (Topaz picking and training require one GPU)
 
 :Which GPUs to use:: 0
 
-     (If you leave this empty, the program will try to figure out which GPUs to use, but you can explicitly tell it which GPU IDs , e.g. 0 or 1, to use.
-     If you use multiple MPI-processors (not for this case!), you can run each MPI process on a specified GPU.
-     GPU IDs for different MPI processes are separated by colons, e.g. 0:1:0:1 will run MPI process 0 and 2 on GPU 0, and MPI process 1 and 3 will run on GPU 1.)
+Ignore the other tabs, and run using a single MPI processor  on the :guitab:`Running tab`.
+On our computer, this step takes approximately 
 
 
-Ignore the :guitab:`Helix` tab, and run using a single MPI processor  on the :guitab:`Running tab`.
-Perhaps an alias like `optimise_params` would be meaningful? When using GPU-acceleration, the job completes in half a minute.
+Pick all micrographs with the re-trained TOPAZ neural network
+-------------------------------------------------------------
 
-The expensive part of this calculation is to calculate a probability-based figure-of-merit (related to the cross-correlation coefficient between each rotated reference and all positions in the micrographs.
-This calculation is followed by a much faster peak-detection algorithm that uses the threshold and minimum distance parameters mentioned above.
-Because these parameters need to be optimised, the program will write out so-called FOM maps as specified on the :guitab:`References` tab.
-These are two large (micrograph-sized) files per reference.
-To avoid running into hard disc I/O problems, the autopicking program can only be run sequentially (hence the single MPI processor above) when writing out FOM maps.
+On the :guitab:`I/O` tab of a new :jobtype:`Auto-picking` job, set:
 
-Once the FOM maps have been written to disc they can be used to optimise the picking parameters much faster.
-First, examine the auto-picked particles with the current settings using the `coords_suffix_autopick` option from the :button:`Display:` button of the job you just ran.
-Note that the display window will take its parameters (like size and sigma-contrast) from the last :jobtype:`Manual picking` job you executed.
-You can actually change those parameters in the :jobtype:`Manual picking` job-type, and save the settings use the option `Save job settings` from the top left `Jobs` menu.
-Do this, after you've set on the following on the :guitab:`Colors` tab:
+:Input micrographs for autopick:: CtfFind/job003/micrographs\_ctf.star
 
+:Pixel size in micrographs (A): -1
+
+:Use reference-based template-matching?: No
+
+:OR\: use Laplacian-of-Gaussian?: No
+
+:OR\: use Topaz?: Yes
+
+On the :guitab:`Topaz` tab, set:
+
+:Topaz executable: /where/ever/it/is/topaz
+
+:Perform topaz training?: No
+
+:Perform topaz picking?: Yes
+
+:Trained topaz model: AutoPick/job010/model_epoch10.sav
+
+     (If you leave this field empty, then the default pre-trained (general) neural network of |Topaz| will be used.)
+
+:Particle diameter (A): 180
+
+:Additional topaz arguments: \ 
+
+On the :guitab:`autopicking` tab, you can ignore everything except the below:
+
+:Use GPU acceleration?: Yes
+
+     (Topaz picking and training require one GPU)
+
+:Which GPUs to use:: 0
+
+Ignore the other tabs, and run using a single MPI processor  on the :guitab:`Running tab`.
+On our computer, this step takes approximately 15 minutes.
+
+The number of particles from default |Topaz| picking will be very high, because no threshold to its figure-of-merit will be applied. 
+The figure-of-merits for all picks are stored in the ``rlnAutopickFigureOfMerit`` column in the output `STAR` files.
+A minimum threshold of 0 is probably reasonable in many cases.
+One can visualise the figure of merits by colouring the picks in the micrographs. 
+For that, change the colouring parameters in the :jobtype:`Manual picking` job-type.
+
+On the following on the :guitab:`Colors` tab, set:
 
 :Blue<>red color particles?: Yes
 
@@ -474,93 +460,37 @@ Do this, after you've set on the following on the :guitab:`Colors` tab:
 
 :STAR file with color label:: \
 
-:Blue value:: 1
+:Blue value:: 5
 
 :Red value:: 0
 
-Executing the job on the :guitab:`Running` tab will produce a similar GUI with :button:`pick` and :button:`CTF` buttons as before.
-Open both micrographs from the display window, and decide whether you would like to pick more or less particles (i.e. decrease or increase the threshold) and whether they could be closer together or not (fot setting the minimum inter-particle distance).
-Note that each particle is colored from red (very low FOM) to blue (very high FOM).
-You can leave the display windows for both micrographs open, while you proceed with the next step.
+and save the settings use the option `Save job settings` from the top left `Jobs` menu.
 
-Select the ``AutoPick/optimise_params`` job from the :joblist:`Finished jobs`, and change the parameters on the :guitab:`autopicking` tab.
-Also, change:
-
-:Write FOM maps?: No
-
-:Read FOM maps?: Yes
-
-When executing by clicking the :button:`Continue!` button, this will re-read the previously written FOM maps from disc instead of re-doing all FOM calculations.
-The subsequent calculation of the new coordinates will then be done in a few seconds.
-Afterwards, you can right-click in the micrograph display windows and select ``Reload coordinates`` from the pop-up menu to read in the new set of coordinates.
-This way you can quickly optimise the two parameters.
-
-Have a play around with all three parameters to see how they change the picking results.
-Once you know the parameters you want to use for auto-picking of all micrographs, you click the :jobtype:`Auto-picking` option in the job-type browser on the top left of the GUI to select a job with a :runbutton:`Run!` button.
-On the :guitab:`I/O` tab, you replace the input micrographs :textsc:`star` file with the 2 selected micrographs with the one from the original :jobtype:`CTF estimation` job (``CtfFind/job003/micrographs_ctf.star``).
-Leave everything as it was on the :guitab:`References` tab, and on the :guitab:`autopicking` tab set:
-
-:Picking threshold:: 0.0
-
-:Minimum inter-particle distance (A):: 100
-
-     (Good values are often around 50-70\% of the particle diameter.)
-
-:Maximum stddev noise:: -1
-
-:Minimum avg noise:: -999
-
-:Write FOM maps?: No
-
-:Read FOM maps?: No
+Then, select ``autopick.star`` from the :button:`Display:` button of the ``Autopick/job010`` job to launch the GUI. 
+From the ``File`` menu at the top left of its main window, one can use ``Set FOM threshold`` to display only picks with a FOM above the threshold
+A similar option is also available in the per-micrograph viewer, using the right-mouse button pop-up menu.
+Picks with a high threshold will be blue; picks with a low threshold will be red.
 
 
-This time, the job may be run in parallel (as no FOM maps will be written out).
-On the :guitab:`Running` tab, specify the number of cores to run auto-picking on.
-The maximum useful number of MPI processors is the number of micrographs in the input :textsc:`star` file.
-Using only a single MPI process and a single GPU, our calculation still finisged in about one minute.
-We used as alias `template`.
+Particle extraction
+-------------------
 
-Note that there is an important difference in how the :button:`Continue!` button works depending on whether you read/write FOM maps or not.
-When you either write or read the FOM maps and you click :button:`Continue!`, the program will re-pick all input micrographs (typically only a few).
-However, when you do not read, nor write FOM maps, i.e. in the second job where you'll autopick all micrographs, upon clicking the :button:`Continue!` button, only those micrographs that were not autopicked yet will be done.
-This is useful in the iterative running of scheduled jobs, e.g. for on-the-fly data processing during your microscopy session.
-Also see section :ref:`sec_schedules` for more details.
-If you want to-repick all micrographs with a new set of parameters (instead of doing only unfinished micrographs), then click the :jobtype:`Auto-picking` entry on the jobtype-browser on the left to get a :runbutton:`Run!` button instead, which will then make a new output directory.
+Finally, one needs to re-extract the final set of picked coordinates by again using the :jobtype:`Particle extraction` job-type.
 
-You can again check the results by clicking the ``coords_suffix_autopick`` option from the :button:`Display:` button.
-Some people like to manually go over all micrographs to remove false positives.
-For example, carbon edges or high-contrast artifacts on the micrographs are often mistaken for particles.
-You can do this for each micrograph using the pop-up window from the :button:`Display:` button.
-Remove particles using the middle-mouse button; you can hold it down to remove many false positives in larger areas.
-Remember to save the new coordinates using the right-mouse click pop-up menu!
+On the corresponding :guitab:`I/O` tab, set:
 
-Once you're happy with the overall results, in order to save disc space you may want to delete the FOM-maps that were written out in the first step.
-You can use the `Gentle clean` option from the :button:`Job actions` button to do that conveniently.
+:micrograph STAR file:: CtfFind/job003/micrographs\_ctf.star
 
-Once you are happy with your entire set of coordinates, you will need to re-run a :jobtype:`Particle extraction` job, keeping everything as before, and change the `Input coordinates` for the newly generated, autopick ones.
-This will generate your initial single-particle data set that will be used for further refinements below.
-Perhaps an alias like `template` would be meaning ful?
+:Input coordinates:: AutoPick/job010/autopick.star
+
+:OR re-extract refined particles?: No
+
+Leave all the other options as they were before, except for the :guitab:`extract` tab, where one sets:
+
+:Use autopick FOM threshold?: Yes
+
+:Minimum autopick FOM: 0
+
+Running this job will generate the initial particle set for further processing.
 
 
-The shrink parameter
-^^^^^^^^^^^^^^^^^^^^
-
-To enable faster processing, |RELION| implements a filtering option of the micrographs through the command-line argument ``--shrink``.
-The simplest way to use it is to simply use ``--shrink 0``.
-But it can be used with much more control.
-If this is desired, it works in the following way:
-
-
-The default value for ``--shrink`` is 1.0, which has no effect and does not filter the micrographs at all.
-This is identical behaviour to versions prior to the |RELION|-2.0 autopicker.
-
--   ``--shrink`` val = 0  results in a micrograph lowpassed to `--lowpass`, the same as that of the reference templates.
-    This is recommended use for single-particle analysis (but not for helical picking).
--   ``--shrink`` 0 < val <= 1 results in a size = val :math:`\cdot` micrograph_size, i.e. val is a scaling factor applied to the micrographs original size.
--   ``--shrink`` val > 1 results in a size = val - (val :math:`\mod` 2), i.e. the smallest even integer value lower than val.
-    This is then a way to give the micrographs a specific (even) integer size.
-
-If the new size is smaller than ``--lowpass``, this results in a **non-fatal** warning, since this limits resolution beyond the requested (or default) resolution.
-Because the |RELION| autopicker does many FFTs, the size of micrographs is now also automatically adjusted to avoid major pitfalls of FFT computation.
-A note of this and how it can be overridden is displayed in the initial output of each autopicking the user performs.

@@ -1,8 +1,8 @@
 Introduction
 ============
 
-This tutorial provides an introduction to the use of |RELION|-3.1 for cryo-EM structure determination.
-This tutorial covers the entire single-particle analysis workflow in |RELION|-3.1: beam-induced motion-correction, CTF estimation; automated particle picking; particle extraction; 2D class averaging; SGD-based initial model generation; 3D classification; high-resolution 3D refinement; CTF refinement and higher-order aberration correction; the processing of movies from direct-electron detectors; and final map sharpening and local-resolution estimation.
+This tutorial provides an introduction to the use of |RELION|-3.2 for cryo-EM structure determination.
+This tutorial covers the entire single-particle analysis workflow in |RELION|-3.2: beam-induced motion-correction, CTF estimation; automated particle picking; particle extraction; 2D class averaging; automated 2D class selection; SGD-based initial model generation; 3D classification; high-resolution 3D refinement; CTF refinement and higher-order aberration correction; the processing of movies from direct-electron detectors; and final map sharpening and local-resolution estimation.
 Carefully going through this tutorial should take less than a day (if you have a suitable GPU or if you follow our precalculated results).
 After that, you should be able to run |RELION| on your own data.
 
@@ -14,9 +14,9 @@ The full data set is also available at EMPIAR-10204.
 ::
 
     wget ftp://ftp.mrc-lmb.cam.ac.uk/pub/scheres/relion30_tutorial_data.tar
-    wget ftp://ftp.mrc-lmb.cam.ac.uk/pub/scheres/relion31_tutorial_precalculated_results.tar.gz
+    wget ftp://ftp.mrc-lmb.cam.ac.uk/pub/scheres/relion32_tutorial_precalculated_results.tar.gz
     tar -xf relion30_tutorial_data.tar
-    tar -zxf relion31_tutorial_precalculated_results.tar.gz
+    tar -zxf relion32_tutorial_precalculated_results.tar.gz
 
 
 If you have any questions about |RELION|, first read this entire document, check the `FAQ <http://www2.mrc-lmb.cam.ac.uk/relion/index.php/FAQs>`_ on the |RELION| Wiki and the archives of the `CCPEM <https://www.jiscmail.ac.uk/ccpem>`_ mailing list.
