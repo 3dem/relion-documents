@@ -61,6 +61,19 @@ exclude_patterns = []
 #
 html_theme = 'alabaster'
 
+# Needed for ReadTheDocs
+html_static_path = [] # ['_static']
+
+html_sidebars = {
+   '**': [
+      'about.html',
+      'navigation.html',
+      'relations.html',
+      'searchbox.html',
+      'donate.html',
+    ]
+}
+
 html_theme_options = {
    'logo': 'relion_logo_v1.jpg',
    'github_user': '3dem',
