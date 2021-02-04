@@ -65,6 +65,8 @@ If above commands complain about missing Python packages, try::
 Coding styles in reStructuredText (rST)
 ---------------------------------------
 
+For Å, α, β in the main text, just type as is using Unicode. Don't use TeX commands.
+
 To make ``git diff`` easier to understand, each sentense should use a new line.
 
 ::
@@ -77,6 +79,7 @@ To make ``git diff`` easier to understand, each sentense should use a new line.
     You can cite a paper :cite:`Zivanov_estimation_2019`.
     A link to `rST documentation <https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html>`_.
     Note the underline.
+    You can use LaTeX math :math:`\sum x_i^2`.
 
     We have custom tags for :button:`buttons`, :joblist:`joblists`, :jobtype:`jobtypes` and :guitab:`guitabs`.
     |RELION| prints RELION in smallscaps.
@@ -113,6 +116,7 @@ A new paragraph.
 You can cite a paper :cite:`Zivanov_estimation_2019`.
 A link to `rST documentation <https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html>`_.
 Note the underline.
+You can use LaTeX math :math:`\sum x_i^2`.
 
 We have custom tags for :button:`buttons`, :joblist:`joblists`, :jobtype:`jobtypes` and :guitab:`guitabs`.
 |RELION| prints RELION in smallscaps.

@@ -72,9 +72,23 @@ latex_documents = [("index", "relion.tex", "RELION 3.1", "RELION developers", "m
 
 latex_elements = {
    'preamble': r'''
-      %% Some tricks for PDF generation.
-      \sphinxDUC{212B}{\AA} %\sphinxunichar{212B}}
+      %% Some tricks for Unicode characters
+      \sphinxDUC{212B}{\AA}
       \sphinxDUC{03B1}{$\alpha$}
       \sphinxDUC{03B2}{$\beta$}
+
+      %% Custom colors: Change together with the CSS file _static/custom.css.
+      \definecolor{guiBackground}{RGB}{230,230,240}
+      \definecolor{guiBackground2}{RGB}{180,180,190}
+      \definecolor{entryYellow}{RGB}{255,255,230}
+      \definecolor{buttonColor}{RGB}{238, 130, 238}
+      \definecolor{runButtonColor}{RGB}{170, 0, 170}
+
+      %% Custom roles
+      \newcommand{\docutilsrolebutton}[1] {\colorbox{buttonColor}{\small#1}}
+      \newcommand{\docutilsrolerunbutton}[1] {\colorbox{runButtonColor}{\small#1}}
+      \newcommand{\docutilsrolejoblist}[1] {\colorbox{guiBackground}{\fbox{\small#1}}}
+      \newcommand{\docutilsrolejobtype}[1] {\fbox{\small#1}}
+      \newcommand{\docutilsroleguitab}[1] {\colorbox{guiBackground2}{\small#1}}
    '''
 }
