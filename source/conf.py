@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'RELION'
-copyright = 'RELION developer team'
+copyright = 'RELION developer team, licensed under GPLv3'
 author = 'Sjors Scheres, Takanori Nakane'
 
 rst_prolog = """
@@ -60,6 +60,15 @@ exclude_patterns = []
 # a list of builtin themes.
 #
 html_theme = 'alabaster'
+
+html_theme_options = {
+   'logo': 'relion_logo_v1.jpg',
+   'github_user': '3dem',
+   'github_repo': 'relion',
+   'github_button': True,
+   'github_type': 'star',
+   'extra_nav_links': {'Source repository of this documentation': 'https://github.com/3dem/relion-documents'}
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

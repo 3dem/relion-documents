@@ -1,4 +1,5 @@
 This repository contains RELION documentation.
+RELION programs are distributed in another repository: https://github.com/3dem/relion.
 
 Please look at source/DeveloperGuide.rst to see how to compile this
 into HTML or PDF. Pre-compiled versions are available at
