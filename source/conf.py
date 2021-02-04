@@ -34,6 +34,7 @@ rst_prolog = """
 .. |RELION| replace:: :textsc:`relion`
 .. |MotionCor2| replace:: :textsc:`motioncor`\ 2
 .. |CTFFIND4.1| replace:: :textsc:`ctffind` 4.1
+.. |Topaz| replace:: :textsc:`topaz`
 """
 
 # -- General configuration ---------------------------------------------------
