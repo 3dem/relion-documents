@@ -2,7 +2,7 @@ Reference-free 2D class averaging
 =================================
 
 We almost always use reference-free 2D class averaging to throw away bad particles.
-Because they do not average well together, they often go to relatively small classes that yield ugly 2D class averages.
+Because bad particles do not average well together, they often go to relatively small classes that yield ugly 2D class averages.
 Throwing those away then becomes an efficient way of cleaning up your data.
 
 
