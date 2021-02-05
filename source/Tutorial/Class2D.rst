@@ -2,7 +2,6 @@ Reference-free 2D class averaging
 =================================
 
 We almost always use reference-free 2D class averaging to throw away bad particles.
-Although we often try to only include good particles for the particle extraction step in the previous section (for example by manually supervising the auto-picking results, and by sorting the extracted particles), most of the times there are still particles in the data set that do not belong there.
 Because they do not average well together, they often go to relatively small classes that yield ugly 2D class averages.
 Throwing those away then becomes an efficient way of cleaning up your data.
 
@@ -12,31 +11,67 @@ Running the job
 
 Most options will remain the same as explained when we were generating templates for the auto-picking in the previous section, but on the :guitab:`I/O` tab of the :jobtype:`2D classification` job-type, set:
 
-:Input images STAR file:: Extract/template/particles.star
+:Input images STAR file:: Extract/job012/particles.star
 
 and on the :guitab:`Optimisation` tab, we used:
 
 :Number of classes:: 100
 
-     (because we now have more particles.)
+     (because we now have more particles, we can allow more classes than before.)
+
+:Regularisation parameter T:: 2
+
+     (For the exact definition of T, please refer to :cite:`scheres_bayesian_2012`.
+     For cryo-EM 2D classification we typically use values of T=2-3, and for 3D classification values of 3-4.
+     For negative stain sometimes slightly lower values are better.
+     In general, if your class averages appear very noisy, then lower T; if your class averages remain too-low resolution, then increase T.
+     The main thing is to be aware of overfitting high-resolution noise.)
+
+:Number of iterations:: 100
+
+     (We will now use a new gradient-driven algorithm that is new in |RELION|-3.2. 
+     It uses batches (of hundreds or thousands) of particles per iteration, but therefore needs to perform more iterations. 
+     A 100 iterations has been observed to be a good number in many cases)
+
+:Use gradient-driven algorithm?: Yes
+
+     (This is a new option in |RELION|-3.2, which runs much faster than the standard EM-algorithm for large data set, and has been observed to yield better class average images in many cases.)
+
+:Mask diameter (A):: 200
+
+     (This mask will be applied to all 2D class averages.
+     It will also be used to remove solvent noise and neighbouring particles in the corner of the particle images.
+     On one hand, you want to keep the diameter small, as too much noisy solvent and neighbouring particles may interfere with alignment.
+     On the other hand, you want to make sure the diameter is larger than the longest dimension of your particles, as you do not want to clip off any signal from the class averages.)
+
+:Mask individual particles with zeros?: Yes
+
+:Limit resolution E-step to (A):: -1
+
+     (If a positive value is given, then no frequencies beyond this value will be included in the alignment.
+     This can also be useful to prevent overfitting.
+     Here we don't really need it, but it could have been set to 10-15A anyway.
+     Difficult classifications, i.e. with very noisy data, often benefit from limiting the resolution.)
+
+:Center class averages?: Yes
+
+     (This is a new option in |RELION|-3.2. It will re-center all class average images every iteration based on their center of mass. 
+     This is useful for their subsequent use in template-based auto-picking, but also for the automated 2D class average image selection in the next section.)
+
+The gradient-driven algorithm doesn't scale well with MPI parallelisation. Using 1 GPUs, and a single MPI process with 12 threads, this job took 13 minutes on our computer.
 
 
-You could use an alias like ``template``.
-Using 4 GPUs, and 5 MPI processes, each with 6 threads, this job took 20 minutes on our computer.
-Perhaps a good time for a cup of coffee?
+Selecting good particles for further processing
+-----------------------------------------------
 
-After the job has finished, we can launch a :jobtype:`Subset selection` job, with the ``_model.star`` file from this run as input.
-An alias like ``class2d_template`` may be meaningful.
-Now select all nice-looking classes by clicking on them (and/or using the right-mouse pop-up menu option ``Select all classes above``).
-At this point, if you would have used a low threshold in the auto-picking procedure, you should be very wary of `Einstein-from-noise` classes, which look like low-resolution ghosts of the templates used to pick them, on which high-resolution noise may have accumulated.
-Avoid those in the selection.
-After all good classes have been selected use the right-mouse pop-up menu option to save the selection.
+After the :jobtype:`2D classification` job has finished, we can launch another :jobtype:`Subset selection` job, with the ``run_it100_optimiser.star`` file from this run as input.
+We will again use the automated class selection to select the best particles for further processing.
 
-Note that this procedure of selecting good classes may be repeated several times.
+Note that this procedure of :jobtype:`2D classification` and :jobtype:`Subset selection` may be repeated several times.
 
 
-Analysing the results in more detail
-------------------------------------
+Analysing the Class2D results in more detail
+--------------------------------------------
 
 .. note::
     If you are in a hurry to get through this tutorial, you can skip this sub-section.
@@ -46,7 +81,7 @@ For every iteration of 2D or 3D classification |RELION| performs, it writes out 
 For the last iteration of our 2D class averaging calculation these are:
 
 
--   ``Class2D/template/run_it025_classes.mrcs`` is the MRC stack with the resulting class averages.
+-   ``Class2D/template/run_it100_classes.mrcs`` is the MRC stack with the resulting class averages.
     These are the images that will be displayed in the |RELION| GUI when you select the `_model.star` file from the :button:`Display:` button on the main GUI.
     Note that |RELION| performs full CTF correction (if selected on the GUI), so your class averages are probably white on a black background.
     If the data is good, often they are very much like projections of a low-pass filtered atomic model.
@@ -55,7 +90,7 @@ For the last iteration of our 2D class averaging calculation these are:
     Radially extending streaks in the solvent region are a typical sign of overfitting.
     If this happens, you could try to limit the resolution in the E-step of the 2D classification algorithm.
 
--   ``Class2D/template/run_it025_model.star`` contains the model parameters that are refined besides the actual class averages (i.e. the distribution of the images over the classes, the spherical average of the signal-to-noise ratios in the reconstructed structures, the noise spectra of all groups, etc.
+-   ``Class2D/template/run_it100_model.star`` contains the model parameters that are refined besides the actual class averages (i.e. the distribution of the images over the classes, the spherical average of the signal-to-noise ratios in the reconstructed structures, the noise spectra of all groups, etc.
     Have a look at this file using the ``less`` command.
     In particular, check the distribution of particles over each class in the table ``data_model_classes``.
     If you compare this with the class averages themselves, you will see that particles with few classes are low-resolution, while classes with many particles are high-resolution.
@@ -65,17 +100,17 @@ For the last iteration of our 2D class averaging calculation these are:
     The table ``data_model_groups`` stores a refined intensity scale-factor for each group: groups with values higher than one have a stronger signal than the average, relatively low-signal groups have values lower than one.
     These values are often correlated with the defocus, but also depend on accumulated contamination and ice thickness.
 
--   ``Class2D/template/run_it025_data.star`` contains all metadata related to the individual particles.
+-   ``Class2D/template/run_it100_data.star`` contains all metadata related to the individual particles.
     Besides the information in the input ``particles.star`` file, there is now additional information about the optimal orientations, the optimal class assignment, the contribution to the log-likelihood, etc.
     Note that this file can be used again as input for a new refinement, as the :textsc:`star` file format remains the same.
 
--   ``Class2D/template/run_it025_optimiser.star`` contains some general information about the refinement process that is necessary for restarting an unfinished run.
+-   ``Class2D/template/run_it100_optimiser.star`` contains some general information about the refinement process that is necessary for restarting an unfinished run.
     For example, if you think the process did not converge yet after 25 iterations (you could compare the class averages from iterations 24 and 25 to assess that), you could select this job in the :joblist:`Finished jobs` panel, and on the :guitab:`I/O` tab select this file for ``Continue from here``, and then set ``Number of iterations: 40`` on the :guitab:`Optimisation` tab.
     The job will then restart at iteration 26 and run until iteration 40.
     You might also choose to use a finer angular or translational sampling rate on the :guitab:`Sampling` tab.
     Another useful feature of the optimiser.star files is that it's first line contains a comment with the exact command line argument that was given to this run.
 
-- ``Class2D/template/run_it025_sampling.star`` contains information about the employed sampling rates.
+- ``Class2D/template/run_it100_sampling.star`` contains information about the employed sampling rates.
     This file is also necessary for restarting.
 
 
@@ -93,7 +128,7 @@ This behaviour is fine if you have many particles per micrograph, but when you a
 We generally recommend to have at least 10-20 particles in each group, but do note that initial numbers of particles per group may become much smaller after 2D and 3D classification.
 
 In cases with few particles per micrograph we recommend to group particles from multiple micrographs together.
-For this purpose, the GUI implements a convenient functionality in the :jobtype:`Subset selection` job-type: when selecting a ``_model.star`` file on the :guitab:`I/O` tab, one can use ``Regroup particles? Yes`` and ``Approximate nr of groups: 5`` on the :guitab:`Class options` tab to re-group all particles into 5 groups. (The actual number may vary somewhat from the input value, hence the `Approximate` on the input field.) This way, complicated grouping procedures in previous releases of |RELION| may be avoided.
+For this purpose, the GUI implements a convenient functionality in the :jobtype:`Subset selection` job-type: when selecting a ``_optimiser.star`` file on the :guitab:`I/O` tab, one can use ``Regroup particles? Yes`` and ``Approximate nr of groups: 5`` on the :guitab:`Class options` tab to re-group all particles into 5 groups. (The actual number may vary somewhat from the input value, hence the `Approximate` on the input field.) This way, complicated grouping procedures in previous releases of |RELION| may be avoided.
 As the micrographs in this tutorial do contain sufficient particles, we will not use this procedure now.
 
 Please note that the groups in |RELION| are very different from defocus groups that are sometimes used in other programs. |RELION| will always use per-particle (anisotropic) CTF correction, irrespective of the groups used.

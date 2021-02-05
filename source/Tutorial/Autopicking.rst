@@ -376,9 +376,8 @@ On the :guitab:`Topaz` tab, set:
 
 :Perform topaz training?: Yes
 
-:Nr of particles per micrograph: 300
-
 :Input picked coordinates for training: \ 
+
      (This option can be used to train on manually selected particles from a :jobtype:`Manual picking` job.
      We will use the automatically selected particles from the previous step instead.)
 
@@ -389,6 +388,8 @@ On the :guitab:`Topaz` tab, set:
 :Perform topaz picking?: No
 
 :Particle diameter (A): 180
+
+:Nr of particles per micrograph: 300
 
 :Additional topaz arguments: \ 
 
@@ -401,7 +402,8 @@ On the :guitab:`autopicking` tab, you can ignore everything except the below:
 :Which GPUs to use:: 0
 
 Ignore the other tabs, and run using a single MPI processor  on the :guitab:`Running tab`.
-On our computer, this step takes approximately 
+On our computer, with a Titan V GPU, this step took 10 minutes.
+Perhaps a good time for a quick cup of coffee?
 
 
 Pick all micrographs with the re-trained TOPAZ neural network
@@ -433,6 +435,8 @@ On the :guitab:`Topaz` tab, set:
 
 :Particle diameter (A): 180
 
+:Nr of particles per micrograph: 300
+
 :Additional topaz arguments: \ 
 
 On the :guitab:`autopicking` tab, you can ignore everything except the below:
@@ -443,12 +447,12 @@ On the :guitab:`autopicking` tab, you can ignore everything except the below:
 
 :Which GPUs to use:: 0
 
-Ignore the other tabs, and run using a single MPI processor  on the :guitab:`Running tab`.
-On our computer, this step takes approximately 15 minutes.
+Ignore the other tabs, and as this has been parallelised, you could for example run using four MPI processors from the :guitab:`Running tab`.
+On our computer, this step takes approximately 1 minute.
 
-The number of particles from default |Topaz| picking will be very high, because no threshold to its figure-of-merit will be applied. 
+The number of particles from default |Topaz| picking will be relatively high, because no threshold to its figure-of-merit will be applied. 
 The figure-of-merits for all picks are stored in the ``rlnAutopickFigureOfMerit`` column in the output `STAR` files.
-A minimum threshold of 0 is probably reasonable in many cases.
+A minimum threshold of -3 is probably reasonable in many cases.
 One can visualise the figure of merits by colouring the picks in the micrographs. 
 For that, change the colouring parameters in the :jobtype:`Manual picking` job-type.
 
@@ -462,7 +466,7 @@ On the following on the :guitab:`Colors` tab, set:
 
 :Blue value:: 5
 
-:Red value:: 0
+:Red value:: -3
 
 and save the settings use the option `Save job settings` from the top left `Jobs` menu.
 
@@ -489,8 +493,8 @@ Leave all the other options as they were before, except for the :guitab:`extract
 
 :Use autopick FOM threshold?: Yes
 
-:Minimum autopick FOM: 0
+:Minimum autopick FOM: -3
 
-Running this job will generate the initial particle set for further processing.
+Running this job will generate the initial particle set for further processing. Using four MPI processors, this job takes a few seconds.
 
 

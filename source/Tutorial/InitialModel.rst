@@ -3,14 +3,15 @@
 De novo 3D model generation
 ===============================
 
-|RELION| uses a Stochastic Gradient Descent (SGD) algorithm, as was first introduced in the CryoSPARC program :cite:`punjani_cryosparc:_2017`, to generate a *de novo* :jobtype:`3D initial model` from the 2D particles.
+|RELION|-3.2 uses a gradient-driven algorithm to generate a *de novo* :jobtype:`3D initial model` from the 2D particles. 
+As of release 3.2, this algorithm is different from the SGD algorithm in the CryoSPARC program :cite:`punjani_cryosparc:_2017`.
 Provided you have a reasonable distribution of viewing directions, and your data were good enough to yield detailed class averages in :jobtype:`2D classification`, this algorithm is likely to yield a suitable, low-resolution model that can subsequently be used for :jobtype:`3D classification` or :jobtype:`3D auto-refine`.
 
 
 Running the job
 ---------------
 
-Select the ``Select/class2d_template/particles.star`` file on the :guitab:`I/O` tab of the :jobtype:`3D initial model` jobtype.
+Select the ``Select/job014/particles.star`` file on the :guitab:`I/O` tab of the :jobtype:`3D initial model` jobtype.
 Everything is aready in order on the :guitab:`CTF`.
 Fill in the :guitab:`optimisation` tab as follows (leave the defaults for the angular and offset sampling):
 
@@ -30,23 +31,44 @@ Fill in the :guitab:`optimisation` tab as follows (leave the defaults for the an
      (If you don't know what the symmetry is, it is probably best to start with a C1 reconstruction.
      Also, some higher-symmetry objects may be easier to solve by SGD in C1 than in their correct space group.
      This data set is great data, and would also work in the correct point group D2.
-     However, to illustrate how to proceed from C1 to D2, we will run the SGD in C1.)
+     However, to illustrate how to proceed from C1 to D2, we will run the gradient-driven algorithm in C1.)
 
-Typically, in first instance one would not change anything on the :guitab:`SGD` tab, as the default are suitable for many cases.
-However, in order to speed things up for this tutorial, we will only perform half the default number of iterations.
-Therefore change:
+Typically, in first instance one would not change anything on the :guitab:`Optimisation` tab, as the default are suitable for many cases.
+Just make sure that the mask diameter is adequate for your particle:
 
-:Number of initial iterations: 25
+:Mask diameter (A):: 200
 
-:Number of in-between iterations: 100
+On the :guitab:`Compute` tab, set:
 
-:Number of final iterations: 25
+:Use parallel disc I/O?: Yes
 
-On the :guitab:`Compute` tab, optimise things for your system.
-You may well be able to pre-read the few thousand particles into RAM again.
-GPU acceleration will also yield speedups, though multiple maximisation steps during each iteration will slow things down compared to standard 2D or 3D refinements or classifications.
-We used an alias of `symC1` for this job.
-Using 4 GPU cards, 5 MPI processes and 6 threads per MPI process, this run took approximately 15 minutes on our system.
+:Number of pooled particles:: 3
+
+:Skip padding?: Yes
+
+:Skip gridding?: Yes
+
+:Pre-read all particles into RAM?: Yes
+
+     (Again, this is only possible here because the data set is small. For your own data, you would like write the particles to a scratch disk instead, see below.)
+
+:Copy particles to scratch directory: \ 
+
+:Combine iterations through disc?: No
+
+:Use GPU acceleration?: Yes
+
+:Which GPUs to use: 0
+
+On the :guitab:`Running` tab, set:
+
+:Number of MPI procs: 1
+
+     (Remember that the gradient-driven algorithm does not scale well with MPI.)
+
+:Number of threads: 12
+
+Using the settings above, this job took xx minutes on our system.
 If you didn't get that coffee before, perhaps now is a good time too...
 
 
