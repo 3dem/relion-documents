@@ -10,10 +10,9 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
-# import sys
-# sys.path.insert(0, os.path.abspath('.'))
-
+import os
+import sys
+sys.path.insert(0, os.path.abspath('./_ext'))
 
 # -- Project information -----------------------------------------------------
 
@@ -41,7 +40,7 @@ rst_prolog = """
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ["sphinxcontrib.bibtex"
+extensions = ["sphinxcontrib.bibtex", "custom_field_list"
 ]
 
 bibtex_bibfiles = ["refs.bib"]
@@ -62,7 +61,7 @@ exclude_patterns = []
 html_theme = 'alabaster'
 
 # Needed for ReadTheDocs
-html_static_path = [] # ['_static']
+html_static_path = []
 
 html_sidebars = {
    '**': [
@@ -105,6 +104,9 @@ latex_elements = {
       \definecolor{entryYellow}{RGB}{255,255,230}
       \definecolor{buttonColor}{RGB}{238, 130, 238}
       \definecolor{runButtonColor}{RGB}{170, 0, 170}
+
+      %% First paragram in field-list definitions (enabled by custom_field_list.py)
+      \newcommand{\docutilsrolefieldlistfirstparagraph}[1] {\colorbox{entryYellow}{\small#1}}
 
       %% Custom roles
       \newcommand{\docutilsrolebutton}[1] {\colorbox{buttonColor}{\small#1}}
