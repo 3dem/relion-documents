@@ -40,7 +40,7 @@ On the :guitab:`Reference` tab set:
 
      (One should NOT use high-resolution starting models as they may introduce bias into the refinement process.
      As also explained in :cite:`scheres_classification_2010`, one should filter the initial map as much as one can.
-     For ribosome we often use 70Å, for smaller particles we typically use values of 40-60Å.)
+     For ribosome we often use 70 Å, for smaller particles we typically use values of 40-60 Å.)
 
 :Symmetry:: C1
 

@@ -1,3 +1,5 @@
+/* When changing colors, also update colors for LaTeX in conf.py! */
+
 /* Override defaults from basic.css */
 
 div.document {
@@ -49,6 +51,11 @@ dl.field-list > dd > p:first-child {
     background-color: rgb(255, 255, 230);
 }
 
+dl.field-list > dd > p:empty {
+    border: 0px;
+    padding: 0px;
+}
+
 .smallcaps {
     font-variant: small-caps;
     font-size: large;
@@ -77,7 +84,9 @@ dl.field-list > dd > p:first-child {
 }
 
 .jobtype {
-    border: 1px;
+    border: 1px solid black;
+    border-radius: 3px;
+    padding: 2px 4px 2px 4px;
 }
 
 .guitab {
