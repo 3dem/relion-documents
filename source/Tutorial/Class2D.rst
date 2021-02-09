@@ -64,8 +64,21 @@ The gradient-driven algorithm doesn't scale well with MPI parallelisation. Using
 Selecting good particles for further processing
 -----------------------------------------------
 
-After the :jobtype:`2D classification` job has finished, we can launch another :jobtype:`Subset selection` job, with the ``run_it100_optimiser.star`` file from this run as input.
-We will again use the automated class selection to select the best particles for further processing.
+After the :jobtype:`2D classification` job has finished, we can launch another :jobtype:`Subset selection` job (``Select/job014``).
+
+On the :guitab:`I/O` tab, set:
+
+:Select classes from job:: Class2D/job013/run\_it100\_optimiser.star
+
+On the :guitab:`Class options` tab, set:
+
+:Automatically select 2D classes?: Yes
+
+:Minimum threshold for auto-selection: 0.35
+
+     (Let's be slightly less restrictive in the selection of particles at this stage, as we don't want to leave any minority views behind.)
+
+We got just over 4200 particles from 35 selected classes.
 
 Note that this procedure of :jobtype:`2D classification` and :jobtype:`Subset selection` may be repeated several times.
 
