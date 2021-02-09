@@ -11,7 +11,7 @@ This is done using the :jobtype:`Mask Creation` job-type.
 Making a mask
 -------------
 
-On the :guitab:`I/O` tab, select the output map from the finished 3D auto-refine job: ``Refine3D/first3dref/run_class001.mrc``.
+On the :guitab:`I/O` tab, select the output map from the finished 3D auto-refine job: ``Refine3D/job019/run_class001.mrc``.
 
 On the :guitab:`Mask` tab set:
 
@@ -25,10 +25,10 @@ On the :guitab:`Mask` tab set:
 
 :Initial binarisation threshold:: 0.005
 
-     (This should be a threshold at which rendering of the low-pass filtered map in for example :textsc:`chimera` shows absolutely no noisy spots outside the protein area.
+     (This should be a threshold at which rendering of the low-pass filtered map in for example :textsc:`chimera` shows no noisy spots outside the protein area.
      Move the threshold up and down to find a suitable spot.
      Remember that one can use the command-line program called ``relion_image_handler`` with the options ``--lowpass 15 --angpix 1.244`` to get a low-pass filtered version of an input map.
-     Often good values for the initial threshold are around 0.01-0.04.)
+     Often good values for the initial threshold are around 0.002-0.02.)
 
 :Extend binary map this many pixels:: 0
 
@@ -43,21 +43,25 @@ On the :guitab:`Mask` tab set:
      As the mask generation is relatively quick, we often play with the mask parameters to get the best resolution estimate.)
 
 
-Ignore the :guitab:`Helix` tab and use an alias like `first3dref`.
-Note that you can run the ``relion_mask_create`` program with multiple threads to accelerate this step.
+Ignore the :guitab:`Helix` tab.
+
+To speed things up, on the :guitab:`Running` tab, make sure to use multiple threads, e.g.:
+
+:Number of threads: 12
+
 You can look at slices through the resulting mask using the :button:`Display:` button, or you can load the mask into UCSF :textsc:`chimera`.
 The latter may be a good idea, together with the map from the auto-refine procedure, to confirm that the masks encapsulates the entire structure, but does not leave a lot of solvent inside the mask.
-You can continue the same job with new settings for the mask generation until you have found a mask you like.
+You can continue the same job with new settings for the mask generation multiple times, until you have found a mask you like.
 
 
-Postprocessing
---------------
+Post-processing
+---------------
 
 Now select the :jobtype:`Post-processing` job-type, and on the :guitab:`I/O` tab, set:
 
-:One of the 2 unfiltered half-maps:: Refine3D/first3dref/run\_half1\_class001\_unfil.mrc
+:One of the 2 unfiltered half-maps:: Refine3D/job019/run\_half1\_class001\_unfil.mrc
 
-:Solvent mask:: MaskCreate/first3dref/mask.mrc
+:Solvent mask:: MaskCreate/job020/mask.mrc
 
 :Calibrated pixel size (A):: 1.244
 
@@ -79,9 +83,11 @@ On the :guitab:`Sharpen` tab, set:
 
 :Use your own B-factor?: No
 
-:Perform MTF correction?: No
+:MTF of the detector (STAR file): mtf\_k2\_200kV.star
 
-     (As we provided an MTF file when we imported the movies, MTF correction has already been performed inside the refinement.)
+:Original detector pixel size: 0.885
+
+     (This is the original pixel size (in Angstroms) in the raw (non-super-resolution!) micrographs.)
 
 
 On the :guitab:`Filter` tab, set:
@@ -92,9 +98,9 @@ On the :guitab:`Filter` tab, set:
      This is not the case now.)
 
 
-Run the job (no need for a cluster, as this job will run very quickly) and use an alias like ``first3dref``.
+Run the job (no need for a cluster, as this job will run very quickly).
 Using the :button:`Display` button, you can display slizes through the postprocessed map and a PDF with the FSC curves and the Guinier plots for this structure.
-You can also open the ``PostProcess/first3dref/postprocess.mrc`` map in :textsc:`chimera`, where you will see that it is much easier to see where all the alpha-helices are then in the converged map of the 3D auto-refine procedure.
+You can also open the ``PostProcess/job021/postprocess.mrc`` map in :textsc:`chimera`, where you will see that it is much easier to see where all the alpha-helices are then in the converged map of the 3D auto-refine procedure.
 The resolution estimate is based on the phase-randomization procedure as published previously :cite:`chen_high-resolution_2013`.
 Make sure that the FSC of the phase-randomized maps (the red curve) is more-or-less zero at the estimated resolution of the postprocessed map.
 If it is not, then your mask is too sharp or has too many details.

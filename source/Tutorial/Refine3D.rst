@@ -21,11 +21,11 @@ To do this, go to the :jobtype:`Particle extraction` jobtype on the GUI, and on 
 
 :OR re-extract refined particles?: Yes
 
-:Refined particles STAR file:: Select/class3d\_first\_exhaustive/particles.star
+:Refined particles STAR file:: Select/job017/particles.star
 
      (Now, we will use only the refined subset of selected particles.)
 
-:Reset the refiend offsets to zero?: No
+:Reset the refined offsets to zero?: No
 
      (This would discard the translational offsets from the previous classification runs.)
 
@@ -57,16 +57,14 @@ And on the :guitab:`extract` tab, we keep everything as it was, except:
 :Re-scaled size (pixels):: 256
 
 
-We used the alias `best3dclass_bigbox` for this job.
-
 In addition, we will need to rescale the best map obtained thus far to the 256-pixel box size.
 This is done from the command-line:
 
 ::
 
-    relion_image_handler --i Class3D/first_exhaustive/run_it025_class001.mrc \
+    relion_image_handler --i Class3D/job016/run_it025_class002.mrc \
      --angpix 3.54 --rescale_angpix 1.244 --new_box 256 \
-     --o Class3D/first_exhaustive/run_it025_class001_box256.mrc
+     --o Class3D/job016/run_it025_class002_box256.mrc
 
 
 Running the auto-refine job
@@ -75,11 +73,11 @@ Running the auto-refine job
 
 On the :guitab:`I/O` tab of the :jobtype:`3D auto-refine` job-type set:
 
-:Input images STAR file:: Extract/best3dclass\_bigbox/particles.star
+:Input images STAR file:: Extract/job018/particles.star
 
-:Reference map:: Class3D/first\_exhaustive/run\_it025\_class001\_box256.mrc
+:Reference map:: Class3D/job016/run\_it025\_class002\_box256.mrc
 
-     (Note this one is again not directly available through the :button:`Browse` button.)
+     (Note this one is not directly available through the :button:`Browse` button, as it was not part the |RELION| pipeline yet.)
 
 :Reference mask (optional):: \
 
@@ -102,14 +100,25 @@ On the :guitab:`Reference` tab, set:
      (We now aim for high-resolution refinement, so imposing symmetry will effectively quadruple the number of particles.)
 
 
-Parameters on the :guitab:`CTF`, :guitab:`Optimisation` and :guitab:`Auto-sampling` tabs remain the same as they were in the :jobtype:`3D classification` job.
+Parameters on the :guitab:`CTF`, :guitab:`Optimisation` tabs remain the same as they were in the :jobtype:`3D classification` job.
+
+On the :guitab:`Auto-sampling` tab, one can usually keep the defaults. 
 Note that the orientational sampling rates on the :guitab:`Sampling` tab will only be used in the first few iterations, from there on the algorithm will automatically increase the angular sampling rates until convergence.
 Therefore, for all refinements with less than octahedral or icosahedral symmetry, we typically use the default angular sampling of 7.5 degrees, and local searches from a sampling of 1.8 degrees.
 Only for higher symmetry refinements, we use 3.7 degrees sampling and perform local searches from 0.9 degrees.
+The only thing we will change here is to set:
+
+:Use finer angular sampling faster? Yes
+
+     (This will be more aggresive in proceeding with iterations of finer angular sampling faster. 
+     This will therefore speed up the calculations. 
+     You might want to check that you're not loosing resolution for this in the later stages of your own processing, but during the initial stages it often does not matter much.) 
 
 As the MPI nodes are divided between one master (who does nothing else than bossing the others around) and two sets of slaves who do all the work on the two half-sets, it is most efficient to use an odd number of MPI processors, and the minimum number of MPI processes for :jobtype:`3D auto-refine` jobs is 3.
 Memory requirements may increase significantly at the final iteration, as all frequencies until Nyquist will be taken into account, so for larger sized boxes than the ones in this test data set you may want to run with as many threads as you have cores on your cluster nodes.
-Perhaps an alias like ``first3dref`` would be meaningful?
+
+On our computer with 4 GPUs, we used 5 MPIs and 6 threads, and this calculation took approximately 7 minutes.
+
 
 
 Analysing the results
