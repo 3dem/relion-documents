@@ -121,11 +121,8 @@ Alternatively, if you decided to skip the training set, then you can fill in the
 
 
 This part of the program is MPI-parallelised.
-Using 3 MPI processes, each with 16 threads, our run finished in eight minutes.
-
-
-Analysing the results
----------------------
+Using 1 MPI process, with 16 threads, our run finished in twenty minutes. 
+We could have used multiple MPI processes to speed this up, although disk access may become limited.
 
 The :jobtype:`Bayesian polishing` job outputs a STAR file with the polished particles called `shiny.star` and a PDF logfile.
 The latter contains plots of the scale and B-factors used for the radiation-damage weighting, plus plots of the refined particle tracks for all included particles on all micrographs.
@@ -137,6 +134,10 @@ Re-running refinement and post-processing
 After polishing, the signal-to-noise ratio in the particles has improved, and one should submit a new :jobtype:`3D auto-refine` job and a corrsponding :jobtype:`Post-processing` job.
 We chose to run the :jobtype:`3D auto-refine` job with the shiny particles using the following option on the :guitab:`I/O` tab:
 
+:Input images STAR file:: Polish/job028/shiny.star
+
+:Reference Map:: Refine3D/job025/run\_class001.mrc 
+
 :Reference mask (optional):: MaskCreate/job020/mask.mrc
 
      (this is the mask we made for the first :jobtype:`Post-processing` job.
@@ -144,7 +145,7 @@ We chose to run the :jobtype:`3D auto-refine` job with the shiny particles using
      This reduces noise in the reference, and thus lead to better orientation assignments and thus reconstructions.)
 
 
-and this option on the :guitab:`Optmisation` tab:
+and this option on the :guitab:`Optimisation` tab:
 
 :Use solvent-flattened FSCs?: Yes
 
@@ -157,7 +158,7 @@ Also, on the :guitab:`Auto-sampling` tab, we now set:
 
 :Use finer angular sampling faster?: No
 
-As you can see in the pre-calculated results, we obtained a final resolution just beyond 2.8 Å.
+As you can see in the pre-calculated results, after a final :jobtype:`Post-processing` job, we obtained an overall resolution of just beyond 2.9 Å.
 Not bad for 3GB of data, right?
 
 
