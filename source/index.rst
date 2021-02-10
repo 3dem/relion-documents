@@ -9,6 +9,7 @@ Table of contents
 
    Whats-new
    Installation
+   Conventions
    Tutorial/index
    Using-RELION
    Helix

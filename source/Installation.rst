@@ -1,60 +1,300 @@
+.. note::
+
+     |RELION| is distributed under a GPLv2 license, i.e. it is completely free, open-source software for both academia and industry.
+
 Installation
-=====================
+============
+
+The sections below explain how to download and install |RELION| on your computer in a few easy steps.
 
 
-Install MPI
+Note that |RELION| depends on and uses several other softwares. 
+
+* **MPI:**
+  Your system will need MPI (most flavours will do).
+  If you don't have an mpi-devel installation already on your system, we recommend installing `OpenMPI <http://www.open-mpi.org/>`_.
+
+* **CUDA:**
+  If you have a relatively modern GPU from :textsc:`nvidia` (with compute capability 3.5+), then you can accelerate many jobs considerably.
+  In order to compile |RELION| with GPU-acceleration support, you'll need to install :textsc:`cuda`.
+  Download it from `NVIDIA website <https://developer.nvidia.com/cuda-downloads>`_.
+
+* **CTFFIND-4.1+:** 
+  CTF estimation is not part of |RELION|.
+  Instead, |RELION| provides a wrapper to Alexis Rohou and Niko Grigorieff's :textsc:`ctffind` 4 :cite:`rohou_ctffind4:_2015`.
+  Alternatively, you may also use (the closed-source) :textsc:`gctf` by Kai Zhang :cite:`zhang_gctf:_2016`, which may be downloaded from `Kai's website <http://www.mrc-lmb.cam.ac.uk/kzhang/>`_.
+
+* **UCSF MotionCor2 (optional):** 
+  |RELION| implements its own (CPU-only) implementation of the UCSF |MotionCor2| algorithm for whole-frame micrograph movie-alignment :cite:`zheng_motioncor2:_2017`. 
+  If you want, you can still use the (GPU-accelerated) UCSF program. 
+  You can download it from `David Agard's page <http://msg.ucsf.edu/em/software/motioncor2.html>`_ and follow his installation instructions. 
+  Note that using the UCSF program does not make full advantage of the opportunities provided in Bayesian polishing. 
+
+* **ResMap (optional):**
+  Local-resolution estimation may be performed inside |RELION|'s own postprocessing program.
+  Alternatively, one can also use Alp Kucukelbir's :textsc:`resmap` :cite:`kucukelbir_quantifying_2014`.
+  Download it from `Alp's ResMap website <http://resmap.sourceforge.net/>`_  and follow his installation instructions.
+
+
+Download RELION
+---------------
+
+We store the public release versions of |RELION| on GitHub, a site that provides code-development with version control and issue tracking through the use of ``git``. We will not describe the use of git in general, as you will not need more than very basic features. Below we outline the few commands needed on a UNIX-system, please refer to general git descriptions and tutorials to suit your system. To get the code, you clone or download the repository. We recommend cloning, because it allows you very easily update the code when new versions are released. To do so, use the shell command-line 
+
+::
+
+     git clone https://github.com/3dem/relion.git
+
+This will create a local git repository. All subsequent git-commands should be run inside this directory.
+
+Note that the beta-release of |RELION|-3.2 is stored on a separate branch until it becomes the latest stable release. To switch to |RELION|-3.2-beta, just type
+
+::
+
+     git checkout ver3.2
+
+The code will be intermittently updated to amend minor issues detected during beta-development. To incorporate these changes, use the command-line
+
+::
+
+     git pull
+
+inside you local repository (the source-code directory downloaded). If you have changed the code in some way, this will force you to commit a local merge. You are free to do so, but we will assume you have not changed the code. Refer to external instructions regarding git and merging so-called conflicts if you have changed the code an need to keep those changes.
+
+Compilation
 -----------
 
-Note that you'll need a computing cluster (or a multi-core desktop machine with :textsc:`nvidia` GPUs) with an MPI (message passing interface) installation.
-To compile |RELION|, you'll need a mpi-devel package.
-The exact flavour (OpenMPI, MPICH, LAM-MPI, etc) or version will probably not matter much.
-If you don't have an mpi-devel installation already on your system, we recommend installing `OpenMPI <http://www.open-mpi.org/>`_.
+|RELION| has an installation procedure which relies on ``cmake``. You will need to have this program installed, but most UNIX-systems have this by default. You will need to make a build-directory in which the code will be compiled. This can be placed inside the repository:
+
+::
+
+     cd relion
+     mkdir build
+     cd build
+
+You then invoke ``cmake`` inside the build-directoy, but point to the source-directoy to configure the installation. This will not install |RELION|, just configure the build:
+
+::
+
+     cmake ..
+
+The output will notify you of what was detected and what type of build will be installed. Because |RELION| is rich in terms of the possible configurations, it is important to check this output. For instance;
+
+* The path to the MPI library.
+* GPU-capability will only be included if a CUDA SDK is detected. If not, the program will install, but without support for GPUs.
+* If FFTW is not detected, instructions are included to download and install it in a local directory known to the |RELION| installation.
+* As above, regarding FLTK (required for GUI). If a GUI is not desired, this can be escaped as explained in the following section.
+
+The MPI library must be the one you intend to use |RELION| with. Compiling |RELION| with one version of MPI and running the resulting binary with ``mpirun`` from another version can cause crash. Note that some software packages (e.g. CCPEM, crYOLO, EMAN2) come with their own MPI runtime. Sourcing/activating their environment might update ``PATH`` and ``LD_LIBRARY_PATH`` environmental variables and put their MPI runtime into the highest priority.
+
+The MPI C++ compiler and CUDA compiler (``nvcc``) internally calls a C++ compiler. This must match the compiler ``cmake`` picked up. Otherwise, the compilation might fail at the linking step.
+
+Following the completion of cmake-configuration without errors, ``make`` is used to install the program:
+
+::
+
+     make -j N
+
+Where N is the number of processes to use during installation. Using a higher number simply means that it will install faster. Take note of any warnings or errors reported. |RELION| will be installed in the build directory sub-folder bin, and using additional, native cmake-features this can be easily extended to making the installation system-wide (see below details regarding installation location).
+
+Configuration options
+---------------------
+
+``Cmake`` allows configuration of many aspects of the installation, some of which are outlined here. We recommend to read up on the use of ``ccmake`` (note the extra *c*) if one wants to examine many different configurations and options, as this greatly eases reconfiguration. Most options can be set by adding options to the ``cmake`` configuration. Under the below subheadings, some example replacement commands are given to substitute the original configuration command. It is also recommended to clean or purge your build-directory between builds:
+
+::
+
+     cd build
+     rm -r *
+
+And of course, any of the below options can be combined.
+
+**Omitting the GUI**
+
+::
+
+     cmake -DGUI=OFF ..
+
+**Using double-precision on the GPU**
+
+Unless you have professional GPUs, this will slow down GPU-execution considerably.
+
+::
+
+     cmake -DDoublePrec_GPU=ON ..
+
+**Compiling GPU-code for your architecture**
+
+CUDA-capable devices have a so-called compute-version, which code can be compiled against for optimal performance. If you know the compute-verison of your GPUs, you can specify it. The default value is 3.5 (sm 35), which is the lowest supported by |RELION|
+
+::
+
+     cmake -DCUDA_ARCH=52 ..
+
+**Forcing build and use of local fftw and fltk-libs**
+
+This will add download, verification and installation of FFTW and/or FLTK during the installation process. If any of these are not detected during configuration, this will happen automatically anyway, and you should not have to specify the below options manually.
+
+::
+
+     cmake -DFORCE_OWN_FFTW=ON ..
+     cmake -DFORCE_OWN_FLTK=ON ..
+
+**Specifying an installation location**
+
+To allow |RELION| a system-wide installation use
+
+::
+
+    cmake -DCMAKE_INSTALL_PREFIX=/path/to/install/dir/ ..
+    make -j <N>
+    make install
+
+Do not specify the build directory itself as ``CMAKE_INSTALL_PREFIX``. This does not work! If you are happy with binaries in the build directory, leave ``CMAKE_INSTALL_PREFIX`` as default and omit the ``make install`` step.
+
+Wherever you install |RELION|, make sure your ``PATH`` environmental variable points to the directory containing relion binaries. Launching |RELION| with a path like ``/path/to/relion`` is not a right way; this starts the right GUI, but the GUI might invoke other versions of |RELION| in the ``PATH``.
+
+Set-up queue job submission
+---------------------------
+
+The GUI allows the user to submit jobs to a job queueing system with a single click. For this to work, a template job submission script needs to be provided for the queueing system at hand (e.g. TORQUE, PBS, SGE). In this script a set of strings (variables) in the template script is replaced by the values given in the GUI. The following table contains all defined variables:
+
+.. list-table:: 
+   :widths: 25 15 65
+   :header-rows: 1
+
+   * - String
+     - Variable
+     - Meaning
+   * - ``XXXcommandXXX``
+     - string
+     - relion command + arguments
+   * - ``XXXqueueXXX``
+     - string 
+     - Name of the queue to submit job to
+   * - ``XXXmpinodesXXX``
+     - integer 
+     - The number of MPI processes to use
+   * - ``XXXthreadsXXX``
+     - integer 
+     - The number of threads to use on each MPI process
+   * - ``XXXcoresXXX``
+     - integer 
+     - The number of MPI processes times the number of threads
+   * - ``XXXdedicatedXXX``
+     - integer 
+     - The minimum number of cores on each node (use this to fill entire nodes)
+   * - ``XXXnodesXXX``
+     - integer 
+     - The total number of nodes to be requested
+   * - ``XXXextra1XXX``
+     - string 
+     - Installation-specific, see below
+   * - ``XXXextra2XXX``
+     - string 
+     - Installation-specific, see below
+
+There are two environment variables that control the use of the entry of the 'Minimum number of dedicated cores per node' on the Running tabs of the GUI: ``RELION_MINIMUM_DEDICATED`` sets its default value (1 if not set); ``RELION_ALLOW_CHANGE_MINIMUM_DEDICATED`` sets whether the user will be able to change this entry. At LMB, we set the default to 24 and do not allow users to change it. In this way, we enforce that our hyper-threaded 12-core nodes get filled up entirely by individual |RELION| jobs. 
+
+By default, the ``XXXextra1XXX``, ``XXXextra2XXX``, ... variables are not used. They provide additional flexibility for queueing systems that require additional variables. They may be activated by first setting ``RELION_QSUB_EXTRA_COUNT`` to the number of fields you need (e.g. 2) and then setting the ``RELION_QSUB_EXTRA1``, ``RELION_QSUB_EXTRA2``, ... environment variables, respectively. This will result in extra input fields in the GUI, with the label text being equal to the value of the environment variable. Likewise, their default values (upon starting the GUI) can be set through environment variables ``RELION_QSUB_EXTRA1_DEFAULT``, ``RELION_QSUB_EXTRA2_DEFAULT``, etc and their help messages can be set through environmental variables ``RELION_QSUB_EXTRA1_HELP``, ``RELION_QSUB_EXTRA2_HELP`` and so on. But note that (unlike all other entries in the GUI) the extra values are not remembered from one run to the other.
+
+The template job submission script may be saved in any location. By default, the one used at the LMB is present as ``gui/qsub.csh`` in the |RELION| tar-ball. Upon installation this file is copied to the bin directory. It is convenient for the user if he does not have to select this file each time he opens the |RELION| GUI in a new directory. Therefore, one may set the environment variable ``RELION_QSUB_TEMPLATE`` to point to the location of the script for the system at hand. This value will be pre-set as default in the GUI. (Note the user still has the liberty to define and use his own template!)
+
+.. note::
+
+     If somehow the job queue submission cannot be set up, |RELION| may still be run in parallel and on a job queueing system. 
+     The GUI comprises a Print command button that prints the entire |RELION| command, including all arguments, to the screen. 
+     Pasting of this command to a job queue submission script, and manual submission of this script may then be used to submit the parallel job to a queueing system.
+
+For illustrative purposes, have a look at the following examples:
+* [[SGE template script example]] used at the LMB
+* [[TORQUE template script example]] used at the CNB-CSIC
+* [[manual machinefile script example]] used at Columbia (no queueing system involved)
+
+= Edit the environment set-up =
+
+For |RELION|, we source the following C-shell setup in our .cshrc file. You'll need to change all the paths for your own system, and translate the script in case you use a bash shell (which uses export instead of setenv, etc).
+
+::
+
+     #!/bin/csh -f
+     
+     # Setup openMPI if not already done so
+     if ("" == "`echo $path | grep /public/EM/OpenMPI/openmpi/bin`") then
+             set path=(/public/EM/OpenMPI/openmpi/bin $path)
+     endif
+     if ("1" == "$?LD_LIBRARY_PATH") then
+             if ("$LD_LIBRARY_PATH" !~ */public/EM/OpenMPI/openmpi/lib*) then
+                     setenv LD_LIBRARY_PATH /public/EM/OpenMPI/openmpi/lib:$LD_LIBRARY_PATH
+             endif
+     else
+             setenv LD_LIBRARY_PATH /public/EM/OpenMPI/openmpi/lib
+     endif
+     
+     # Setup |RELION| if not already done so
+     if ("" == "`echo $path | grep /public/EM/RELION/relion/bin`") then
+     	set path=(/public/EM/RELION/relion/bin $path)
+     endif 
+     if ("1" == "$?LD_LIBRARY_PATH") then
+             if ("$LD_LIBRARY_PATH" !~ */public/EM/RELION/relion/lib*) then
+                     setenv LD_LIBRARY_PATH /public/EM/RELION/relion/lib:$LD_LIBRARY_PATH
+             endif
+     else
+             setenv LD_LIBRARY_PATH /public/EM/RELION/relion/lib
+     endif
+     
+     # CUDA for RELION
+     setenv PATH /public/EM/CUDA/Cuda7.0/bin:$PATH
+     setenv LD_LIBRARY_PATH /public/EM/CUDA/Cuda7.0/lib64:$LD_LIBRARY_PATH
+     setenv CUDA_HOME /public/EM/CUDA/Cuda7.0
+     
+     # Where is qsub template script stored
+     setenv RELION_QSUB_TEMPLATE /public/EM/RELION/relion-prerelease/bin/qsub.csh
+     
+     # Default PDF viewer
+     setenv RELION_PDFVIEWER_EXECUTABLE evince
+     
+     # Default MOTIONCOR2 executable
+     setenv RELION_MOTIONCOR2_EXECUTABLE /public/EM/MOTIONCOR2/bin/MotionCor2_1.0.4
+     
+     # Default CTFFIND-4.1+ executable
+     setenv RELION_CTFFIND_EXECUTABLE /public/EM/ctffind/ctffind.exe
+
+     setenv RELION_CTFFIND_EXECUTABLE /lmb/home/scheres/app/Alexis_16-03-18_5138_ctffind_160404_1358.exe
+     
+     # Default Gctf executable
+     setenv RELION_GCTF_EXECUTABLE /public/EM/Gctf/bin/Gctf
+ 
+     # Default ResMap executable
+     setenv RELION_RESMAP_EXECUTABLE /public/EM/ResMap/ResMap-1.1.4-linux64
+     
+     # Enforce cluster jobs to occupy entire nodes with 24 hyperthreads
+     setenv RELION_MINIMUM_DEDICATED 24
+     # Do not allow the user to change the enforcement of entire nodes
+     setenv RELION_ALLOW_CHANGE_MINIMUM_DEDICATED 0
+     
+     # Ask for confirmation if users try to submit local jobs with more than 12 MPI nodes
+     setenv RELION_WARNING_LOCAL_MPI 12
+     
+     # Other useful variables
+     # RELION_MPI_RUN: The mpi runtime ('mpirun' by default)
+     # RELION_QSUB_NRMPI: The default for 'Number of MPI procs'
+     # RELION_MPI_MAX: The maximum number of MPI processes available from the GUI
+     # RELION_QSUB_NRTHREADS: The default for 'Number of threads'
+     # RELION_THREAD_MAX: The maximum number of threads per MPI process available from the GUI
+     # RELION_QUEUE_USE: The default for 'Submit to queue?'. "yes" or "no".
+     # RELION_QUEUE_NAME: The default for 'Queue Name"
+     # RELION_QSUB_COMMAND: The default for 'Queue submit command'
+     # RELION_MINIMUM_DEDICATED: The default for 'Minimum dedicated cores per node'
+     # RELION_ALLOW_CHANGE_MINIMUM_DEDICATED: Whether to allow a user to change the 'Minimum dedicated cores per node' field in the GUI
+     # RELION_SHELL: A shell used to launch CTFFIND/GCTF in CtfFind jobs ('csh' by default; only available from 3.1)
+     # RELION_SCRATCH_DIR: The default scratch directory in the GUI
 
 
-Install CUDA
-------------
-
-If you have a relatively modern GPU from :textsc:`nvidia` (with compute capability 3.5+), then you can accelerate your autopicking, classification and refinement jobs considerably.
-In order to compile |RELION| with GPU-acceleration support, you'll need to install :textsc:`cuda`.
-We used :textsc:`cuda`-8.0 to prepare this tutorial.
-Download it from `NVIDIA website <https://developer.nvidia.com/cuda-downloads>`_.
 
 
-Install RELION
---------------
-
-|RELION| is open-source software.
-Download it for free from `RELION wiki <http://www2.mrc-lmb.cam.ac.uk/relion/index.php/Download_%26_install>`_ and follow the installation instructions.
-If you're not familiar with your job submission system (e.g.
-Sun Grid Engine, PBS/TORQUE, etc), then ask your system administrator for help in setting up the qsub.csh script as explained in the installation instructions.
-Note that you will probably want to run so-called hybridly-parallel jobs, i.e. calculations that use both MPI for distributed-memory parallelization AND pthreads for shared-memory parallelization.
-Your job submission queueing system may require some tweaking to allow this.
-Again, ask your sysadmin for assistance.
-
-.. attention::
-
-    TODO: This section should be updated!
 
 
-Install motion-correction software
-----------------------------------
-
-|RELION|-3.0 provides a wrapper to the UCSF program |MotionCor2|, which is used for whole-frame micrograph movie-alignment :cite:`zheng_motioncor2:_2017`.
-Download the program from `David Agard's page <http://msg.ucsf.edu/em/software/motioncor2.html>`_ and follow his installation instructions.
-Alternatively, you may also use RELION's own (CPU-only) implementation of |MotionCor2|, so don't worry if you have trouble installing the UCSF implementation.
-Note that, as of version 3.0, the wrapper to :textsc:`unblur` :cite:`grant_measuring_2015` from Niko grigorieff's group has been discontinued from the GUI.
 
 
-Install CTF-estimation software
--------------------------------
 
-CTF estimation is not part of |RELION|.
-Instead, |RELION| provides a wrapper to Alexis Rohou and Niko Grigorieff's :textsc:`ctffind` 4 :cite:`rohou_ctffind4:_2015`.
-Please download this from `Niko's CTFFIND website <http://grigoriefflab.janelia.org/ctf>`_ and follow his installation instructions.
-Alternatively, if you have :textsc:`nvidia` graphics cards (GPUs) in your machine, you may also use Kai Zhang's :textsc:`gctf` :cite:`zhang_gctf:_2016`, which may be downloaded from `Kai's website at LMB <http://www.mrc-lmb.cam.ac.uk/kzhang/>`_.
-
-Install ResMap
---------------
-
-Local-resolution estimation may be performed inside |RELION|'s own postprocessing program, or through a wrapper to Alp Kucukelbir's :textsc:`resmap` :cite:`kucukelbir_quantifying_2014`.
-Please download it from `Alp's ResMap website <http://resmap.sourceforge.net/>`_  and follow his installation instructions.

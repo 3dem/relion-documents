@@ -1,7 +1,7 @@
 .. _sec_schedules:
 
-On-the-fly processing: *Schedules*
-==================================
+Automation: *Schedules*
+=======================
 
 *Schedules* were introduced to |RELION|-3.1 and further improved in |RELION|-3.2. *Schedules* aim to provide a generalised methodology for automatic submission of |RELION| jobs. This is useful for creating standardised workflows, for example to be used in on-the-fly processing. The ``relion_it.py`` script that was nitroduced in |RELION|-3.1 has been re-written to work with the *Schedules*.
 
@@ -175,8 +175,8 @@ The fork will lead from the `inputNode`, an `outputNodeIfTrue` if the *booleanVa
 Thereby, Forks are the main instrument of making decisions in *Schedules*.
 
 
-Creating a new Schedule
------------------------
+Create a Schedule
+-----------------
 
 The combination of the *Variables*, *Nodes* and *Edges* allows one to create complicated sequences of jobs.
 It is probably a good idea to draw out a logical flow-chart of your sequence before creating a *Schedule* as outlined below.

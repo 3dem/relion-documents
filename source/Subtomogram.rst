@@ -1,5 +1,5 @@
-Sub-tomogram averaging
-======================
+Sub-tomograms
+=============
 
 For sub-tomogram averaging, which was implemented with help from Tanmay Bharat, a former postdoc in the Lowe group at MRC-LMB, the same holds as for helical processing.
 Many general concepts remain the same as for single-particle analysis, and users intending to perform sub-tomogram averaging in |RELION| are encouraged to go through this tutorial first.

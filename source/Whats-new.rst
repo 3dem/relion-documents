@@ -1,4 +1,4 @@
-What's new in release 3.1?
+What's new in 3.2?
 ==========================
 
 Aberration corrections and optics groups
