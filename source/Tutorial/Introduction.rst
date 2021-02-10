@@ -1,8 +1,8 @@
 Introduction
 ============
 
-This tutorial provides an introduction to the use of |RELION|-3.2 for cryo-EM structure determination.
-This tutorial covers the entire single-particle analysis workflow in |RELION|-3.2: beam-induced motion-correction, CTF estimation; automated particle picking; particle extraction; 2D class averaging; automated 2D class selection; SGD-based initial model generation; 3D classification; high-resolution 3D refinement; CTF refinement and higher-order aberration correction; the processing of movies from direct-electron detectors; and final map sharpening and local-resolution estimation.
+This tutorial provides an introduction to the use of |RELION|-4.0 for cryo-EM structure determination.
+This tutorial covers the entire single-particle analysis workflow in |RELION|-4.0: beam-induced motion-correction, CTF estimation; automated particle picking; particle extraction; 2D class averaging; automated 2D class selection; SGD-based initial model generation; 3D classification; high-resolution 3D refinement; CTF refinement and higher-order aberration correction; the processing of movies from direct-electron detectors; and final map sharpening and local-resolution estimation.
 Carefully going through this tutorial should take less than a day (if you have a suitable GPU or if you follow our precalculated results).
 After that, you should be able to run |RELION| on your own data.
 

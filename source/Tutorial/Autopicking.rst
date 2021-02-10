@@ -7,7 +7,7 @@ Select a subset of the micrographs
 We will now use a template-free auto-picking procedure based on a Laplacian-of-Gaussian (LoG) filter to select an initial set of particles.
 These particles will then be used in a :jobtype:`2D classification` job to generate 2D class averages.
 The tutorial up until |RELION|-3.1 would suggest to use the resulting class averages as templates for a second, reference-based :jobtype:`Auto-picking` job.
-Since |RELION|-3.2, there is also an integrated |Topaz| wrapper in the :jobtype:`Auto-picking` job, which will be used instead.
+Since |RELION|-4.0, there is also an integrated |Topaz| wrapper in the :jobtype:`Auto-picking` job, which will be used instead.
 In addition, we will use a new automated 2D class average selection procedure to select particles that contribute to good classes without any user interaction.
 The selected particles will then be used to train the neural network in |Topaz| to specifically pick particles for this data set.
 Alternatively, one could run |Topaz| picking with their default neural network straight away.
@@ -204,7 +204,7 @@ On the :guitab:`Optimisation` tab, set:
 
 :Use gradient-driven algorithm?: No
 
-     (This is a new option in |RELION|-3.2, which runs much faster than the standard EM-algorithm for large data set, and has been observed to yield better class average images in many cases.
+     (This is a new option in |RELION|-4.0, which runs much faster than the standard EM-algorithm for large data set, and has been observed to yield better class average images in many cases.
      It is however slower for data sets with only a few thousand particles, which is the main reason we are not using it here.)
 
 :Mask diameter (A):: 200
@@ -225,7 +225,7 @@ On the :guitab:`Optimisation` tab, set:
 
 :Center class averages?: Yes
 
-     (This is a new option in |RELION|-3.2. It will re-center all class average images every iteration based on their center of mass. 
+     (This is a new option in |RELION|-4.0. It will re-center all class average images every iteration based on their center of mass. 
      This is useful for their subsequent use in template-based auto-picking, but also for the automated 2D class average image selection in the next section.)
 
 On the :guitab:`Sampling` tab we hardly ever change the defaults.
@@ -306,7 +306,7 @@ Selecting good 2D classes for Topaz training
 
 Selection of suitable class average images is done in the :jobtype:`Subset selection` job-type.
 Up until |RELION|-3.1, this step was always done interactively by the user, who would select good class averages by clicking on them in the GUI.
-As of |RELION|-3.2, there is also an automated procedure, based on a neural network that was trained on thousands of 2D class averages. 
+As of |RELION|-4.0, there is also an automated procedure, based on a neural network that was trained on thousands of 2D class averages. 
 This option will be used below. 
 
 On the :guitab:`I/O` tab, remove the `micrographs.star` file entry from before, and set:

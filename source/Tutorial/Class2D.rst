@@ -29,13 +29,13 @@ and on the :guitab:`Optimisation` tab, we used:
 
 :Number of iterations:: 100
 
-     (We will now use a new gradient-driven algorithm that is new in |RELION|-3.2. 
+     (We will now use a new gradient-driven algorithm that is new in |RELION|-4.0. 
      It uses batches (of hundreds or thousands) of particles per iteration, but therefore needs to perform more iterations. 
      A 100 iterations has been observed to be a good number in many cases)
 
 :Use gradient-driven algorithm?: Yes
 
-     (This is a new option in |RELION|-3.2, which runs much faster than the standard EM-algorithm for large data set, and has been observed to yield better class average images in many cases.)
+     (This is a new option in |RELION|-4.0, which runs much faster than the standard EM-algorithm for large data set, and has been observed to yield better class average images in many cases.)
 
 :Mask diameter (A):: 200
 
@@ -55,7 +55,7 @@ and on the :guitab:`Optimisation` tab, we used:
 
 :Center class averages?: Yes
 
-     (This is a new option in |RELION|-3.2. It will re-center all class average images every iteration based on their center of mass. 
+     (This is a new option in |RELION|-4.0. It will re-center all class average images every iteration based on their center of mass. 
      This is useful for their subsequent use in template-based auto-picking, but also for the automated 2D class average image selection in the next section.)
 
 The gradient-driven algorithm doesn't scale well with MPI parallelisation. Using 1 GPUs, and a single MPI process with 12 threads, this job took 13 minutes on our computer.
