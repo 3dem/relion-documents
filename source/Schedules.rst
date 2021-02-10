@@ -3,7 +3,7 @@
 Automation: *Schedules*
 =======================
 
-*Schedules* were introduced to |RELION|-3.1 and further improved in |RELION|-3.2. *Schedules* aim to provide a generalised methodology for automatic submission of |RELION| jobs. This is useful for creating standardised workflows, for example to be used in on-the-fly processing. The ``relion_it.py`` script that was nitroduced in |RELION|-3.1 has been re-written to work with the *Schedules*.
+*Schedules* were introduced to |RELION|-3.1 and further improved in |RELION|-4.0. *Schedules* aim to provide a generalised methodology for automatic submission of |RELION| jobs. This is useful for creating standardised workflows, for example to be used in on-the-fly processing. The ``relion_it.py`` script that was nitroduced in |RELION|-3.1 has been re-written to work with the *Schedules*.
 
 The *Schedules* framework is built around the following key concepts: a directed graph that represents the logic of a series of subsequent |RELION| job-types is encoded in *Nodes* and *Edges*. *Nodes* can be either a |RELION| job or a so-called *Operator*; *Edges* form the connections between *Nodes*.
 In addition, *Schedules* have their own *Variables*.
@@ -242,7 +242,7 @@ That tar-ball can then be extracted in any new |RELION| project directory:
 
 
 .. note::
-    You may find it easier to generate *Schedules* completely by hand using your favourite text editor to edit the files ``Schedules/NAME/schedule.star`` and all the files ``Schedules/NAME/JOBNAMES/job.star`` for all the jobs in that Schedule. As of |RELION|-3.2 that should be a lot easier than before. You could look at the ``proc`` *Schedule* from the ``relion_it.py` setup for inspiration. One can generate ``job.star`` files for any job type by filling in the normal |RELION| GUI and clicking *Save job settings* from the *Jobs* menu on the top left of the GUI. Those files are hidden, i.e. their filename starts with a '.', but you can visualise them using ``ls -a`` in the *ProjectDirectory*.
+    You may find it easier to generate *Schedules* completely by hand using your favourite text editor to edit the files ``Schedules/NAME/schedule.star`` and all the files ``Schedules/NAME/JOBNAMES/job.star`` for all the jobs in that Schedule. As of |RELION|-4.0 that should be a lot easier than before. You could look at the ``proc`` *Schedule* from the ``relion_it.py` setup for inspiration. One can generate ``job.star`` files for any job type by filling in the normal |RELION| GUI and clicking *Save job settings* from the *Jobs* menu on the top left of the GUI. Those files are hidden, i.e. their filename starts with a '.', but you can visualise them using ``ls -a`` in the *ProjectDirectory*.
 
 
 Executing a *Schedule*

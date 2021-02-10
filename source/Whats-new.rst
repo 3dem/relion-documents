@@ -1,8 +1,15 @@
-What's new in 3.2?
-==========================
+What's new?
+===========
 
-Aberration corrections and optics groups
-----------------------------------------
+Release 4.0
+-----------
+
+TODO
+
+Release 3.1
+-----------
+
+**Aberration corrections and optics groups**
 
 One of the major new features in |RELION|-3.1 is a correction for higher-order aberrations in the data, i.e. besides the beamtilt correction already present in |RELION|-3.0, the current version can also estimate and correct for trefoil and tetrafoil, as well as deviations from the nominal spherical aberration (Cs).
 The corresponding paper can be found on bioRxiv :cite:`Zivanov_estimation_2019`.
@@ -26,23 +33,20 @@ Therefore, moving a project from an older release to |RELION|-3.1 should be easy
     Therefore, it will be more difficult to go back from a |RELION|-3.1 project to an older release.
 
 
-The External job-type
----------------------
+**The External job-type**
 
 |RELION|-3.1 allows execution of third-party software within the |RELION| pipeline through the new :jobtype:`External` job-type.
 See :ref:`this section <sec_external_jobtype>` for details on how to use this.
 
 
-*Schedules* for on-the-fly processing
--------------------------------------
+**\*Schedules* for on-the-fly processing**
 
 The python script ``relion_it.py`` in |RELION|-3.0 has been replaced by a new framework of *Schedules*, which implement decision-based scheduling and execution of |RELION| jobs.
 This comes with its own GUI interface.
 See :ref:`Schedules <sec_schedules>` for details on how to use this.
 
 
-General tweaks
---------------
+**General tweaks**
 
 Several tweaks have been made to enhance user experience:
 
