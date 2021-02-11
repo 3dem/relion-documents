@@ -11,7 +11,7 @@ It is developed in the group of `Sjors Scheres <https://www2.mrc-lmb.cam.ac.uk/g
      This means that anyone (including commercial users) can download, use and modify |RELION| for free. 
      If |RELION| is useful in your work, please do make sure that our :ref:`Team <Team>` members are credited appropriately and cite `our papers <https://www2.mrc-lmb.cam.ac.uk/groups/scheres/publications.html>`_.
 
-**These pages refer to RELION-4.0-beta**
+**These pages refer to RELION-3.1**
 
 .. toctree::
    :maxdepth: 1
