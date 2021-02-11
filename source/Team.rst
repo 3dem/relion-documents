@@ -5,23 +5,34 @@ The team
 
 Below are the past and present members of the |RELION| team in alphabetical order.
 
-TODO: fill in description for each person of who they are and what they have contributed.
-
-Liyi Dong
----------
-
-Shaoda He
----------
-
-Dari Kimanius
--------------
-
-Takanori Nakane
+Current members
 ---------------
 
-Sjors Scheres
--------------
+**Liyi Dong**
 
-Jasenko Zivanov
----------------
+Liyi studied Biology at China Agricultural University and did a BSc at Purdue University, where she worked with Michael Rossmann. Liyi joined our group as a PhD student in November 2017. She developed *automated selection of 2D class averages*.
 
+
+**Dari Kimanius**
+
+Dari studied Theoretical Physics at the Royal Institute of Technology (KTH, Stockholm), and did a PhD in Biophysics and Bioinformatics at Stockholm University. Dari joined our group as a post-doc in May 2019. Dari implemented *GPU-acceleration* during his PhD. For his postdoc at LMB, he works on the incorporation of *more informative priors* through deep convolutional neural networks, as well as on the design of more efficient *optimisation algorithms*.
+
+**Takanori Nakane**
+
+Takanori studied as an M.D. at Kyoto University, where he also obtained his PhD in Medicine. In 2014 he also obtained an M.Phil in Computational Biology from the University of Cambridge. Takanori joined our team in October 2017. He works on many facets of single-particle analysis and kindly dedicates a lot of his time to provide support to RELION users worldwide.
+
+**Sjors Scheres**
+
+Sjors studied chemistry at Utrecht University, The Netherlands, where he also obtained his PhD in protein crystallography. He was a post-doc in the group of Jose-Maria Carazo in Madrid, before he started his group at the LMB in 2010. Sjors designed the *regularised likelihood algorithm* and is the *original architect* of |RELION|.
+
+**Jasenko Zivanov**
+
+Jasenko studied Computer Science at the University of Basel, where he also obtained his PhD (on the reconstruction of complex 3D shapes from scanning electron microscopy images). Jasenko was a postdoc with us for more than three years, and continues to work with us from Switzerland. Jasenko developed *Bayesian polishing* and *optical aberration correction* for single-particle analsyis, as well as a new approach for *sub-tomogram averaging*.
+
+
+Past members
+------------
+
+**Shaoda He**
+
+Shaoda studied Biology at Peking University, where he also participated in a programme organized by the Electronic Engineering and Computer Science Department. Shaoda joined our group in October 2014. He developed the *helical reconstruction* and *local symmetry averaging*. 
