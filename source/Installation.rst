@@ -47,6 +47,12 @@ We store the public release versions of |RELION| on GitHub, a site that provides
 
 This will create a local git repository. All subsequent git-commands should be run inside this directory.
 
+Note that the beta-release of |RELION|-4.0 is stored on a separate branch until it becomes the latest stable release. To switch to |RELION|-4.0-beta, just type
+
+::
+
+     git checkout ver4.0
+
 The code will be intermittently updated to amend minor issues detected during beta-development. To incorporate these changes, use the command-line
 
 ::
