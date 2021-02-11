@@ -20,6 +20,7 @@ It is developed in the group of `Sjors Scheres <https://www2.mrc-lmb.cam.ac.uk/g
    Team
    Installation
    SPA_tutorial/index
+   STA_tutorial/index
    Reference/index
 
 Indices and tables
