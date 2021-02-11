@@ -19,9 +19,7 @@ It is developed in the group of `Sjors Scheres <https://www2.mrc-lmb.cam.ac.uk/g
    Whats-new
    Team
    Installation
-   Tutorial/index
-   Helix
-   Subtomogram
+   SPA_tutorial/index
    Reference/index
 
 Indices and tables

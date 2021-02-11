@@ -6,6 +6,8 @@ Reference pages
 
    Conventions
    Schedules
+   Helix
+   Subtomogram
    Using-RELION
    DeveloperGuide
    Bibliography
