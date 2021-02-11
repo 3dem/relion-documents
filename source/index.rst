@@ -19,14 +19,10 @@ It is developed in the group of `Sjors Scheres <https://www2.mrc-lmb.cam.ac.uk/g
    Whats-new
    Team
    Installation
-   Conventions
    Tutorial/index
-   Using-RELION
-   Schedules
    Helix
    Subtomogram
-   DeveloperGuide
-   Bibliography
+   Reference/index
 
 Indices and tables
 ------------------
