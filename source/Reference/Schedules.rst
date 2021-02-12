@@ -245,6 +245,8 @@ That tar-ball can then be extracted in any new |RELION| project directory:
     You may find it easier to generate *Schedules* completely by hand using your favourite text editor to edit the files ``Schedules/NAME/schedule.star`` and all the files ``Schedules/NAME/JOBNAMES/job.star`` for all the jobs in that Schedule. As of |RELION|-4.0 that should be a lot easier than before. You could look at the ``proc`` *Schedule* from the ``relion_it.py` setup for inspiration. One can generate ``job.star`` files for any job type by filling in the normal |RELION| GUI and clicking *Save job settings* from the *Jobs* menu on the top left of the GUI. Those files are hidden, i.e. their filename starts with a '.', but you can visualise them using ``ls -a`` in the *ProjectDirectory*.
 
 
+.. _sec_execute_schedules:
+
 Executing a *Schedule*
 ^^^^^^^^^^^^^^^^^^^^^^
 

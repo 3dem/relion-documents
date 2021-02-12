@@ -21,6 +21,7 @@ It is developed in the group of `Sjors Scheres <https://www2.mrc-lmb.cam.ac.uk/g
    Installation
    SPA_tutorial/index
    STA_tutorial/index
+   Onthefly
    Reference/index
 
 Indices and tables
