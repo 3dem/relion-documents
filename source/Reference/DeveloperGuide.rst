@@ -90,7 +90,7 @@ To make ``git diff`` easier to understand, each sentense should use a new line.
     ::
 
         A block quote for commands is an indented block following two
-        colons and an empty line.
+        colons and an empty line. Please use FOUR SPACES, not tabs for indentation.
 
     -   When using a list, be careful about indentation.
         The second sentence must be aligned.
@@ -127,7 +127,7 @@ This paragram is a bad example. Two sentences are in one line.
 ::
 
     A block quote for commands is an indented block following two
-    colons and an empty line.
+    colons and an empty line. Please use FOUR SPACES, not tabs for indentation.
 
 -   When using a list, be careful about indentation.
     The second sentence must be aligned.

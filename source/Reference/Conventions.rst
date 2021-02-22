@@ -24,26 +24,26 @@ Thereby, the first three images in a stack called my_images.mrcs are called:
 
 ::
 
-     1@my_images.mrcs
-     2@my_images.mrcs
-     3@my_images.mrcs
+    1@my_images.mrcs
+    2@my_images.mrcs
+    3@my_images.mrcs
 
 RELION supports the following MRC modes.
 
 0:
-     signed 8-bit integer
+    signed 8-bit integer
 
 1:
-     signed 16-bit integer
+    signed 16-bit integer
 
 2:
-     32-bit floating point
+    32-bit floating point
 
 6:
-     unsigned 16-bit integer
+    unsigned 16-bit integer
 
 101:
-     packed 4-bit integer (IMOD extension)
+    packed 4-bit integer (IMOD extension)
 
 STAR format
 -----------
@@ -54,22 +54,22 @@ The STAR format has been adopted by the crystallographic community in the form o
 
 |RELION|'s implementation of the STAR format has the following rules (partially copied from BSOFT's manual):
 
-*    The file name must end in a ".star" extension.
-*     Each file must have one or more data blocks.
-      The start of a data block is defined by the keyword ``data_`` followed by an optional string for identification (e.g., "data_images").
-*    Multiple values associated with one or more labels in a data block can be arranged in a table using the keyword ``loop_`` followed by the list of labels and columns of values.
-     The values are delimited by whitespace (i.e., blanks, tabs, end-of-lines and carriage returns).
-     The loop must be followed by an empty line to indicate its end.
-*    Label names always starts with an underscore ("_").
-     Each label may only be used once within each data block.
-*    Data items or values can be numeric or strings of characters.
-     A string is interpreted as a single item when it doesn't contain spaces
-*    Comments are strings which can occur in three places:
-     * File comments: All text before the first ``data_`` keyword
-     * Data block comments: Strings on their own lines starting with "#" or with ";" as the first character in the line.
-     * Item comments: Strings on the same line as and following tag-value items, also indicated by a leading "#".
-*    String values that contain spaces can be quoted by ``"``.
-     An empty string becomes ``""``.
+*   The file name must end in a ".star" extension.
+*   Each file must have one or more data blocks.
+    The start of a data block is defined by the keyword ``data_`` followed by an optional string for identification (e.g., "data_images").
+*   Multiple values associated with one or more labels in a data block can be arranged in a table using the keyword ``loop_`` followed by the list of labels and columns of values.
+    The values are delimited by whitespace (i.e., blanks, tabs, end-of-lines and carriage returns).
+    The loop must be followed by an empty line to indicate its end.
+*   Label names always starts with an underscore ("_").
+    Each label may only be used once within each data block.
+*   Data items or values can be numeric or strings of characters.
+    A string is interpreted as a single item when it doesn't contain spaces
+*   Comments are strings which can occur in three places:
+    * File comments: All text before the first ``data_`` keyword
+    * Data block comments: Strings on their own lines starting with "#" or with ";" as the first character in the line.
+    * Item comments: Strings on the same line as and following tag-value items, also indicated by a leading "#".
+*   String values that contain spaces can be quoted by ``"``.
+    An empty string becomes ``""``.
 
 **Metadata label definitions**
 
@@ -78,7 +78,7 @@ The following command will print a list of the definitions of all of them:
 
 ::
 
-     relion_refine --print_metadata_labels
+    relion_refine --print_metadata_labels
 
 
 Optics Groups
@@ -105,9 +105,9 @@ For developers, a good starting point for code reading is ``ObservationModel::pr
 
 In compliance with the `Heymann, Chagoyen and Belnap (2005) standard <https://pubmed.ncbi.nlm.nih.gov/16043364/>`_ |RELION| uses a right-handed coordinate system with orthogonal axes X, Y and Z, where right-handed rotations are called positive, and Euler angles are defined as:
 
- * The first rotation is called ``rlnAngleRot`` and is around the Z-axis.
- * The second rotation is called ``rlnAngleTilt`` and is around the new Y-axis.
- * The third rotation is called ``rlnAnglePsi`` and is around the new Z axis
+*   The first rotation is called ``rlnAngleRot`` and is around the Z-axis.
+*   The second rotation is called ``rlnAngleTilt`` and is around the new Y-axis.
+*   The third rotation is called ``rlnAnglePsi`` and is around the new Z axis
 
 As such, |RELION| uses the same Euler angles as XMIPP, SPIDER and FREALIGN.
 
@@ -191,19 +191,19 @@ As such, with the exception of tetrahedral symmetry, they comply with :cite:`hey
 \*\* Multiple settings of the icosahedral symmetry group have been implemented:
 
 I1:
-     No-crowther 222 setting (=standard in Heymann et al): 2-fold axes on X,Y,Z.
-     With the positive Z pointing at the viewer, the front-most 5-fold vertices are in YZ plane, and the front-most 3-fold axes are in the XZ plane.
+    No-crowther 222 setting (=standard in Heymann et al): 2-fold axes on X,Y,Z.
+    With the positive Z pointing at the viewer, the front-most 5-fold vertices are in YZ plane, and the front-most 3-fold axes are in the XZ plane.
 I2:
-     Crowther 222 setting: 2-fold axes on X,Y,Z.
-     With the positive Z pointing at the viewer, the front-most 5-fold vertices are in XZ plane, and the front-most 3-fold axes are in the YZ plane.
+    Crowther 222 setting: 2-fold axes on X,Y,Z.
+    With the positive Z pointing at the viewer, the front-most 5-fold vertices are in XZ plane, and the front-most 3-fold axes are in the YZ plane.
 I3:
-     52-setting (as in SPIDER?): 5-fold axis on Z and 2-fold on Y.
-     With the positive Z pointing at the viewer and without taken into account the 5-fold vertex in Z, there is one of the front-most 5-fold vertices in -XZ plane
+    52-setting (as in SPIDER?): 5-fold axis on Z and 2-fold on Y.
+    With the positive Z pointing at the viewer and without taken into account the 5-fold vertex in Z, there is one of the front-most 5-fold vertices in -XZ plane
 I4:
-     Alternative 52 setting: with the positive Z pointing at the viewer and without taken into account the 5-fold vertices in Z, there is one of the front-most 5-fold vertices in +XZ plane.
+    Alternative 52 setting: with the positive Z pointing at the viewer and without taken into account the 5-fold vertices in Z, there is one of the front-most 5-fold vertices in +XZ plane.
 
 In case of doubt, a list of all employed symmetry operators may be printed to screen using the command (for example for the D7 group):
 
 ::
 
-     relion_refine --sym D7 --print_symmetry_ops
+    relion_refine --sym D7 --print_symmetry_ops
