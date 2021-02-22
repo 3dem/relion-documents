@@ -42,6 +42,10 @@ code {
     font-size: 1em;
 }
 
+dl > dt {
+    font-weight: bold;
+}
+
 dl.field-list > dd > p:first-child {
     font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
     display: inline-block;
