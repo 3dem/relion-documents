@@ -80,7 +80,8 @@ html_theme_options = {
    'github_repo': 'relion',
    'github_button': True,
    'github_type': 'star',
-   'extra_nav_links': {'Source repository of this documentation': 'https://github.com/3dem/relion-documents'}
+   'extra_nav_links': {'Source repository of this documentation': 'https://github.com/3dem/relion-documents'},
+   'sidebar_collapse': True,
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
