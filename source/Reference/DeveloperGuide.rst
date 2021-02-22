@@ -76,7 +76,7 @@ To make ``git diff`` easier to understand, each sentense should use a new line.
 
     A new paragraph.
     ``Keyword``, *emphasis by italic* and **emphasis by bold** are marked like this.
-    You can cite a paper :cite:`Zivanov_estimation_2019`.
+    You can cite a paper :cite:`Zivanov_estimation_2020`.
     A link to `rST documentation <https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html>`_.
     Note the underline.
     You can use LaTeX math :math:`\sum x_i^2`.
@@ -113,7 +113,7 @@ Next sentence.
 
 A new paragraph.
 ``Keyword``, *emphasis by italic* and **emphasis by bold** are marked like this.
-You can cite a paper :cite:`Zivanov_estimation_2019`.
+You can cite a paper :cite:`Zivanov_estimation_2020`.
 A link to `rST documentation <https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html>`_.
 Note the underline.
 You can use LaTeX math :math:`\sum x_i^2`.
