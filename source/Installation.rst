@@ -15,6 +15,14 @@ The sections below explain how to download and install |RELION| on your computer
 
 Note that |RELION| depends on and uses several external programs and libraries.
 
+C++ compiler:
+    RELION 4.0 requires a C++ compiler that fully supports the C++11 standard.
+    For GCC, this means version 4.8.1 or later.
+    Note that GCC 4.4, which comes with RedHat Enterprise Linux or CentOS 6.x, is too old.
+
+    To use Torch related features, you need C++14 support.
+    For GCC, this means version 5.0 or later.
+
 MPI:
     Your system will need `MPI <https://en.wikipedia.org/wiki/Message_Passing_Interface>`_ runtime (most flavours will do).
     If you don't have an MPI installation already on your system, we recommend installing `OpenMPI <http://www.open-mpi.org/>`_.
