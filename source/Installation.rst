@@ -8,14 +8,14 @@ Installation
 
 The sections below explain how to download and install |RELION| on your computer.
 
-Note that |RELION| depends on and uses several external programs.
+Note that |RELION| depends on and uses several external programs and libraries.
 
 MPI:
-    Your system will need MPI (most flavours will do).
-    If you don't have an mpi-devel installation already on your system, we recommend installing `OpenMPI <http://www.open-mpi.org/>`_.
+    Your system will need `MPI <https://en.wikipedia.org/wiki/Message_Passing_Interface>`_ runtime (most flavours will do).
+    If you don't have an MPI installation already on your system, we recommend installing `OpenMPI <http://www.open-mpi.org/>`_.
 
 CUDA:
-    If you have a relatively modern GPU from :textsc:`nvidia` (with compute capability 3.5+), then you can accelerate many jobs considerably.
+    If you have a modern GPU from :textsc:`nvidia` with compute capability 3.5+, you can accelerate many jobs considerably.
     In order to compile |RELION| with GPU-acceleration support, you'll need to install :textsc:`cuda`.
     Download it from `NVIDIA website <https://developer.nvidia.com/cuda-downloads>`_.
 
@@ -23,6 +23,21 @@ CTFFIND-4.1:
     CTF estimation is not part of |RELION|.
     Instead, |RELION| provides a wrapper to Alexis Rohou and Niko Grigorieff's :textsc:`ctffind` 4 :cite:`rohou_ctffind4:_2015`.
     Alternatively, you may also use (the closed-source) :textsc:`gctf` by Kai Zhang :cite:`zhang_gctf:_2016`, which may be downloaded from `Kai's website <http://www.mrc-lmb.cam.ac.uk/kzhang/>`_.
+
+FLTK (only for GUI):
+    RELION uses `FLTK <https://www.fltk.org/>`_ as a GUI tool kit.
+    This can be installed automatically (see below).
+
+FFT libraries:
+    RELION needs an FFT library.
+    The default is `FFTW <https://www.fftw.org/>`_.
+    Depending on your CPU, `Intel MKL FFT <https://software.intel.com/mkl>`_ or `AMD optimised FFTW <https://developer.amd.com/amd-aocl/fftw/>`_ might run faster.
+    See below how to use them.
+
+libtiff (optional):
+    RELION needs `libtiff <http://www.libtiff.org/>`_ version >= 4.0 to deal with TIFF files and EER movies.
+    Most Linux distributions have packages called ``libtiff-dev`` or ``libtiff-devel``.
+    Note that you need a developer package.
 
 UCSF MotionCor2 (optional):
     |RELION| implements its own (CPU-only) implementation of the UCSF |MotionCor2| algorithm for whole-frame micrograph movie-alignment :cite:`zheng_motioncor2:_2017`.
@@ -48,7 +63,6 @@ To do so, use the shell command-line::
 
      git clone https://github.com/3dem/relion.git
 
-
 This will create a local Git repository.
 All subsequent git-commands should be run inside this directory.
 
@@ -56,7 +70,6 @@ The code will be intermittently updated to amend minor issues detected during be
 To incorporate these changes, use the command-line::
 
      git pull
-
 
 inside you local repository (the source-code directory downloaded).
 If you have changed the code in some way, this will force you to commit a local merge.
@@ -74,7 +87,6 @@ This can be placed inside the repository::
      cd relion
      mkdir build
      cd build
-
 
 You then invoke ``cmake`` inside the build-directoy, but point to the source-directoy to configure the installation.
 This will not install |RELION|, just configure the build::
@@ -145,14 +157,34 @@ Compiling GPU-code for your architecture:
     If you know the compute-verison of your GPUs, you can specify it.
     The default value is 35 (sm 3.5), which is the lowest supported by |RELION|.
 
-Forcing build and use of local FFTW
+Forcing build and use of local FFTW:
     ``cmake -DFORCE_OWN_FFTW=ON ..``
 
-Forcing build and use of local FLTK
-     ``cmake -DFORCE_OWN_FLTK=ON ..``
+    This will download, verify and install FFTW during the installation process.
 
-    This will add download, verification and installation of FFTW and/or FLTK during the installation process.
+Forcing build and use of AMD optimized FFTW:
+    ``cmake -DFORCE_OWN_FFTW=ON -DAMDFFTW=ON ..``
+
+    This will download, verify and install AMD optimized version of FFTW during the installation process.
+    This is recommended for AMD CPUs (e.g. Ryzen, Threadripper, EPYC).
+
+Forcing build and use of Intel MKL FFT:
+    ``cmake -DMKLFFT=ON ..``
+
+    This will use FFT library from Intel MKL.
+    In contrast to the FFTW options above, this will *not* download MKL automatically.
+    You have to install MKL and set relevants paths (usually by sourcing the ``mkl_vars.sh`` script).
+
+Forcing build and use of local FLTK:
+    ``cmake -DFORCE_OWN_FLTK=ON ..``
+
+    This will download, verify and install FLTK during the installation process.
     If any of these are not detected during configuration, this will happen automatically anyway, and you should not have to specify the below options manually.
+
+Specify location of libtiff:
+    ``cmake -DTIFF_INCLUDE_DIR=/path/to/include -DTIFF_LIBRARY=/path/to/libtiff.so.5.``
+
+    This option is to use libtiff installed in non-standard location.
 
 Specifying an installation location:
     To allow |RELION| a system-wide installation use::
