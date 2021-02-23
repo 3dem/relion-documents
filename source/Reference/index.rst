@@ -4,11 +4,12 @@ Reference pages
 .. toctree::
    :maxdepth: 2
 
-   Conventions
+   MovieCompression
+   PixelSizeIssues
    Schedules
    Helix
    Subtomogram
    Using-RELION
-   PixelSizeIssues
+   Conventions
    DeveloperGuide
    Bibliography
