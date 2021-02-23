@@ -97,8 +97,10 @@ latex_elements = {
    'preamble': r'''
       %% Some tricks for Unicode characters
       \sphinxDUC{212B}{\AA}
+      \sphinxDUC{2260}{$\neq$}
       \sphinxDUC{03B1}{$\alpha$}
       \sphinxDUC{03B2}{$\beta$}
+      \sphinxDUC{03BB}{$\lambda$}
 
       %% Custom colors: Change together with the CSS file _static/custom.css.
       \definecolor{guiBackground}{RGB}{230,230,240}

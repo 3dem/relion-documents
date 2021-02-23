@@ -24,6 +24,10 @@ CUDA:
     In order to compile |RELION| with GPU-acceleration support, you'll need to install :textsc:`cuda`.
     Download it from `NVIDIA website <https://developer.nvidia.com/cuda-downloads>`_.
 
+    Note that CUDA toolkits support only a limited range of C compilers.
+    Also note that a newer CUDA toolkit requires a newer GPU driver.
+    Carefully read the release note and make sure you have a compatible set of GPU driver, C compiler and CUDA toolkit.
+
 CTFFIND-4.1:
     CTF estimation is not part of |RELION|.
     Instead, |RELION| provides a wrapper to Alexis Rohou and Niko Grigorieff's :textsc:`ctffind` 4 :cite:`rohou_ctffind4:_2015`.
@@ -119,7 +123,7 @@ Compiling |RELION| with one version of MPI and running the resulting binary with
 Note that some software packages (e.g. CCPEM, crYOLO, EMAN2) come with their own MPI runtime.
 Sourcing/activating their environment might update ``PATH`` and ``LD_LIBRARY_PATH`` environmental variables and put their MPI runtime into the highest priority.
 
-The MPI C++ compiler and CUDA compiler (``nvcc``) internally calls a C++ compiler.
+The MPI C++ compiler (``mpicxx``) and CUDA compiler (``nvcc``) internally calls a C++ compiler.
 This must match the compiler ``cmake`` picked up.
 Otherwise, the compilation might fail at the linking step.
 
@@ -152,20 +156,29 @@ It is also recommended to clean or purge your build-directory between builds, si
 And of course, any of the below options can be combined.
 
 Omitting the GUI:
-     ``cmake -DGUI=OFF ..``
+     ``cmake -DGUI=OFF ..`` (default is ON)
+
+     With this option, GUI programs (e.g. ``relion``, ``relion_manualpick``, ``relion_display``) are not be built and FLTK becomes unnecessary.
+
+Using single-precision on the CPU:
+    ``cmake -DDoublePrec_CPU=OFF ..`` (default is ON)
+
+    This will reduce (CPU but not GPU) memory consumption to about half.
+    This is useful when memory hungry tasks such as motion correction and Polishing run out of memory.
+    This is safe in most cases but please use the default double precision build if CtfRefine produces NaNs.
 
 Using double-precision on the GPU:
-    ``cmake -DDoublePrec_GPU=ON ..``
+    ``cmake -DDoublePrec_GPU=ON ..`` (default is OFF)
 
     This will slow down GPU-execution considerably, while this does *NOT* improve the resolution.
     Thus, this option is not recommended.
 
 Compiling GPU-code for your architecture:
-    ``cmake -DCUDA_ARCH=52 ..``
+    ``cmake -DCUDA_ARCH=52 ..`` (default is 35, meaning compute capability 3.5, which is the lowest supported by |RELION|)
 
-    CUDA-capable devices have a so-called compute-version, which code can be compiled against for optimal performance.
-    If you know the compute-verison of your GPUs, you can specify it.
-    The default value is 35 (sm 3.5), which is the lowest supported by |RELION|.
+    CUDA-capable devices have a so-called compute capability, which code can be compiled against for optimal performance.
+    The compute capability of your card can be looked up at `the table in NVIDIA website <https://developer.nvidia.com/cuda-gpus>`_.
+    WARNING: If you use a wrong number, compilation might succeed but the resulting binary can fail at the runtime.
 
 Forcing build and use of local FFTW:
     ``cmake -DFORCE_OWN_FFTW=ON ..``
