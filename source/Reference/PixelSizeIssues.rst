@@ -181,7 +181,8 @@ Thus,
 :math:`10^{-7}` is to convert Cs from Å to mm.
 :math:`Cs_{\mbox{nominal}}` is what you used in CTFFIND (e.g. 2.7 mm for Titan and Talos).
 
-The real pixel size can be calculated as :math:`\mbox{nominal_pixel_size} (Cs_{\mbox{true}} / Cs_{\mbox{apparent}})^{1/4}`.
+The real pixel size can be calculated as :math:`\mbox{NominalPixelSize} (Cs_{\mbox{true}} / Cs_{\mbox{apparent}})^{1/4}`.
+
 
 Examples
 --------
@@ -195,7 +196,6 @@ One optics group
 Suppose your optics group says 1.00 Å/px.
 If the header of your reference also says 1.00 Å/px, particles are used without any stretching or shrinking.
 The output remains 1.00 Å/px.
-
 
 Let's assume that the nominal pixel size of 1.00 Å/px turns out slightly off and the real pixel size is 0.98 Å/px.
 As discussed above, you should **never change the pixel size in the optics group table**, since all CTF parameters, coordinates and trajectories are consistent with the nominal pixel size of 1.00 Å/px.
