@@ -8,14 +8,14 @@ It is developed in the group of `Sjors Scheres <https://www2.mrc-lmb.cam.ac.uk/g
 
     As the `cryo-EM resolution revolution <https://science.sciencemag.org/content/343/6178/1443.summary>`_ progresses, software protectionism is also on the rise.
     We are proud to distribute |RELION| under a *GPLv2* license.
-    This means that anyone (including commercial users) can download, use and modify |RELION| for free. 
-    If |RELION| is useful in your work, please do make sure that our :ref:`Team <Team>` members are credited appropriately and cite `our papers <https://www2.mrc-lmb.cam.ac.uk/groups/scheres/publications.html>`_.
+    This means that anyone (including commercial users) can download, use and modify |RELION| for free.
+    If |RELION| is useful in your work, please do make sure that our :doc:`Team <Team>` members are credited appropriately and cite `our papers <https://www2.mrc-lmb.cam.ac.uk/groups/scheres/publications.html>`_.
 
 Table of Contents
 -----------------
 
 -   :doc:`Whats-new`
--   :doc:`Team <Team>`
+-   :doc:`Team`
 -   :doc:`Installation`
 -   :doc:`SPA_tutorial/index`
 -   :doc:`Reference/index`
