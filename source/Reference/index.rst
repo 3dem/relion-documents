@@ -9,5 +9,6 @@ Reference pages
    Helix
    Subtomogram
    Using-RELION
+   PixelSizeIssues
    DeveloperGuide
    Bibliography
