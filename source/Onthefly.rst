@@ -9,14 +9,14 @@ As of |RELION|-4.0, on-the-fly processing is based on the :ref:`Schedules <sec_s
 
 This will launch the GUI, which contains several sections that need to be filled in by the user. 
 
-Computation details
--------------------
+Computation settings
+--------------------
 
 This section specifies what calculations will be performed.
 
 :Do MotionCorr & CTF?: v
 
-     (If selected, a *Schedule* called ``Schedules/prep`` will be lanuched that will loop over all movies (as defined in the section `Movie details` to run :jobtype:`Import`, :jobtype:`Motion correction` and :jobtype:`CTF estimation`. 
+     (If selected, a *Schedule* called ``Schedules/prep`` will be lanuched that will loop over all movies (as defined in the section `Preprocessing settings` to run :jobtype:`Import`, :jobtype:`Motion correction` and :jobtype:`CTF estimation`. 
      By default this will be done for a maximum of 50 movies at a time.)
 
 :micrographs_ctf.star:: Schedules/prep/ctffind/micrographs\_ctf.star
@@ -25,7 +25,7 @@ This section specifies what calculations will be performed.
 
 :Do Autopick & Class2D?: v
 
-     (If selected, a second *Schedule* called ``Schedules/proc`` will be lanuched that will automatically pick particles, as specified on the `Particle details` and `Picking details` sections, and then perform :jobtype:`2D classification` and automated class selection through the :jobtype:`Subset selection` job. 
+     (If selected, a second *Schedule* called ``Schedules/proc`` will be lanuched that will automatically pick particles, as specified on the `Particle settings` and `Processing settings` sections, and then perform :jobtype:`2D classification` and automated class selection through the :jobtype:`Subset selection` job. 
      This is repeated on a loop, while the number of particles extracted is still increasing.)
 
 :Do Refine3D?: v
@@ -35,15 +35,15 @@ This section specifies what calculations will be performed.
 :3D reference:: None
 
      (If set to `None`, or anything else that does not exist as a file, then an :jobtype:`3D initial model` job will be launched before the auto-refine job.
-     Note that in the case of symmetry, as defined in the `Particle details` section, the initial model calculation is still performed in C1, but this calculation is followed by an alignment of the symmetry axes and the application of the symmetry to the model.)
+     Note that in the case of symmetry, as defined in the `Particle settings` section, the initial model calculation is still performed in C1, but this calculation is followed by an alignment of the symmetry axes and the application of the symmetry to the model.)
 
 :GPUs (comma-separated):: 0,1
 
      (This option is used to specify the IDs of the GPU devices you want to run on. 
      Since the motion correction and CTF estimation are CPU-only, this option is only used by the second *Schedule*.)
 
-Experimental details
---------------------
+Preprocessing settings
+----------------------
 
 This section specifies information about where the movies are and how they were recorded.
 
@@ -80,8 +80,8 @@ This section specifies information about where the movies are and how they were 
      (This is the accumulated dose in a single movie frame.)
 
 
-Particle details
-----------------
+Particle settings
+-----------------
 
 :Symmetry:: C1
 
@@ -112,8 +112,13 @@ Particle details
      We often use these.)
 
 
-Picking details
----------------
+Processing settings
+-------------------
+
+:Min resolution micrographs?: 6
+
+     (Only micrographs with an estimated CTF resolution beyond this value will be selected. 
+     Set to 999 not to throw away any micrographs.)
 
 :Retrain topaz network?: v
 
@@ -166,18 +171,22 @@ The :runbutton:`Save &run` button will also save the options, and it will actual
 Intervening 
 -----------
 
-Once the *Schedules* are running and you start seeing some results, you may find that you want to change some of the parameters. To stop a *Schedule*, you will need to press its :runbutton:`Abort` button on the *Schedule* part of the GUI, which is accessible from the top ``Schedules->Schedules`` menu. This will also abort any running |RELION| job, which may take a few seconds to happen.
-
-The *Schedules* GUI itself is capable of setting the current state of any of the two *Schedules* to any point (using the :button:`Prev`, :button:`Next` and :button:`Set` buttons. Specific options can also be modified and saved for each job using the top part of the GUI and the :button:`Save` button. By changing the ``has_started`` to ``has_not_started``, any job in the *Schedule* can be forced to re-run from the beginning. The entire *Schedule* can be reset to its original state through the :button:`Reset` button. Note however that the ``relion_it.py`` script will remain unaware of any changes made to the *Schedule* throught the |RELION| GUI, so this script should not be executed again after making to the *Schedules* in this manner.
-
-It is perhaps easier to re-start both or one of the *Schedules* from scratch. To do so, one could execute from the command line:
+Once the *Schedules* are running, you will see new jobs popping up in the normal |RELION| GUI. As soon as you start seeing some results, you may find that you want to change some of the parameters. To make stopping and restarting a *Schedule* easier, there is another GUI: ``relion_schedulegui.py``. It needs to be launched for each running *Schedule* separately. The :runbutton:`Save &run` button above, will have launched one for both the ``prec`` and ``proc`` *Schedule*, but you can also launch it from the command line:
 
 ::
 
-     rm -rf Schedules/prep #and/or Schedules/proc
-     relion_it.py relion_it_options.py
+     relion_schedulegui.py proc &
 
-and then change the necessary parameters on the ``relion_it.py`` GUI, and re-launch (only!) the necessary *Schedule* through the options on its `Computation details` section. This will launch new jobs inside the |RELION| pipeline. You could manually delete the jobs you don't need anymore from the :button:`Job actions` button on the main |RELION| GUI.
+This GUI will look for the hidden directory (``.relion_lock_schedule_proc``) that locks this *Schedule* to see whether it is running or not, and it will update the ``Current`` entry to indicate at what job or operator the *Schedule* currently is. 
+
+To stop a running *Schedule*, press the :runbutton:`Abort` button and wait for the underlying jobs and the scheduler to receive the abort signal. Depending on what the *Schedule* is executing, this may take a bit of time. Once it has been aborted, you can then change options to specific jobs through the ``Set Job option`` section, or change variables in the *Schedule* through the ``Set Schedule variable`` section. (The GUI still needs some work here to make this easier and more error-resistant). 
+
+After changing variables to any job, it's status will be reverted to ``has not started``, meaning that a new |RELION| job will be launched next time the *Schedule* comes across it. For any ``continue`` type of job (like :jobtype:`Motion correction`,  :jobtype:`CTF estimation`, :jobtype:`Auto-picking` or :jobtype:`Particle extraction`), a new job will only be launched if that job's options were changed, or if the options were changed for any job that came before that job. Otherwise, the job will just continue, and thereby already performed calculations will not be repeated.
+
+To start the *Schedule* again, press the :runbutton:`Restart` button. The *Schedule* will be executed from the job or operator specified on the ``Current`` entry. If you want, you can change this from the point where it was aborted. If you want to restart the *Schedule* all the way from the beginning, then press the :runbutton:`Reset` button, before pressing :runbutton:`Restart`.
+
+Sometimes, a *Schedule* dies because of an error, not because of it finishing or being aborted. In that case, the lock directory (``.relion_lock_schedule_proc``) needs to be deleted, before the *Schedule* can be used again. Press the :runbutton:`Unlock` button to print instructions on how to do that. (TODO: implement this through a popup window from the GUI...)
+ 
 
 Control more options
 --------------------
@@ -186,11 +195,11 @@ Not all options of all |RELION| jobs, or all of the parameters of the *Schedules
 For this, use double underscores to separate ``SCHEDULENAME__JOBNAME__JOBOPTION`` for any option. 
 Some options are already in the default file and would need to be edited. Other options can be added to the file.
 
-E.g. to change the number of 2D classes (``nr_classes``) in the ``class2d_logbatch`` job of the the ``proc`` Schedule, you can add the following line to the  ``relion_it_options.py`` file: 
+E.g. to change the number of 2D classes (``nr_classes``) in the ``class2d_ini`` job of the the ``proc`` Schedule, you can add the following line to the  ``relion_it_options.py`` file: 
 
 ::
 
-     'proc__class2d_logbatch__nr_classes', '200', 
+     'proc__class2d_ini__nr_classes', '200', 
 
 Likewise, use ``SCHEDULENAME__VARIABLENAME`` for variables in the *Schedules* themselves, e.g. to set de ``do_at_most`` variable, which determines the maximum number of micrographs that are processed in one cycle of the ``prep`` *Schedule*, edit this line:
 
@@ -201,3 +210,16 @@ Likewise, use ``SCHEDULENAME__VARIABLENAME`` for variables in the *Schedules* th
 
 Upon reading the options file, the ``relion_it.py`` script will set the corresponding values of all joboptions and schedule-variable values that are given in the input options file in the Schedule STAR files. Either the ``relion_it.py`` GUI or the |RELION| *Scheduler* GUI can then be used to execute the necessary *Schedule*.
 
+You can also save options for the relevant settings for your local setup in a second options file, e.g. ``relion_it_options_LMB-Krios1.py``, and then call ``relion_it.py`` with those, e.g.:
+
+::
+
+     relion_it.py relion_it_options_LMB-Krios1.py relion_it_options.py &
+
+If the same option is specified in multiple options files, the value in the last file on the command line will be used. 
+
+One could even make a specific command for each microscopy setup by using an alias like:
+
+::
+
+     alias relion_it_krios1.py 'relion_it.py relion_it_options_LMB-Krios1.py'
