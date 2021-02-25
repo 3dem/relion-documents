@@ -12,7 +12,7 @@ Release 3.1
 **Aberration corrections and optics groups**
 
 One of the major new features in |RELION|-3.1 is a correction for higher-order aberrations in the data, i.e. besides the beamtilt correction already present in |RELION|-3.0, the current version can also estimate and correct for trefoil and tetrafoil, as well as deviations from the nominal spherical aberration (Cs).
-The corresponding paper can be found on bioRxiv :cite:`Zivanov_estimation_2019`.
+The corresponding paper can be found on bioRxiv :cite:`Zivanov_estimation_2020`.
 The signal to estimate these aberrations is calculated by averaging over particles from multiple micrographs.
 To allow for multiple subsets of a data set having different Zernike coefficients, |RELION|-3.1 implements the new concept of *optics groups*.
 Optics groups are defined in a separate table called ``data_optics`` at the top of a STAR file, which will also contain a table called ``data_movies``, ``data_micrographs`` or ``data_particles``, depending on what type of images it refers to.
