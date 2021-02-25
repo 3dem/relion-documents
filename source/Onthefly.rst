@@ -11,6 +11,10 @@ The new program still carries the same name, and can be launched from your Proje
 
 This will launch the GUI, which contains several sections that need to be filled in by the user.
 
+.. note::
+
+     This script depends on pre-configured ``Schedules/prep`` and ``Schedules/proc`` *Schedules* that are distributed inside the `scripts` directory on the |RELION| source code. To find these, the environment variable ``RELION_SCRIPT_DIRECTORY`` needs to be set to point to this directory. You can also use this variable to point towards your own modified version of the *Schedules*.
+
 
 Computation settings
 --------------------
@@ -226,3 +230,5 @@ One could even make a specific command for each microscopy setup by using an ali
 ::
 
      alias relion_it_krios1.py 'relion_it.py relion_it_options_LMB-Krios1.py'
+
+
