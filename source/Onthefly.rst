@@ -201,8 +201,7 @@ Control more options
 Not all options of all |RELION| jobs, or all of the parameters of the *Schedules* themselves can be controlled from the ``relion_it.py`` GUI.
 You can still control all of these through manually editing the ``relion_it_options.py`` file.
 For this, use double underscores to separate ``SCHEDULENAME__JOBNAME__JOBOPTION`` for any option.
-Some options are already in the default file and would need to be edited.
-Other options can be added to the file.
+Some options are already in the default file, but any other options can be added.
 
 E.g. to change the number of 2D classes (``nr_classes``) in the ``class2d_ini`` job of the the ``proc`` Schedule, you can add the following line to the  ``relion_it_options.py`` file: 
 
@@ -232,3 +231,28 @@ One could even make a specific command for each microscopy setup by using an ali
      alias relion_it_krios1.py 'relion_it.py relion_it_options_LMB-Krios1.py'
 
 
+Site-specific setup
+-------------------
+
+At the very least, you will need to change the position of the executables for |CTFFIND4.1| or `Gctf` and |Topaz|, but you may also want to tweak the default settings for number of threads or MPI processors for the different jobs. So, you local setup options file will likely include options like:
+
+::
+
+     {
+     'prep__ctffind__fn_ctffind_exe' : '/wherever/ctffind/ctffind.exe', 
+     'prep__ctffind__fn_gctf_exe' : '/wherever/Gctf/bin/Gctf', 
+     'proc__inipicker__fn_topaz_exe' : '/wherever/topaz/topaz', 
+     'proc__restpicker__fn_topaz_exe' : '/wherever/topaz/topaz', 
+     'proc__train_topaz__fn_topaz_exe' : '/wherever/topaz/topaz', 
+     'prep_motioncorr__nr_threads' : '16',
+     'proc_restpicker__nr_mpi' : '4',
+     'proc_extract_ini__nr_mpi' : '4',
+     'proc_extract_rest__nr_mpi' : '4',
+     'proc_class2d_ini__nr_threads' : '12',
+     'proc_class2d_rest__nr_threads' : '12',
+     'proc_inimodel3d__nr_threads' : '12',
+     'proc_refine3d__nr_threads' : '8',
+     'proc_refine3d__nr_mpi' : '3'
+     }
+
+Remember it is also possible to edit the ``job.star`` and ``schedule.star`` files inside your own copy of the ``Schedules/prep`` and ``Schedules/proc`` directories, and use the environment variable ``$RELION_SCRIPT_DIRECTORY`` to point towards the modified scripts. That alternative that would no longer rely on specifying an extra options file. 
