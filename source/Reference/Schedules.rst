@@ -90,6 +90,8 @@ The following types of operators act on an `output` that is a *floatVariable*:
 
 The following types of operators act on an `output` that is a *booleanVariable*:
 
+``bool=set``
+    `output` = *booleanVariable* `input1`
 ``bool=and``
     `output` = *booleanVariable* `input1` AND *booleanVariable* `input2`
 ``bool=or``
@@ -115,6 +117,8 @@ The following types of operators act on an `output` that is a *booleanVariable*:
 
 The following types of operators act on an `output` that is a *stringVariable*:
 
+``string=set``
+    `output` = *stringVariable* `input1`
 ``string=join``
     `output` = concatenate *stringVariable* `input1` and *stringVariable* `input2`
 ``string=before_first``
