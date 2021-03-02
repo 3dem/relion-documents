@@ -94,8 +94,8 @@ For every iteration of 2D or 3D classification |RELION| performs, it writes out 
 For the last iteration of our 2D class averaging calculation these are:
 
 
--   ``Class2D/template/run_it100_classes.mrcs`` is the MRC stack with the resulting class averages.
-    These are the images that will be displayed in the |RELION| GUI when you select the `_model.star` file from the :button:`Display:` button on the main GUI.
+-   ``Class2D/job013/run_it100_classes.mrcs`` is the MRC stack with the resulting class averages.
+    These are the images that will be displayed in the |RELION| GUI when you select the `_optimiser.star` file from the :button:`Display:` button on the main GUI.
     Note that |RELION| performs full CTF correction (if selected on the GUI), so your class averages are probably white on a black background.
     If the data is good, often they are very much like projections of a low-pass filtered atomic model.
     The quality of your 2D class averages are a very good indication of how good your 3D map will become.
@@ -103,27 +103,29 @@ For the last iteration of our 2D class averaging calculation these are:
     Radially extending streaks in the solvent region are a typical sign of overfitting.
     If this happens, you could try to limit the resolution in the E-step of the 2D classification algorithm.
 
--   ``Class2D/template/run_it100_model.star`` contains the model parameters that are refined besides the actual class averages (i.e. the distribution of the images over the classes, the spherical average of the signal-to-noise ratios in the reconstructed structures, the noise spectra of all groups, etc.
+-   ``Class2D/job013/run_it100_model.star`` contains the model parameters that are refined besides the actual class averages (i.e. the distribution of the images over the classes, the spherical average of the signal-to-noise ratios in the reconstructed structures, the noise spectra of all groups, etc.
     Have a look at this file using the ``less`` command.
     In particular, check the distribution of particles over each class in the table ``data_model_classes``.
     If you compare this with the class averages themselves, you will see that particles with few classes are low-resolution, while classes with many particles are high-resolution.
     This is an important feature of the Bayesian approach, as averaging over fewer particles will naturally lead to lower signal-to-noise ratios in the average.
-    The estimated spectral signal-to-noise ratios for each class are stored in the ``data_model_class_N`` tables, where N is the number of each class.
+    The estimated spectral signal-to-noise ratios for each class are stored in the ``data_model_class_N`` tables, where ``N`` is the number of each class.
     Likewise, the estimated noise spectra for each group are stored in the tables called ``data_model_group_N``.
     The table ``data_model_groups`` stores a refined intensity scale-factor for each group: groups with values higher than one have a stronger signal than the average, relatively low-signal groups have values lower than one.
     These values are often correlated with the defocus, but also depend on accumulated contamination and ice thickness.
 
--   ``Class2D/template/run_it100_data.star`` contains all metadata related to the individual particles.
+-   ``Class2D/job013/run_it100_data.star`` contains all metadata related to the individual particles.
     Besides the information in the input ``particles.star`` file, there is now additional information about the optimal orientations, the optimal class assignment, the contribution to the log-likelihood, etc.
     Note that this file can be used again as input for a new refinement, as the :textsc:`star` file format remains the same.
 
--   ``Class2D/template/run_it100_optimiser.star`` contains some general information about the refinement process that is necessary for restarting an unfinished run.
+-   ``Class2D/job013/run_it100_optimiser.star`` contains some general information about the refinement process that is necessary for restarting an unfinished run.
     For example, if you think the process did not converge yet after 25 iterations (you could compare the class averages from iterations 24 and 25 to assess that), you could select this job in the :joblist:`Finished jobs` panel, and on the :guitab:`I/O` tab select this file for ``Continue from here``, and then set ``Number of iterations: 40`` on the :guitab:`Optimisation` tab.
     The job will then restart at iteration 26 and run until iteration 40.
     You might also choose to use a finer angular or translational sampling rate on the :guitab:`Sampling` tab.
     Another useful feature of the optimiser.star files is that it's first line contains a comment with the exact command line argument that was given to this run.
+    As of release-4.0, |RELION| also uses the optimiser.star files as input nodes for different types of subsequent jobs. 
+    For example, it replaces the model.star input nodes for :jobtype:`Subset selection` jobs.
 
-- ``Class2D/template/run_it100_sampling.star`` contains information about the employed sampling rates.
+- ``Class2D/job013/run_it100_sampling.star`` contains information about the employed sampling rates.
     This file is also necessary for restarting.
 
 
