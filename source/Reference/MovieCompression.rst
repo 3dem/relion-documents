@@ -69,7 +69,6 @@ This feature needs RELION >= 3.1.1.
 
     Use the physical pixel size for 4K rendering. **For 8K rendering, the pixel size should be half of the physical size.**
 
-
 4.  Run motion correction.
 
     - Specify the value decided in the step 1 to ``EER fractionation``.
@@ -336,7 +335,7 @@ Falcon 3 counting
 
 `FoilHole_24156969_Data_24154827_24154828_20170425_0847_Fractions.tif <ftp://ftp.ebi.ac.uk/empiar/world_availability/10309/data/Movies/FoilHole_24156969_Data_24154827_24154828_20170425_0847_Fractions.tif>`_ from `EMPIAR-10309 <https://www.ebi.ac.uk/pdbe/emdb/empiar/entry/10309/>`_ (A2a receptor).
 The deposited file is already in TIFF, but decompressed to 16 bit integer MRC for testing.
-4096 x 4096 pixels, 75 frames, 16 bit integer, mean = 36.644 (e.g. 0.36 e/px/frame)
+4096 x 4096 pixels, 75 frames, 16 bit integer, mean = 36.644 (i.e. 0.36 e/px/frame)
 
 *   16 bit integer MRC: 2,516,583,424
 *   IMOD mrc2tif, lzw: 1,583,972,550 (62.9 %)
@@ -377,3 +376,23 @@ K2 counting, gain non-normalised from EPU
 
 By saving in the gain non-normalised mode, the integer MRC file is one forth the size of the floating point MRC file (32 / 8 = 4).
 LZW compression further reduces the size.
+
+Falcon 4 EER
+^^^^^^^^^^^^
+
+`FoilHole_13722039_Data_13716084_13716086_20200315_0111_Fractions.mrc.eer <ftp://ftp.ebi.ac.uk/empiar/world_availability/10500/data/CFEG-5eV-withoutOA/FoilHole_13722039_Data_13716084_13716086_20200315_0111_Fractions.mrc.eer>`_ from `EMPIAR-10500 <https://www.ebi.ac.uk/pdbe/emdb/empiar/entry/10500/>`_ (GABAA receptor).
+The deposited file is in the EER format.
+The file is converted to LZW-TIFF at different temporal resolutions (frame grouping) and spatial resolutions (4K physical grid or 8K super-resolution grid).
+4096 x 4096 pixels, 0.725 Å/px, 1113 detector frames, mean = 20.275 (i.e. 0.0182 e/px/frame)
+
+*   Original EER: 498,516,028
+*   LZW-TIFF, 4K, group by 24 (0.44 e/px/fraction, 0.83 e/Å/fraction): 146,363,549 (29.4 %)
+*   LZW-TIFF, 4K, group by 16 (0.29 e/px/fraction, 0.55 e/Å/fraction): 175,643,049 (35.2 %)
+*   LZW-TIFF, 4K, group by 12 (0.22 e/px/fraction, 0.41 e/Å/fraction): 198,052,039 (39.7 %)
+*   LZW-TIFF, 4K, group by 8  (0.15 e/px/fraction, 0.28 e/Å/fraction): 233,619,295 (46.9 %)
+*   LZW-TIFF, 8K, group by 24 (0.83 e/Å/fraction): 257,857,873 (51.7 %)
+*   LZW-TIFF, 8K, group by 16 (0.55 e/Å/fraction): 296,274,173 (59.4 %)
+*   LZW-TIFF, 8K, group by 12 (0.41 e/Å/fraction): 325,821,955 (65.4 %)
+*   LZW-TIFF, 8K, group by 8  (0.28 e/Å/fraction): 373,938,153 (75.0 %)
+
+Although EER files are smaller than Falcon MRC files written by EPU, they can be made even smaller by fractionation to a reasonable temporal resolution.
