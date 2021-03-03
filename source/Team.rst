@@ -38,7 +38,7 @@ Together with Jasenko, he co-developed a new approach for *sub-tomogram averagin
 Takanori Nakane
 ^^^^^^^^^^^^^^^
 
-`Google Scholar <https://scholar.google.co.jp/citations?user=czk0JLkAAAA>`__
+`Google Scholar <https://scholar.google.co.jp/citations?user=czk0JLkAAAAJ>`__
 
 Takanori studied as an M.D. at Kyoto University, where he also obtained his PhD in Medicine.
 In 2014 he also obtained an M.Phil in Computational Biology from the University of Cambridge.
