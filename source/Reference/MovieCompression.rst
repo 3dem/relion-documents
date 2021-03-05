@@ -30,6 +30,7 @@ Because of this feature, Falcon3 and Falcon4 movies do not compress well.
 Typically, one can reduce the size to about 50 to 60 % of the original movie by TIFF with the **deflate filter** (also called zip filter).
 The LZW filter is faster but gives larger files.
 
+By converting to TIFF from EER, you can avoid this blob convolution. Keep reading below.
 
 Falcon4 EER
 -----------
@@ -90,9 +91,10 @@ will change the sampling to 8K and the fractionation to 8 frames.
 The output will be ``MotionCorr/job002/corrected_micrographs_up2_gr8.star``, which should be specified to a Polish job.
 Note that the extraction box size for Polish is in pixels of the rendered movie.
 
-The gain reference for EER is different from multiplicative gain references for K2/K3.
-When the movie is in EER format, RELION will **divide** raw pixel values with the provided gain.
-When the gain is zero, the pixel is considered as defective.
+The gain reference for EER has confusing convention due to historical reasons.
+When the movie is in the EER format and the gain reference is in the MRC format, RELION will **divide** raw pixel values with the provided gain.
+In contrast, if the gain reference is given in the TIFF format with the ``.gain`` extension (as written by newer versions of the Falcon software), RELION will **multiply** raw pixel values with the provided gain (as is done for K2/K3).
+In any case, when the gain is zero, the pixel is considered as defective.
 The gain reference can be 8K x 8K or 4K x 4K.
 If the size of the gain reference and the size requested by ``--eer_upsampling`` do not match, the gain reference is upsampled / downsampled.
 
@@ -100,6 +102,7 @@ If memory usage is a concern, consider building RELION in CPU single precision (
 
 Another useful tool is ``relion_convert_to_tiff``, which renders an EER movie into a compressed integer TIFF.
 You can render in 4K or 8K (``--eer_upsampling``) with specified fractionation (``--eer_grouping``).
+This can further reduce file sizes by sacrificing spatial and temporal resolutions to a reasonable value.
 Due to the different meanings of the gain reference for EER and TIFF, you have to take the inverse of the EER gain reference before processing the resulting TIFF files.
 The tool performs this conversion when the EER gain reference is specified in the ``--gain`` option.
 
@@ -396,3 +399,5 @@ The file is converted to LZW-TIFF at different temporal resolutions (frame group
 *   LZW-TIFF, 8K, group by 8  (0.28 e/Å/fraction): 373,938,153 (75.0 %)
 
 Although EER files are smaller than Falcon MRC files written by EPU, they can be made even smaller by fractionation to a reasonable temporal resolution.
+By converting to LZW-TIFF from EER, you can avoid 3x3 blob convolution and get smaller files than converting from MRC.
+Since electrons are rendered as dots in EER (as in K2/K3), LZW filter is faster and produces smaller files than the deflate filter.
