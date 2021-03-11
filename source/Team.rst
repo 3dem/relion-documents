@@ -31,7 +31,7 @@ Joaquín Otón
 
 `Google Scholar <https://scholar.google.co.jp/citations?user=g2ZJPIYAAAAJ>`__
 
-Joaquin (Kino) studied Physics at Universitat de Vàlencia (Spain) and did a PhD in Optical Engineering at Universitat Politècnica de Catalunya. He joined the neighbouring Briggs group in 2018s.
+Joaquin (Kino) studied Physics at Universitat de Vàlencia (Spain) and did a PhD in Optical Engineering at Universitat Politècnica de Catalunya. He joined the neighbouring Briggs group in 2018.
 Together with Jasenko, he co-developed a new approach for *sub-tomogram averaging*.
 
 
