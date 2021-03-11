@@ -26,12 +26,12 @@ Dari implemented *GPU-acceleration* during his PhD.
 For his postdoc at LMB, he works on the incorporation of *more informative priors* through deep convolutional neural networks, as well as on the design of more efficient *optimisation algorithms*.
 
 
-Joaquin Oton
+Joaquín Otón
 ^^^^^^^^^^^^
 
 `Google Scholar <https://scholar.google.co.jp/citations?user=g2ZJPIYAAAAJ>`__
 
-Joaquin (Kino) studied XXX and joined the neighbouring Briggs group in XXXX.
+Joaquin (Kino) studied Physics at Universitat de Vàlencia (Spain) and did a PhD in Optical Engineering at Universitat Politècnica de Catalunya. He joined the neighbouring Briggs group in 2018s.
 Together with Jasenko, he co-developed a new approach for *sub-tomogram averaging*.
 
 
