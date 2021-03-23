@@ -8,6 +8,7 @@ Reference pages
    PixelSizeIssues
    Schedules
    Helix
+   STA/index
    Subtomogram
    Using-RELION
    Conventions

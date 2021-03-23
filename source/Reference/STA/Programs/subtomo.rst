@@ -1,0 +1,10 @@
+.. _program_tomo_subtomo:
+
+relion_tomo_subtomo
+===================
+
+This program creates *pseudo subtomograms* that can be fed into ``relion_refine`` to perform subtomogram alignment. Those pseudo subtomograms are not meant to represent the actual density distributions of the particles, but instead abstract 3D image terms that allow ``relion_refine`` to approximate the cost function that would arise if the alignment were to be performed on the stack of corresponding 2D images instead. Specifically, each pseudo subtomogram consists of a sum of CTF-weighted observations (data term) as well as the corresponding sum of CTF² terms (weight term). In addition, the output weight term also contains - concatenated along the Z axis - a 3D multiplicity-image (number of Fourier slices contributing to each Fourier voxel) that allows ``relion_refine`` to estimate a spherically symmetrical noise distribution.
+
+The reconstructed pseudo subtomograms consider the motion of the particles as well as higher-order aberrations, if either have been estimated. The program will output a new :ref:`particle set`, as well as a new optimisation set in which the initial particle set has been replaced by the newly generated one. That particle set can be fed into ``relion_refine``.
+
+If a subtomogram orientation has been defined (see particle set), then the subtomogram will be constructed in that coordinate system. If the approximate orientation of the particle is known a-priori from the surrounding geometry, this allows angle priors to be used in ``relion_refine`` to avoid searching through implausible orientations. In particular, for particles sampled from a manifold (using relion_tomo_sample_manifold), the Z axis of the subtomogram coordinate-system is always perpendicular to the local manifold. A strong tilt-angle prior can then be applied to only search through orientations that do not tilt the particle too far away from that orientation, while leaving the remaining two angles unconstrained (i.e. the direction of tilt and the rotation around the Z axis).
