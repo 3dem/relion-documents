@@ -25,5 +25,14 @@ On the :guitab:`Others` tab, make sure the following is set:
 
 :Import other node types?: No
 
+Inside the newly created directory, together with the :textsc:`particle set` ``particles.star`` file, an :textsc:`optimiser_set.star` is also created. It contains a table with the properties for each tomogram and the projection matrices, astigmatic defocus and cumulative radiation dose per tilt frame in a table for each tomogram (See `relion_tomo_import_tomograms`_ program help).
+
+Have a look at it using:
+
+::
+
+    less ImportTomo/job001/tomograms.star
+
+
 If you had preprocessed your particles in a different project, you would use the same :jobtype:`ImportTomo` job-type to import particles :textsc:`star` file, 3D references, 3D masks, etc, on the :guitab:`Others` tab.
 Note that this is NOT the recommended way to run |RELION|, and that the user is responsible for generating correct :textsc:`star` files.
