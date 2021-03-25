@@ -70,7 +70,7 @@ To do so, use the shell command-line::
 This will create a local Git repository.
 All subsequent git-commands should be run inside this directory.
 
-The code will be intermittently updated to amend minor issues detected during beta-development.
+The code will be intermittently updated to amend minor issues.
 To incorporate these changes, use the command-line::
 
      git pull
@@ -195,7 +195,7 @@ Forcing build and use of local FLTK:
     If any of these are not detected during configuration, this will happen automatically anyway, and you should not have to specify the below options manually.
 
 Specify location of libtiff:
-    ``cmake -DTIFF_INCLUDE_DIR=/path/to/include -DTIFF_LIBRARY=/path/to/libtiff.so.5.``
+    ``cmake -DTIFF_INCLUDE_DIR=/path/to/include -DTIFF_LIBRARY=/path/to/libtiff.so.5``
 
     This option is to use libtiff installed in non-standard location.
 
@@ -210,6 +210,29 @@ Specifying an installation location:
     Do not specify the ``build`` directory itself as ``CMAKE_INSTALL_PREFIX``.
     This does not work!
     If you are happy with binaries in the build directory, leave ``CMAKE_INSTALL_PREFIX`` as default and omit the ``make install`` step.
+
+Enable accelerated CPU code path:
+    ``cmake -DALTCPU=ON``
+
+    Note that this is mutually exclusive with GPU acceleration (``-DCUDA=ON``).
+    Intel compilers are recommended for this option (see below).
+
+Use Intel compilers:
+    Intel compilers often generate faster binaries for Intel CPUs, especially when combined with the accelerated CPU code path above.
+    Intel compilers are available free of chage as part of `Intel oneAPI HPC toolkit <https://software.intel.com/content/www/us/en/develop/tools/oneapi/hpc-toolkit.html>`_.
+    To use Intel compilers, run below after sourcing Intel compilers' initialization scripts::
+
+        cmake .. -DMKLFFT=ON \
+        -DCMAKE_C_COMPILER=icc -DCMAKE_CXX_COMPILER=icpc -DMPI_C_COMPILER=mpiicc -DMPI_CXX_COMPILER=mpiicpc \
+        -DCMAKE_C_FLAGS="-O3 -ip -g -xCOMMON-AVX512 -restrict " \
+        -DCMAKE_CXX_FLAGS="-O3 -ip -g -xCOMMON-AVX512 -restrict "
+
+    This generates binaries optimized with AVX512 instructions.
+    If your CPU supports only up to AVX256, use ``-xCORE-AVX2`` instead of ``-xCOMMON-AVX512``.
+
+    If you don't want to use Intel MPI, change ``mpiicc`` and ``mpiicpc`` accordingly.
+    For example, to use OpenMPI with Intel compilers, specify ``mpicc`` and ``mpiicc`` after setting environmental variables ``OMPI_C=icc`` and ``OMPI_CXX=icpc``.
+    See `OpenMPI FAQ <https://www.open-mpi.org/faq/?category=mpi-apps#override-wrappers-after-v1.0>`_ for details.
 
 
 Set-up queue job submission
