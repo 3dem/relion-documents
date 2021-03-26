@@ -8,7 +8,7 @@ It is roughly equivalent to the corresponding particles file used by the SPA pro
 It is also the only tomography data file that can be understood by the SPA programs in |RELION|.
 
 Like an SPA particle set, the tomography particle set consists of an optics table and a particle table.
-Unlike in an SPA particle set, the coordinates of the particles are given in 3 dimensions (``rlnCoordinate<X/Y/Z>`` and ``rlnOrigin<X/Y/Z>Angst``), and each particle also requires a tomogram name (``rlnTomoName``) that identifies the particle's tomogram of origin, as defined in the :ref:`sec_sta_tomogram_set`.
+Unlike in an SPA particle set, the coordinates of the particles are given in 3 dimensions (``rlnCoordinate<X/Y/Z>`` and ``rlnOrigin<X/Y/Z>Angst``), and each particle also requires a tomogram name (``rlnTomoName``) that identifies the particle's tomogram of origin, as defined in the |tomogram_set|.
 
 Also unlike in SPA, the tomography particles should not be thought of as pixel data stored on disk, but instead as abstract entities defined in this file.
 The 3D images that are used for refinement can be created using the program :ref:`program_tomo_subtomo`, but they should be regarded as transient data that become invalid once any of the other properties of their tomograms have been updated.
@@ -26,3 +26,4 @@ There are currently two ways in which a new particle set can be created: it can 
 In the latter case, the program will automatically define the subtomogram orientations in relation to the manifold, such that the Z axis of the (yet to be created) subtomograms will point perpendicularly to the manifold.
 A more detailed description on how to import particles from existing data sets is provided in :ref:`program_tomo_import_particles`.
 
+.. |tomogram_set| replace:: :ref:`tomogram set <sec_sta_tomogram_set>`

@@ -19,6 +19,6 @@ Each row of a table corresponds to one manifold, listing its:
 The parameter set varies depending on the manifold type: for spheres, the first 3 coefficients describe the position of the centre of the sphere, while the fourth describes its radius. For spheroids, the first 3 coefficients also describe the position, while the remaining ones are coefficients that describe the contribution of each Spherical Harmonics basis function. Please note that for spheroids, the fourth parameter is *not* equal to the radius, but to the radius multiplied by :math:`{2\sqrt \pi}`.
 Every consecutive parameter then distorts the sphere of that radius by applying higher-order Spherical Hamonics functions.
 
-Given a set of manifolds, the program :ref:`program_tomo_sample_manifold` allows the user to sample particles along each manifold, generating a novel :ref:`tomogram set <sec_sta_particle_set>`.
+Given a set of manifolds, the program :ref:`program_tomo_sample_manifold` allows the user to sample particles along each manifold, generating a novel :ref:`particle set <sec_sta_particle_set>`.
 Those particles are aligned such that their Z direction points perpendicularly to the surface normal of the manifold.
 This allows strong tilt priors to be applied during refinement in order to save time.
