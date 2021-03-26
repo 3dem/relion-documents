@@ -9,7 +9,6 @@ Reference pages
    Schedules
    Helix
    STA/index
-   Subtomogram
    Using-RELION
    Conventions
    DeveloperGuide

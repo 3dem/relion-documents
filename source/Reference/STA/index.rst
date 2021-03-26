@@ -39,6 +39,7 @@ These are the most relevant tomography-related programs in |RELION|:
    Programs/find_fiducials
    Programs/add_spheres
    Programs/sample_manifold
+   previousSubtomogram
 
 
 Core programs
@@ -71,3 +72,9 @@ Utility programs
 - :ref:`program_tomo_find_fiducials` : detects the fiducial markers in a given data set.
 - :ref:`program_tomo_sample_manifold` : samples a set of particle positions and orientations from a :ref:`set of manifolds <sec_sta_manifold_set>`.
 
+
+
+Previous pipeline
+-----------------
+
+- :ref:`|RELION| 1.4 subtomogram averaging pipeline <sec_sta_relion1.4>`.
