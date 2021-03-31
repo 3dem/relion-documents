@@ -12,6 +12,11 @@ We'll call this the project directory. **It is important to always launch the RE
 We like to call this directory ``Movies/`` if all movies are in one directory, or for example ``Movies/15jan16/`` and ``Movies/23jan16/`` if they are in different directories (e.g. because they were collected on different dates).
 If for some reason you do not want to place your movies inside the |RELION| project directory, then inside the project directory you can also make a symbolic link to the directory where your movies are stored.
 
+.. note::
+    The project directory must be in a file system that supports symbolic links.
+    Running RELION on FAT32 or NTFS disks results in errors at later steps (e.g. CtfFind).
+    You can use movies on FAT32 or NTFS disks by making symbolic links to a project directory, but the project directory itself cannot reside on such a file system.
+
 Single-image micrographs should have a ``.mrc`` extension, movies can have a ``.mrc``, ``.mrcs``, ``.tif`` or ``.tiff`` extension.
 When you unpacked the tutorial test data, the (``Movies/``) directory was created.
 It should contain 24 movies in compressed TIFF format, a gain-reference file (``gain.mrc``) and a ``NOTES`` file with information about the experiment.
