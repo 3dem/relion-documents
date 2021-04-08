@@ -106,6 +106,11 @@ This can further reduce file sizes by sacrificing spatial and temporal resolutio
 Due to the different meanings of the gain reference for EER and TIFF, you have to take the inverse of the EER gain reference before processing the resulting TIFF files.
 The tool performs this conversion when the EER gain reference is specified in the ``--gain`` option.
 
+.. note::
+    EPU displays the one-seventh of the real number of frames in EER, as `reported in CCPEM <https://www.jiscmail.ac.uk/cgi-bin/wa-jisc.exe?A2=CCPEM;5a518bef.2104>`_.
+    This issue has been reported and will be fixed in a future EPU release.
+    Meanwhile, check the real number of frames by running ``relion_convert_to_tiff`` on one of the movies.
+    The command will print "Found X raw frames."
 
 Gatan K2 / K3 in counting or super-resolution mode
 --------------------------------------------------
