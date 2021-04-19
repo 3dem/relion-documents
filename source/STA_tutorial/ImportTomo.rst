@@ -3,7 +3,6 @@
 Import tomograms
 ================
 
-
 Getting organised
 -----------------
 
@@ -16,7 +15,7 @@ If for some reason you do not want to place your movies inside the |RELION| proj
 
 |RELION| uses the original tilt series stack prior to tilt axis alignment and imports the alignment data from Imod. The tomogram folder should contain: a stack file, with extension ``.st``, ``.mrc`` or ``mrcs``; the ``newst.com`` and ``tilt.com`` script files, where the transformation and tilt angles filenames are obtained from, together with tomogram dimensions, offsets and excluded views. Particle coordinates should refer to tomograms reconstructed using this information.
 
-The first step to do is to import the set of tomograms into the pipeline. To do that, we must first create a description ``.star`` file containing the required information, one row per tomogram. The basic fields are the tilt series stack filename, CTF estimated data filename and Imod project folder. The ``rlnTomoName`` label is a unique identifier per tomogram, automatically created if not provided (More information can be found in `relion_tomo_import_tomograms`_ program help). An example of ``tomograms_descr.star`` to use in this tutorial:
+The first step to do is to import the set of tomograms into the pipeline. To do that, we must first create a description ``.star`` file containing the required information, one row per tomogram. The basic fields are the tilt series stack filename, CTF estimated data filename and Imod project folder. The ``rlnTomoName`` label is a unique identifier per tomogram, automatically created if not provided (More information can be found in :ref:`program_tomo_import_tomograms` program help). An example of ``tomograms_descr.star`` to use in this tutorial:
 
 ::
 
@@ -92,7 +91,7 @@ On the :guitab:`Others` tab, make sure the following is set:
 You may provide a meaningful alias (for example: `tomograms`) for this job in the white field named ``Current job: Give_alias_here``.
 Clicking the :runbutton:`Run!` button will launch the job.
 A directory called ``ImportTomo/job001/`` will be created, together with a symbolic link to this directory that is called ``ImportTomo/tomograms``.
-Inside the newly created directory a :textsc:`tomogram set` ``tomograms.star`` file is created. It contains a table with the properties for each tomogram and the projection matrices, astigmatic defocus and cumulative radiation dose per tilt frame in a table for each tomogram (See `relion_tomo_import_tomograms`_ program help).
+Inside the newly created directory a :textsc:`tomogram set` ``tomograms.star`` file is created. It contains a table with the properties for each tomogram and the projection matrices, astigmatic defocus and cumulative radiation dose per tilt frame in a table for each tomogram (See :ref:`program_tomo_import_tomograms` program help).
 
 Have a look at it using:
 
