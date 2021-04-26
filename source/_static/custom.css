@@ -70,13 +70,13 @@ dl.field-list > dd > p:empty {
 }
 
 .runbutton {
-    background-color: rgb(170, 0, 170);
+    background-color: rgb(160, 30, 60);
     border: 1px; border-radius: 3px;
     padding: 2px 4px 2px 4px;
 }
 
 .button {
-    background-color: rgb(238, 130, 238);
+    background-color: rgb(200, 80, 110);
     border: 1px; border-radius: 3px;
     padding: 2px 4px 2px 4px;
 }

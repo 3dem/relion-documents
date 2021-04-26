@@ -42,8 +42,24 @@ RELION supports the following MRC modes.
 6:
     unsigned 16-bit integer
 
+12:
+    16-bit floating point (RELION extension)
+
 101:
     packed 4-bit integer (IMOD extension)
+
+The mode 12 is RELION's extension `proposed in 2021 <https://www.ccpem.ac.uk/mrc_format/mrc_proposals.php>`_ to save disk space.
+It uses `IEEE754, binary16 encoding <https://en.wikipedia.org/wiki/Half-precision_floating-point_format#IEEE_754_half-precision_binary_floating-point_format:_binary16>`_.
+Motion Correction (with RELION's own implementation, not UCSF MotionCor2), Extract, Polish and Subtract jobs can write them with the ``--float16`` option.
+All RELION programs can read mode 12 MRC files.
+External programs that use recent versions of `mrcfile Python package <https://github.com/ccpem/mrcfile>`_ can read them but other programs might not be able to read them.
+
+As of 2021 March,
+
+-   GCTF does not support float16.
+-   CTFFIND does not support float16 but RELION's motion correction job always writes power spectra in float32, which can be used in CTFFIND.
+-   Topaz does not support float16 but RELION's wrapper performs preprocessing from float16 to float32.
+    Thus, as long as you use Topaz via RELION's wrapper, training and picking work fine.
 
 STAR format
 -----------

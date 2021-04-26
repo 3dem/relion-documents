@@ -33,6 +33,7 @@ rst_prolog = """
 .. |RELION| replace:: :textsc:`relion`
 .. |MotionCor2| replace:: :textsc:`motioncor`\ 2
 .. |CTFFIND4.1| replace:: :textsc:`ctffind` 4.1
+.. |Topaz| replace:: :textsc:`topaz`
 """
 
 # -- General configuration ---------------------------------------------------
@@ -105,8 +106,8 @@ latex_elements = {
       \definecolor{guiBackground}{RGB}{230,230,240}
       \definecolor{guiBackground2}{RGB}{180,180,190}
       \definecolor{entryYellow}{RGB}{255,255,230}
-      \definecolor{buttonColor}{RGB}{238, 130, 238}
-      \definecolor{runButtonColor}{RGB}{170, 0, 170}
+      \definecolor{buttonColor}{RGB}{200,80,110}
+      \definecolor{runButtonColor}{RGB}{160, 30, 60}
 
       %% First paragram in field-list definitions (enabled by custom_field_list.py)
       \newcommand{\docutilsrolefieldlistfirstparagraph}[1] {\colorbox{entryYellow}{\small#1}}

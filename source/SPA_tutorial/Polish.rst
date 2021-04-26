@@ -13,23 +13,21 @@ Once the estimates have been obtained, one can then run the program again to fit
 Running in training mode
 ------------------------
 
-Using 16 threads in parallel, this job took 1 hour and 15 minutes on our computer.
+Using 16 threads in parallel, this job took almost 2 hours on our computer...
 If you do not want to wait for this, you can just proceed to `the next section <sec_polish>`_ and use the sigma-values from our precalculated results, which are already given in that section.
+For many data sets the default parameters on the GUI (:math:`\sigma_{\text{vel}}=0.2; \sigma_{\text{div}}=5000; \sigma_{\text{acc}}=2`) will also perform well, so people often skip training for :jobtype:`Bayesian polishing`.
 
-If you do want to run this job yourself, on the :guitab:`I/O` tab of the :jobtype:`Bayesian polishing` job-type set:
+If you do want to run the training job yourself, on the :guitab:`I/O` tab of the :jobtype:`Bayesian polishing` job-type set:
 
+:Micrographs (from MotionCorr):: MotionCorr/job002/corrected\_micrographs.star
 
-:Micrographs (from MotionCorr):: MotionCorr/relioncor2/corrected\_micrographs.star
-
-     (It is important that this :jobtype:`Motion correction` job has been run in |RELION|-3.0, or above. :jobtype:`Motion correction` jobs run |RELION|-2.1 or below will NOT work, as required metadata about the motion correction is not written out.
-
-:Particles (from Refine3D or CtfRefine):: Refine3D/ctfrefined/particles\_ctf\_refine.star
+:Particles (from Refine3D or CtfRefine):: Refine3D/job025/run\_data.star
 
      (These particles will be polished)
 
-:Postprocess STAR file: PostProcess/ctfrefined/postprocess.star
+:Postprocess STAR file: PostProcess/job026/postprocess.star
 
-     (the mask and FSC curve from this job will be used in the polishing prceodure.)
+     (the mask and FSC curve from this job will be used in the polishing procedure.)
 
 :First movie frame:: 1
 
@@ -39,6 +37,15 @@ If you do want to run this job yourself, on the :guitab:`I/O` tab of the :jobtyp
      Note that this is **not recommended** when performing Bayesian polishing in |RELION|.
      The B-factor weighting of the movie frames will automatically optimise the signal-to-noise ratio in the shiny particles, so it is best to include all movie frames.)
 
+:Extraction size (pix in unbinned movie): -1
+
+     (This option can be used to extract polished particles in a box with a different size than the ones from the input refinement above.
+     It is irrelevant for a training job.)
+
+:Re-scaled size (pixels): -1
+
+     (This option can be used to re-scale the polished particles to a different size than the ones from the input refinement above.
+     It is irrelevant for a training job.)
 
 On the :guitab:`Train` tab set:
 
@@ -48,7 +55,7 @@ On the :guitab:`Train` tab set:
 
      (Just leave the default here)
 
-:Use this many particles:: 4000
+:Use this many particles:: 3500
 
      (That's almost all we have anyway.
      Note that the more particles, the more RAM this program will take.
@@ -65,21 +72,21 @@ Note that the training step of this program has not been MPI-parallelised.
 Therefore, make sure you use only a single MPI process.
 We ran the program with 16 threads to speed it up.
 Still, the calculation took more than 1 hour.
-We used an alias of ``train``.
+
 
 .. _sec_polish:
 
 Running in polishing mode
 -------------------------
 
-Once the training step is finished, the program will write out a text file called ``Polish/train/opt_params.txt``.
+Once the training step is finished, the program will write out a text file called ``Polish/job027/opt_params.txt``.
 To use these parameters to polish your particles, click on the job-type menu on the left to select a new :jobtype:`Bayesian polishing` job.
 Keep the parameters on the :guitab:`I/O` tab the same as before, and on the :guitab:`Train` tab, make sure you switch the training off.
 Then, on the :guitab:`Polish` tab set:
 
 :Perform particle polishing?: Yes
 
-:Optimised parameter file:: Polish/train/opt\_params.txt
+:Optimised parameter file:: Polish/job027/opt\_params.txt
 
 :OR use your own parameters?: No
 
@@ -100,11 +107,11 @@ Alternatively, if you decided to skip the training set, then you can fill in the
 
 :OR use your own parameters?: Yes
 
-:Sigma for velocity (A/dose): 0.42
+:Sigma for velocity (A/dose): 0.474
 
-:Sigma for divergence (A): 1600
+:Sigma for divergence (A): 1770
 
-:Sigma for acceleration (A/dose): 2.61
+:Sigma for acceleration (A/dose): 3.21
 
 :Minimum resolution for B-factor fit (A):: 20
 
@@ -114,28 +121,31 @@ Alternatively, if you decided to skip the training set, then you can fill in the
 
 
 This part of the program is MPI-parallelised.
-Using 3 MPI processes, each with 16 threads, our run finished in two minutes.
-We used an alias of ``polish``.
-
-
-Analysing the results
----------------------
+Using 1 MPI process, with 16 threads, our run finished in twenty minutes. 
+We could have used multiple MPI processes to speed this up, although disk access may become limited.
 
 The :jobtype:`Bayesian polishing` job outputs a STAR file with the polished particles called `shiny.star` and a PDF logfile.
 The latter contains plots of the scale and B-factors used for the radiation-damage weighting, plus plots of the refined particle tracks for all included particles on all micrographs.
 Looking at the plots for this data set, it appeared that the stage was a bit drifty: almost all particles move from the top right to the bottom left during the movies.
 
+Re-running refinement and post-processing
+-----------------------------------------
+
 After polishing, the signal-to-noise ratio in the particles has improved, and one should submit a new :jobtype:`3D auto-refine` job and a corrsponding :jobtype:`Post-processing` job.
 We chose to run the :jobtype:`3D auto-refine` job with the shiny particles using the following option on the :guitab:`I/O` tab:
 
-:Reference mask (optional):: MaskCreate/first3dref/mask.mrc
+:Input images STAR file:: Polish/job028/shiny.star
+
+:Reference Map:: Refine3D/job025/run\_class001.mrc 
+
+:Reference mask (optional):: MaskCreate/job020/mask.mrc
 
      (this is the mask we made for the first :jobtype:`Post-processing` job.
      Using this option, the solvent will be set to zero for all pixels outside the mask.
      This reduces noise in the reference, and thus lead to better orientation assignments and thus reconstructions.)
 
 
-and this option on the :guitab:`Optmisation` tab:
+and this option on the :guitab:`Optimisation` tab:
 
 :Use solvent-flattened FSCs?: Yes
 
@@ -144,8 +154,11 @@ and this option on the :guitab:`Optmisation` tab:
      The default way of calculating FSCs in the 3D auto-refinement is without masking the (gold-standard) half-maps, which systematically under-estimates the resolution during refinement.
      This is remediated by calculating phase-randomised solvent-corrected FSC curves at every iteration, and this generally leads to a noticeable improvement in resolution.)
 
+Also, on the :guitab:`Auto-sampling` tab, we now set:
 
-As you can see in the pre-calculated results, we obtained a final resolution just beyond 2.8 Å.
+:Use finer angular sampling faster?: No
+
+As you can see in the pre-calculated results, after a final :jobtype:`Post-processing` job, we obtained an overall resolution of just beyond 2.9 Å.
 Not bad for 3GB of data, right?
 
 

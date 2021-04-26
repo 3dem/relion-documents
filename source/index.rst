@@ -14,18 +14,17 @@ It is developed in the group of `Sjors Scheres <https://www2.mrc-lmb.cam.ac.uk/g
 Table of Contents
 -----------------
 
+**These pages refer to RELION-4.0-beta.**
+
 -   :doc:`Whats-new`
 -   :doc:`Team`
 -   :doc:`Installation`
 -   :doc:`SPA_tutorial/index`
+-   :doc:`STA_tutorial/index`
+-   :doc:`Onthefly`
 -   :doc:`Reference/index`
 
 -   :ref:`search`
-
-.. attention::
-    We are in the process of migrating RELION documentation from `RELION wiki <https://www3.mrc-lmb.cam.ac.uk/relion/index.php/Main_Page>`_.
-    At the moment, all of RELION 3.1 tutorial has been migrated but most other things remain on the wiki.
-    Other wiki pages will be migrated and updated for the next major update of RELION.
 
 .. toctree::
     :maxdepth: 2
@@ -35,4 +34,6 @@ Table of Contents
     Team
     Installation
     SPA_tutorial/index
+    STA_tutorial/index
+    Onthefly
     Reference/index

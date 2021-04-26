@@ -8,7 +8,7 @@ Reference pages
    PixelSizeIssues
    Schedules
    Helix
-   Subtomogram
+   STA/index
    Using-RELION
    Conventions
    DeveloperGuide

@@ -3,12 +3,25 @@
     |RELION| is distributed under a GPLv2 license, i.e. it is completely free, open-source software for both academia and industry.
 
 
+..
+    TODO:
+
+    - Write about Torch
+
 Installation
 ============
 
 The sections below explain how to download and install |RELION| on your computer.
 
 Note that |RELION| depends on and uses several external programs and libraries.
+
+C++ compiler:
+    RELION 4.0 requires a C++ compiler that fully supports the C++11 standard.
+    For GCC, this means version 4.8.1 or later.
+    Note that GCC 4.4, which comes with RedHat Enterprise Linux or CentOS 6.x, is too old.
+
+    To use Torch related features, you need C++14 support.
+    For GCC, this means version 5.0 or later.
 
 MPI:
     Your system will need `MPI <https://en.wikipedia.org/wiki/Message_Passing_Interface>`_ runtime (most flavours will do).
@@ -38,8 +51,8 @@ FFT libraries:
     Depending on your CPU, `Intel MKL FFT <https://software.intel.com/mkl>`_ or `AMD optimised FFTW <https://developer.amd.com/amd-aocl/fftw/>`_ might run faster.
     See below how to use them.
 
-libtiff (optional):
-    RELION needs `libtiff <http://www.libtiff.org/>`_ version >= 4.0 to deal with TIFF files and EER movies.
+libtiff:
+    RELION needs `libtiff <http://www.libtiff.org/>`_ version >= 4.0.
     Most Linux distributions have packages called ``libtiff-dev`` or ``libtiff-devel``.
     Note that you need a developer package.
 
@@ -65,15 +78,20 @@ To get the code, you clone or download the repository.
 We recommend cloning, because it allows you very easily update the code when new versions are released.
 To do so, use the shell command-line::
 
-     git clone https://github.com/3dem/relion.git
+    git clone https://github.com/3dem/relion.git
 
 This will create a local Git repository.
 All subsequent git-commands should be run inside this directory.
 
-The code will be intermittently updated to amend minor issues.
+Note that the beta-release of |RELION|-4.0 is stored on a separate branch until it becomes the latest stable release.
+To switch to |RELION|-4.0-beta, just type::
+
+    git checkout ver4.0
+
+The code will be intermittently updated to amend issues.
 To incorporate these changes, use the command-line::
 
-     git pull
+    git pull
 
 inside you local repository (the source-code directory downloaded).
 If you have changed the code in some way, this will force you to commit a local merge.

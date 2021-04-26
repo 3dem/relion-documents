@@ -12,14 +12,9 @@ Running the job
 Unsupervised 3D classifcation may be run from the :jobtype:`3D classification` job-type.
 On the :guitab:`I/O` tab set:
 
-:Input images STAR file:: Select/class2d\_template/particles.star
+:Input images STAR file:: Select/job014/particles.star
 
-:Reference map:: InitialModel/symC1/run\_it150\_class001\_symD2.mrc
-
-     (Note that this map does not appear in the :button:`Browse` button as it is not part of the pipeline.
-     You can either type it's name into the entry field, or first import the map using the :jobtype:`Import` jobtype.
-     Also note that, because we wil be running in symmetry C1, we could have also chosen to use the non-symmetric ``InitialModel/job015/run_it150_class001.mrc``.
-     However, already being in the right symmetry setting is more convenient later on.)
+:Reference map:: InitialModel/job015/initial_model.mrc
 
 :Reference mask (optional):: \
 
@@ -50,10 +45,6 @@ On the :guitab:`Reference` tab set:
 On the :guitab:`CTF` tab set:
 
 :Do CTF correction?: Yes
-
-:Has reference been CTF-corrected?: Yes
-
-     (As this model was made using CTF-correction in the SGD.)
 
 :Ignore CTFs until first peak?: No
 
@@ -99,26 +90,64 @@ On the :guitab:`Optimisation` tab set:
 
 
 On the :guitab:`Sampling` tab one usually does not need to change anything (only for large and highly symmetric particles, like icosahedral viruses, does one typically use a 3.7 degree angular sampling at this point).
-Ignore the :guitab:`Helix` tab, and fill in the :guitab:`Compute` tab like you did for the previous :jobtype:`2D-classification`.
-Again, on the :guitab:`Running` tab, one may specify the ``Number of MPI processors`` and ``threads`` to use.
-As explained for the :jobtype:`2D classification` job-type, 3D classification takes more memory than 2D classification, so often more threads are used.
+Ignore the :guitab:`Helix` tab, and on the :guitab:`Compute` tab set:
+
+
+:Use parallel disc I/O?: Yes
+
+:Number of pooled particles:: 30
+
+:Skip padding?: No
+
+:Skip gridding?: Yes
+
+:Pre-read all particles into RAM?: Yes
+
+     (Again, this is only possible here because the data set is small. For your own data, you would like write the particles to a scratch disk instead, see below.)
+
+:Copy particles to scratch directory: \ 
+
+:Combine iterations through disc?: No
+
+:Use GPU acceleration?: Yes
+
+:Which GPUs to use: 0:1
+
+On the :guitab:`Running` tab, set:
+
+:Number of MPI procs: 3
+
+:Number of threads: 12
+
+3D classification takes more memory than 2D classification, so often more threads are used.
 However, in this case the images are rather small and RAM-shortage may not be such a big issue.
-Perhaps you could use an alias like ``first_exhaustive``, to indicate this is our first 3D classification and it uses exhaustive angular searches? On our computer with 4 GPUs, 5 MPIs and 6 threads, this calculation took approximately 10 minutes.
+On our computer with 4 GPUs, we used 5 MPIs and 6 threads, and this calculation took approximately 6 minutes.
 
 When analysing the resulting class reconstructions, it is extremely useful to also look at them in slices, not only as a thresholded map in for example UCSF :textsc:`chimera`.
 In the slices view you will get a much better impression of unresolved heterogeneity, which will show up as fuzzy or streaked regions in the slices.
 Slices also give a good impression of the flatness of the solvent region.
-Use the :button:`Display:` button and select any of the reconstructions from the last iteration to open a slices-view in |RELION|.
+Use the :button:`Display:` button and select any of the reconstructions from the last iteration to open a slices-view in |RELION|; you can also see a central slice through all classes simultaneously by selecting the ``run_it025_optimiser.star`` option from the :button:`Display:` button.
 
 When looking at your rendered maps in 3D, e.g. using UCSF :textsc:`chimera`, it is often a good idea to fit them all into the best one, as maps may rotate slightly during refinement.
 In :textsc:`chimera`, we use the ``[Tools]-[Volume Data]-[Fit in Map]`` tool for that.
 For looking at multiple maps alongside each other, we also like the ``[Tools]-[Structure Comparison]-[Tile Structures]`` tool, combined with the ``independent`` center-of-rotation method on the ``Viewing`` window.
 
-As was the case for the 2D classification, one can again use the :jobtype:`Subset selection` to select a subset of the particles assigned to one or more classes.
-On the :guitab:`I/O` tab select the ``_model.star`` file from the last iteration.
-The resulting display window will show central slices through the 4 refined models.
-Select the best classes, and save the corresponding particles using the right-mouse pop-up menu.
-Use an alias like ``class3d_first_exhaustive``.
+Selecting good particles for further processing
+-----------------------------------------------
+
+After the :jobtype:`3D classification` job has finished, we can launch another :jobtype:`Subset selection` job.
+
+On the :guitab:`I/O` tab, set:
+
+:Select classes from job:: Class3D/job016/run\_it25\_optimiser.star
+
+Because automated class selection has not been implemented for 3D classification, on the :guitab:`Class options` tab, we now need to set:
+
+:Automatically select 2D classes?: No
+
+We selected a single good class, discarding particles from 3 suboptimal classes. We retained just over 3800 particles.
+
+Note that this procedure of :jobtype:`2D classification` and :jobtype:`Subset selection` may be repeated several times.
 
 
 Analysing the results in more detail
@@ -137,7 +166,7 @@ Try typing:
 
 ::
 
-    relion_star_printtable Class3D/first_exhaustive/run_it025_model.star
+    relion_star_printtable Class3D/job016/run_it025_model.star
       data_model_class_1 rlnResolution rlnSsnrMap
 
 It will print the two columns with the resolution (``rlnResolution``) and the spectral signal-to-noise ratio (``rlnSsnrMap``) from table ``data_model_class_1`` to the screen.
@@ -146,14 +175,14 @@ Alternatively, if `gnuplot` is installed on your system, you may type:
 
 ::
 
-    relion_star_plottable Class3D/first_exhaustive/run_it025_model.star
+    relion_star_plottable Class3D/job016/run_it025_model.star
       data_model_class_1 rlnResolution rlnSsnrMap
 
 To check whether your run had converged, (as mentioned above) you could also monitor:
 
 ::
 
-    grep _rlnChangesOptimalClasses Class3D/first_exhaustive/run_it???_optimiser.star
+    grep _rlnChangesOptimalClasses Class3D/job016/run_it???_optimiser.star
 
 As you may appreciate by now: the :textsc:`star` files are a very convenient way of handling many different types of input and output data.
 Linux shell commands like ``grep`` and `awk`, possibly combined into scripts like ``relion_star_printtable``, provide you with a flexible and powerful way to analyze your results.
