@@ -8,7 +8,5 @@ TODO: Kino & Jasenko
 
    Introduction
    Preprocessing
-   ImportTomo
-   ImportCoords
    MakePseudosubtomos
    ReconstructPart
