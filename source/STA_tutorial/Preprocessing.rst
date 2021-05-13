@@ -73,7 +73,7 @@ The basic fields are the tilt series stack filename, CTF estimated data filename
 
 The ``rlnTomoName`` label is a unique identifier per tomogram, automatically created if not provided in this description file (More information can be found in :ref:`program_tomo_import_tomograms` program help). Note that in this dataset the electron dose is not constant so it should be provided in the description file instead of as a global parameter when importing tomograms.
 
-In the GUI, select ``Tomo import`` from the jobt-type browser on the left and fill in the following parameters on the :guitab:`Tomograms` tab:
+In the GUI, select :jobtype:`Tomo import` from the jobt-type browser on the left and fill in the following parameters on the :guitab:`Tomograms` tab:
 
 :Import tomograms?: Yes
 
@@ -129,7 +129,7 @@ The minimum required data to construct pseudo-subtomos is the set of 3D coordina
 Pixel coordinates should be related to dimensions and offsets given by ``newst.com`` ``tilt.com`` files for original pixel size (Bin1) (See :ref:`sec_sta_importomo`).
 During the import coordinates process, it checks if the tomogram names of all particles exist in the related |tomogram_set| ``tomograms.star`` file and adds the corresponding ``data_optics`` table to the output ``particles.star`` file.
 
-Select ``Tomo import`` from the jobt-type browser on the left and fill in the following parameters on the :guitab:`Coordinates` tab:
+Select :jobtype:`Tomo import` from the jobt-type browser on the left and fill in the following parameters on the :guitab:`Coordinates` tab:
 
 :Import coordinates?: Yes
 
@@ -149,7 +149,7 @@ On the :guitab:`Others` tab, make sure the following is set:
 
 Inside the newly created directory, together with the |particle_set| ``particles.star`` file, an :ref:`optimisation set <sec_sta_optimisation_set>` ``optimiser_set.star`` is also created.
 
-If you had preprocessed your particles in a different project, you would use the same :jobtype:`ImportTomo` job-type to import particles :textsc:`star` file, 3D references, 3D masks, etc, on the :guitab:`Others` tab.
+If you had preprocessed your particles in a different project, you would use the same :jobtype:`Tomo import` job-type to import particles :textsc:`star` file, 3D references, 3D masks, etc, on the :guitab:`Others` tab.
 Note that this is NOT the recommended way to run |RELION|, and that the user is responsible for generating correct :textsc:`star` files.
 
 
