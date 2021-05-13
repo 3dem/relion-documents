@@ -10,5 +10,6 @@ Subtomogram tutorial
    InitialModel
    Refine3DIni
    ReconstructPart
+   Refine3D
    FrameAlign
    CtfRefine
