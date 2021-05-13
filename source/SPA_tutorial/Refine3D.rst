@@ -1,3 +1,5 @@
+.. _sec_refine3d:
+
 High-resolution 3D refinement
 =============================
 
