@@ -77,4 +77,4 @@ Utility programs
 Previous pipeline
 -----------------
 
-- :ref:`|RELION| 1.4 subtomogram averaging pipeline <sec_sta_relion1.4>`.
+- :ref:`RELION 1.4 subtomogram averaging pipeline <sec_sta_relion1.4>`.
