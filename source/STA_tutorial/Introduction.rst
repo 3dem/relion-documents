@@ -5,7 +5,7 @@ This tutorial provides an introduction for the subtomogram analysis workflow in 
 Carefully going through this tutorial should take less than a day (if you have a suitable GPU or if you follow our precalculated results).
 After that, you should be able to run |RELION| on your own data.
 
-This tutorial uses a test data set on apoferritin available at `EMPIAR-10491 <https://www.ebi.ac.uk/pdbe/emdb/empiar/entry/10491/>`_.
+This tutorial uses a test data set composed by 5 tomograms of immature HIV-1 dMACANC VLPs available at `EMPIAR-10164 <https://www.ebi.ac.uk/pdbe/emdb/empiar/entry/10164/>`_.
 
 
 ..    The data and our precalculated results may be downloaded and unpacked using the commands below.
