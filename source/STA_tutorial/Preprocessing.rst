@@ -56,7 +56,7 @@ The basic fields are the tilt series stack filename, CTF estimated data filename
 
     # tomograms_descr.star
 
-    data_global
+    data_
 
     loop_
     _rlnTomoName
