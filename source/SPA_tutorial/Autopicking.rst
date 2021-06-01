@@ -110,6 +110,11 @@ On the corresponding :guitab:`I/O` tab, set:
      This will adjust the X and Y origin coordinates of all particles, such that a reconstruction of the newly extracted particles will be centered on that X,Y,Z position.
      This is useful for focused refinements.)
 
+:Write output in float16?: Yes
+
+     (If set to Yes, this program will write output images in float16 MRC format. This will save a factor of two in disk space compared to the default of writing in float32. Note that RELION and CCPEM will read float16 images, but other programs may not (yet) do so.)
+
+
 On the :guitab:`extract` tab you set the parameters for the actual particle extraction:
 
 :Particle box size (pix):: 256
@@ -321,6 +326,10 @@ On the :guitab:`Class options` tab, give:
 
      (The score ranges from 0 for absolute rubbish class average images to 1 for gorgeous ones.)
 
+:Python executable: python
+
+     (This version of python should include torch and numpy. We have found that the one from topaz (which is also used for auto-picking) works well. At the LMB, it is here: /public/EM/anaconda3/envs/topaz/bin/python)
+
 :Re-center the class averages?: No
 
      (This option allows automated centering of the 2D class averages, but we already did that during 2D class averaging.
@@ -485,7 +494,7 @@ On the corresponding :guitab:`I/O` tab, set:
 
 :micrograph STAR file:: CtfFind/job003/micrographs\_ctf.star
 
-:Input coordinates:: AutoPick/job010/autopick.star
+:Input coordinates:: AutoPick/job011/autopick.star
 
 :OR re-extract refined particles?: No
 
@@ -494,6 +503,8 @@ Leave all the other options as they were before, except for the :guitab:`extract
 :Use autopick FOM threshold?: Yes
 
 :Minimum autopick FOM: -3
+
+:Write output in float16?: Yes
 
 Running this job will generate the initial particle set for further processing. Using four MPI processors, this job takes a few seconds.
 

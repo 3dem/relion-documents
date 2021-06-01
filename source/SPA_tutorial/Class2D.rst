@@ -58,7 +58,19 @@ and on the :guitab:`Optimisation` tab, we used:
      (This is a new option in |RELION|-4.0. It will re-center all class average images every iteration based on their center of mass. 
      This is useful for their subsequent use in template-based auto-picking, but also for the automated 2D class average image selection in the next section.)
 
-The gradient-driven algorithm doesn't scale well with MPI parallelisation. Using 1 GPUs, and a single MPI process with 12 threads, this job took 13 minutes on our computer.
+The gradient-driven algorithm doesn't scale well with MPI parallelisation. Therefore, we ran with the following options on the :guitab:`Compute` tab:
+
+:Use GPU acceleration?: Yes
+
+:Which GPUs to use:: 0,1,2,3
+
+and on the :guitab:`Running` tab, we used:
+
+:Number of MPI procs:: 1
+
+:Number of threads:: 12
+
+The job then took just over 3 minutes.
 
 
 Selecting good particles for further processing
@@ -74,11 +86,11 @@ On the :guitab:`Class options` tab, set:
 
 :Automatically select 2D classes?: Yes
 
-:Minimum threshold for auto-selection: 0.35
+:Minimum threshold for auto-selection: 0.25
 
-     (Let's be slightly less restrictive in the selection of particles at this stage, as we don't want to leave any minority views behind.)
+     (We are less restrictive in the selection of particles at this stage, as we don't want to leave any minority views behind.)
 
-We got just over 4200 particles from 35 selected classes.
+We got over 5800 particles from 36 selected classes.
 
 Note that this procedure of :jobtype:`2D classification` and :jobtype:`Subset selection` may be repeated several times.
 

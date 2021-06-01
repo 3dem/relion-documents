@@ -111,13 +111,13 @@ Ignore the :guitab:`Helix` tab, and on the :guitab:`Compute` tab set:
 
 :Use GPU acceleration?: Yes
 
-:Which GPUs to use: 0:1
+:Which GPUs to use: 0:1:2:3
 
 On the :guitab:`Running` tab, set:
 
-:Number of MPI procs: 3
+:Number of MPI procs: 5
 
-:Number of threads: 12
+:Number of threads: 6
 
 3D classification takes more memory than 2D classification, so often more threads are used.
 However, in this case the images are rather small and RAM-shortage may not be such a big issue.
@@ -145,9 +145,9 @@ Because automated class selection has not been implemented for 3D classification
 
 :Automatically select 2D classes?: No
 
-We selected a single good class, discarding particles from 3 suboptimal classes. We retained just over 3800 particles.
+We selected a single good class, discarding particles from 3 suboptimal classes. We retained over 4700 particles.
 
-Note that this procedure of :jobtype:`2D classification` and :jobtype:`Subset selection` may be repeated several times.
+Note that this procedure of :jobtype:`3D classification` and :jobtype:`Subset selection` may be repeated several times.
 
 
 Analysing the results in more detail

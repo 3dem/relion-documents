@@ -62,7 +62,7 @@ On the :guitab:`Compute` tab, set:
 
 :Use GPU acceleration?: Yes
 
-:Which GPUs to use: 0,1
+:Which GPUs to use: 0,1,2,3
 
 On the :guitab:`Running` tab, set:
 
@@ -72,8 +72,7 @@ On the :guitab:`Running` tab, set:
 
 :Number of threads: 12
 
-Using the settings above, this job took xx minutes on our system.
-If you didn't get that coffee before, perhaps now is a good time too...
+Using the settings above, this job took 2 minutes on our system.
 
 
 Analysing the results

@@ -99,7 +99,7 @@ On the :guitab:`I/O` tab set:
 
 :First frame for corrected sum:: 1
 
-:Last frame for corrected sum:: 0
+:Last frame for corrected sum:: -1
 
      (This will result in using all movie frames.)
 
@@ -110,6 +110,10 @@ On the :guitab:`I/O` tab set:
 :EER fractionation: 32
 
     (This option will be ignored for TIFF files.)
+
+:Write output in float16?: Yes
+
+    (This will save a factor of 2 in disk space compared to the default of writing in float32. Note that RELION and CCPEM will read float16 images, but other programs may not (yet) do so. For example, Gctf will not work with float16 images. Also note that this option does not work with UCSF MotionCor2. For CTF estimation, use CTFFIND-4.1 with pre-calculated power spectra, by activating the 'Save sum of power spectra' option below.)
 
 :Do dose-weighting?: Yes
 
@@ -306,11 +310,11 @@ On the :guitab:`I/O` tab of the :jobtype:`Manual picking` job-type, use the :but
      (Use this to manually set which value will be black.
      For this to work, ``Sigma contrast`` should be set to 0)
 
-:Lowpass filter (A):: 20
+:Lowpass filter (A):: -1
 
      (Playing with this may help you to see particles better in very noisy micrographs)
 
-:Highpass filter (A):: 0
+:Highpass filter (A):: -1
 
      (This is sometimes useful to remove dark->light gradients over the entire micrograph)
 
@@ -318,9 +322,21 @@ On the :guitab:`I/O` tab of the :jobtype:`Manual picking` job-type, use the :but
 
      (This is needed to calculate the particle diameter, and the low- and high-pass filters)
 
-:Scale for CTF image:: 1
+:OR use Topaz denoising?:: Yes
 
-     (This merely controls how large the Thon-ring images will be when you click the `CTF` button for any micrograph)
+     (This is a new feature in |RELION|-4.0 and will make a system call to topaz)
+
+:Topaz executable:: /where/ever/it/is/topaz
+
+
+.. note::
+
+   At LMB, we run topaz through the following bash script:
+
+    | #!/bin/bash 
+    | source /public/EM/anaconda3/bin/activate topaz
+    | topaz $@
+    
 
 
 Run the job by clicking the :runbutton:`Run!` button and click on a few particles if you want to.
