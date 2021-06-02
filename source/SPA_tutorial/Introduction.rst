@@ -14,9 +14,9 @@ The full data set is also available at EMPIAR-10204.
 ::
 
     wget ftp://ftp.mrc-lmb.cam.ac.uk/pub/scheres/relion30_tutorial_data.tar
-    wget ftp://ftp.mrc-lmb.cam.ac.uk/pub/scheres/relion32_tutorial_precalculated_results.tar.gz
+    wget ftp://ftp.mrc-lmb.cam.ac.uk/pub/scheres/relion40_tutorial_precalculated_results.tar.gz
     tar -xf relion30_tutorial_data.tar
-    tar -zxf relion32_tutorial_precalculated_results.tar.gz
+    tar -zxf relion40_tutorial_precalculated_results.tar.gz
 
 
 If you have any questions about |RELION|, first read this entire document, check the `FAQ <http://www2.mrc-lmb.cam.ac.uk/relion/index.php/FAQs>`_ on the |RELION| Wiki and the archives of the `CCPEM <https://www.jiscmail.ac.uk/ccpem>`_ mailing list.
