@@ -83,20 +83,16 @@ On the :guitab:`Sharpen` tab, set:
 
 :Use your own B-factor?: No
 
-:MTF of the detector (STAR file): mtf\_k2\_200kV.star
-
-:Original detector pixel size: 0.885
-
-     (This is the original pixel size (in Angstroms) in the raw (non-super-resolution!) micrographs.)
-
-
-On the :guitab:`Filter` tab, set:
-
 :Skip FSC-weighting?: No
 
      (This option is sometimes useful to analyse regions of the map in which the resolution extends **beyond** the overall resolution of the map.
      This is not the case now.)
 
+:MTF of the detector (STAR file): mtf\_k2\_200kV.star
+
+:Original detector pixel size: 0.885
+
+     (This is the original pixel size (in Angstroms) in the raw (non-super-resolution!) micrographs.)
 
 Run the job (no need for a cluster, as this job will run very quickly).
 Using the :button:`Display` button, you can display slizes through the postprocessed map and a PDF with the FSC curves and the Guinier plots for this structure.

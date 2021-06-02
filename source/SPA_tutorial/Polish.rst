@@ -107,11 +107,11 @@ Alternatively, if you decided to skip the training set, then you can fill in the
 
 :OR use your own parameters?: Yes
 
-:Sigma for velocity (A/dose): 0.474
+:Sigma for velocity (A/dose): 0.40
 
-:Sigma for divergence (A): 1770
+:Sigma for divergence (A): 1155
 
-:Sigma for acceleration (A/dose): 3.21
+:Sigma for acceleration (A/dose): 2.71
 
 :Minimum resolution for B-factor fit (A):: 20
 
@@ -136,7 +136,9 @@ We chose to run the :jobtype:`3D auto-refine` job with the shiny particles using
 
 :Input images STAR file:: Polish/job028/shiny.star
 
-:Reference Map:: Refine3D/job025/run\_class001.mrc 
+:Reference Map:: Refine3D/job025/run\_half1\_class001\_unfil.mrc 
+
+     (In release-4.0, one can give one of the half-maps as reference and both half-maps will be read for the gold-standard refinement. This prevents overfitting by reading in a joint reconstruction, and therefore one can start the refinement from higher initial resolutions.)
 
 :Reference mask (optional):: MaskCreate/job020/mask.mrc
 
@@ -144,8 +146,12 @@ We chose to run the :jobtype:`3D auto-refine` job with the shiny particles using
      Using this option, the solvent will be set to zero for all pixels outside the mask.
      This reduces noise in the reference, and thus lead to better orientation assignments and thus reconstructions.)
 
+Because we are providing a half-map, overfitting shouldn't be a problem and on the :guitab:`Reference` tab we can set:
 
-and this option on the :guitab:`Optimisation` tab:
+:Initial low-pass filter (A): 8
+
+
+On the :guitab:`Optimisation` tab, we set:
 
 :Use solvent-flattened FSCs?: Yes
 
@@ -158,7 +164,7 @@ Also, on the :guitab:`Auto-sampling` tab, we now set:
 
 :Use finer angular sampling faster?: No
 
-As you can see in the pre-calculated results, after a final :jobtype:`Post-processing` job, we obtained an overall resolution of just beyond 2.9 Å.
+As you can see in the pre-calculated results, after a final :jobtype:`Post-processing` job, we obtained an overall resolution of 2.84 Å.
 Not bad for 3GB of data, right?
 
 

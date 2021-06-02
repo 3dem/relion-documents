@@ -13,9 +13,9 @@ Running the job
 
  On the :guitab:`I/O` tab set:
 
-:One of the two unfiltered half-maps:: Refine3D/shiny/run\_half1\_class001\_unfil.mrc
+:One of the two unfiltered half-maps:: Refine3D/job029/run\_half1\_class001\_unfil.mrc
 
-:User-provided solvent mask:: MaskCreate/first3dref/mask.mrc
+:User-provided solvent mask:: MaskCreate/job020/mask.mrc
 
 :Calibrated pixel size:: 1.244
 
@@ -46,13 +46,12 @@ On the :guitab:`Relion` tab set:
 Analysing the results
 ---------------------
 
-We used ``shiny`` as an alias.
 Running with 8 MPI processes, this job took approximately 7 minutes.
-The output is a file called ``LocalRes/polished/relion_locres.mrc`` that may be used in UCSF :textsc:`chimera` to color the `Postprocess/polished/postprocess.mrc` map according to local resolution.
+The output is a file called ``LocalRes/job031/relion_locres.mrc`` that may be used in UCSF :textsc:`chimera` to color the `Postprocess/job030/postprocess.mrc` map according to local resolution.
 This is done using ``[Tools]-[Volume data]-[Surface color]``, and then select ``by volume data value`` and browse to the ``resmap`` file.
 
 Unique to the |RELION| option is the additional output of a locally-filtered (and sharpened map), which may be useful to describe the overall variations in map quality in a single map.
-This map is saved as ``LocalRes/polished/relion_locres_filtered.mrc`` and can be visualised directly in UCSF :textsc:`chimera` (and optionally also coloured by local resolution as before).
+This map is saved as ``LocalRes/job031/relion_locres_filtered.mrc`` and can be visualised directly in UCSF :textsc:`chimera` (and optionally also coloured by local resolution as before).
 
 
 Checking the handedness
@@ -66,8 +65,8 @@ One may flip the handedness of the postprocessed map as follows:
 
 ::
 
-    relion_image_handler --i PostProcess/polished/postprocess.mrc  \
-      --o PostProcess/polished/postprocess_invert.mrc --invert_hand
+    relion_image_handler --i PostProcess/job030/postprocess.mrc  \
+      --o PostProcess/job030/postprocess_invert.mrc --invert_hand
 
 
 The same command could also be run on any of the other maps.

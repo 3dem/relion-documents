@@ -158,4 +158,4 @@ and on the :guitab:`Reference` tab:
 
 :Ref. map is on absolute greyscale?: Yes
 
-After another :jobtype:`Post-processing` job, the resolution didn't actually improve from 3.15 Å...
+After another :jobtype:`Post-processing` job, the resolution improved to 2.95 Å.

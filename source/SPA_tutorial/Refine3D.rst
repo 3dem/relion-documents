@@ -60,13 +60,13 @@ And on the :guitab:`extract` tab, we keep everything as it was, except:
 
 
 In addition, we will need to rescale the best map obtained thus far to the 256-pixel box size.
-This is done from the command-line:
+This is done from the command-line, but make sure you select the correct class:
 
 ::
 
-    relion_image_handler --i Class3D/job016/run_it025_class002.mrc \
+    relion_image_handler --i Class3D/job016/run_it025_class004.mrc \
      --angpix 3.54 --rescale_angpix 1.244 --new_box 256 \
-     --o Class3D/job016/run_it025_class002_box256.mrc
+     --o Class3D/job016/run_it025_class004_box256.mrc
 
 
 Running the auto-refine job
@@ -110,7 +110,7 @@ Therefore, for all refinements with less than octahedral or icosahedral symmetry
 Only for higher symmetry refinements, we use 3.7 degrees sampling and perform local searches from 0.9 degrees.
 The only thing we will change here is to set:
 
-:Use finer angular sampling faster? Yes
+:Use finer angular sampling faster?: Yes
 
      (This will be more aggresive in proceeding with iterations of finer angular sampling faster. 
      This will therefore speed up the calculations. 
@@ -140,4 +140,4 @@ For example, try:
 
 ::
 
-    grep Auto Refine3D/first3dref/run.out
+    grep Auto Refine3D/job019/run.out
