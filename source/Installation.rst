@@ -407,3 +407,4 @@ You'll need to change all the paths for your own system, and translate the scrip
      # RELION_ALLOW_CHANGE_MINIMUM_DEDICATED: Whether to allow a user to change the 'Minimum dedicated cores per node' field in the GUI
      # RELION_SHELL: A shell used to launch CTFFIND/GCTF in CtfFind jobs ('csh' by default; only available from 3.1)
      # RELION_SCRATCH_DIR: The default scratch directory in the GUI
+     # RELION_STACK_BUFFER: The buffer size used for MRC(S) file I/O, potentially useful on GPFS or Lustre file system. See https://github.com/3dem/relion/pull/783 for details.
