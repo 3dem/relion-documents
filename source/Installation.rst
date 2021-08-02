@@ -231,7 +231,7 @@ Use Intel compilers:
     If your CPU supports only up to AVX256, use ``-xCORE-AVX2`` instead of ``-xCOMMON-AVX512``.
 
     If you don't want to use Intel MPI, change ``mpiicc`` and ``mpiicpc`` accordingly.
-    For example, to use OpenMPI with Intel compilers, specify ``mpicc`` and ``mpicxx`` after setting environmental variables ``OMPI_C=icc`` and ``OMPI_CXX=icpc``.
+    For example, to use OpenMPI with Intel compilers, specify ``mpicc`` and ``mpicxx`` after setting environmental variables ``OMPI_CC=icc`` and ``OMPI_CXX=icpc``.
     See `OpenMPI FAQ <https://www.open-mpi.org/faq/?category=mpi-apps#override-wrappers-after-v1.0>`_ for details.
 
 
