@@ -24,7 +24,7 @@ Sjors developed a framework for the automated execution of predefined workflows,
 
 **Tighter integration of the pipeliner with CCP-EM software**
 
-The `CCP-EM team <https://www.ccpem.ac.uk/>`__, mainly Matt Iadanza, Colin Palmer and Tom Burnley, have implemented a python-based pipeliner in the CCP-EM software that mimics the |RELION| pipeliner, but will be extended to include other CCP-EM softwares too. The python interface is convenient for scripting, and can also be called from |RELION|'s main GUI, by adding the additional argument ``relion --ccpem &``.
+The `CCP-EM team <https://www.ccpem.ac.uk/>`__, mainly Matt Iadanza, Colin Palmer and Tom Burnley, have implemented a `python-based pipeliner <https://ccpem-pipeliner.readthedocs.io/en/latest/>`__ in the CCP-EM software that mimics the |RELION| pipeliner, but will be extended to include other CCP-EM softwares too. The python interface is convenient for scripting, and can also be called from |RELION|'s main GUI, by adding the additional argument ``relion --ccpem &``.
 
 
 Release 3.1
