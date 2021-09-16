@@ -6,6 +6,8 @@ Subtomogram tutorial
 
    Introduction
    Preprocessing
+   ImportTomo
+   ImportCoords
    MakePseudosubtomos
    InitialModel
    Refine3DIni

@@ -276,7 +276,7 @@ We like to manually select at least several micrographs in order to get familiar
 Often, the manually selected particles to calculate reference-free 2D class averages, which will then be used as templates for automated particle picking of the entire data set.
 However, as of release 3.0, |RELION| also contains a reference-free auto-picking procedure based on a Laplacian-of-Gaussian (LoG) filter.
 In most cases tested thus far, this procedure provides reasonable starting coordinates, so that the :jobtype:`Manual picking` step may be skipped.
-The pre-shipped `Schedules` for on-the-fly processing make use of this functionality to perform fully automated on-the-fly processing.
+The pre-shipped `Schemes` for on-the-fly processing in the ``relion_it.py`` script make use of this functionality to perform fully automated on-the-fly processing.
 In this tutorial, we will just launch a :jobtype:`Manual picking` job for illustrative purposes, and then proceed with LoG-based :jobtype:`Auto-picking` to generate the first set of particles.
 
 Picking particles manually is a personal experience! If you don't like to pick particles in |RELION|, we also support coordinate file formats for Jude Short's `ximdisp <http://www2.mrc-lmb.cam.ac.uk/research/locally-developed-software/image-processing-software/>`_ :cite:`smith_ximdisp--visualization_1999` (with any extension); for `xmipp-2.4 <http://xmipp.cnb.uam.es>`_ :cite:`scheres_image_2008` (with any extension); and for Steven Ludtke's `e2boxer.py <http://blake.bcm.edu/emanwiki/EMAN2/Programs/e2boxer>`_ :cite:`tang_eman2:_2007` (with a ``.box`` extension).

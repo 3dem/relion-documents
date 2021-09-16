@@ -24,7 +24,7 @@ rst_prolog = """
 .. role:: textsc
    :class: smallcaps
 
-.. role:: schedulevar
+.. role:: schemevar
 .. role:: button
 .. role:: runbutton
 .. role:: joblist

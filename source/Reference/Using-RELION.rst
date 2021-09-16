@@ -28,16 +28,16 @@ The upper half: jobtype-browser and parameter-panel
 On the left of the upper half of the GUI is the jobtype-browser: a vertical list of jobtypes, e.g. :jobtype:`2D classification`.
 On the right is a panel with multiple tabs, where parameters to the different types of jobs may be input.
 On the top left of the GUI are three different menu's, providing a range of functionalities.
-The :runbutton:`Schedule` and :runbutton:`Run!` buttons can be used to schedule jobs for future execution, or to execute them now.
+The :runbutton:`Scheme` and :runbutton:`Run!` buttons can be used to scheme jobs for future execution, or to execute them now.
 The former is particularly useful in preparing fully automated ``pipelines`` that can be run iteratively, for example in real-time as data is being collected.
-See :ref:`Schedules <sec_schedules>` for more details.
+See :ref:`Schemes <sec_schemes>` for more details.
 By clicking in the jobtype-browser on the left-hand side of the GUI, a new job (with a :runbutton:`Run!` button) will be loaded in the parameter-panel on the right.
 
 
 The lower half: job-lists and stdout/stderr windows
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The lower half of the GUI contains lists of jobs that are still running (:joblist:`Running jobs`), have already finished (:joblist:`Finished jobs`), or are scheduled for later execution (:joblist:`Scheduled jobs`).
+The lower half of the GUI contains lists of jobs that are still running (:joblist:`Running jobs`), have already finished (:joblist:`Finished jobs`), or are schemed for later execution (:joblist:`Schemed jobs`).
 By clicking jobs in these lists, the parameters of that job will be loaded in the parameter-panel, and the :runbutton:`Run!` button will change color and turn into :button:`continue now!`.
 Upon clicking the latter, no new output job-directory will be made, but the job will be continued according to the parameters given in the parameter-panel. :jobtype:`2D classification`, :jobtype:`3D classifications` and :jobtype:`3D auto-refine` jobs will need a `_optimiser.star` file to continue from, and will have filenames with the iteration from which they were continued, e.g. `run_ct23`.
 Other types of jobs may continue from the point until they were executed before, e.g. :jobtype:`Motion correction`, :jobtype:`CTF estimation`, :jobtype:`Auto-picking` and :jobtype:`Particle Extraction` will continue by running only on those micrographs that weren't done before.
@@ -52,7 +52,7 @@ Double-clicking on the stdout or stderr displays will open a pop-up window with 
 The Display button
 ^^^^^^^^^^^^^^^^^^
 
-The :button:`Display:` button below the run and schedule buttons serves to visualise the most important input and output files for each job.
+The :button:`Display:` button below the run and scheme buttons serves to visualise the most important input and output files for each job.
 When a job from the job-lists in the lower half of the GUI is selected, clicking this button will pop-up a menu with all the input and output of this job that can be displayed (for example, particles, micrographs, coordinates, PDF files, etc).
 A more general functionality to display any (e.g. intermediate) file can be accessed through the `Display` option of the `File` menu on the top left of the GUI.
 
@@ -60,7 +60,7 @@ A more general functionality to display any (e.g. intermediate) file can be acce
 The Job actions button
 ^^^^^^^^^^^^^^^^^^^^^^
 
-The :button:`Job actions` button opens up a little menu with options for the selected (running, finished or scheduled) job.
+The :button:`Job actions` button opens up a little menu with options for the selected (running, finished or schemed) job.
 Here, you can access a file called `note.txt` (that is saved in every individual job directory and which may be used to store user comments); you can change the alias of the job; you can mark a job as finished (in case it somehow got stuck); you can make a flowchart of the history of that job (provided \LaTeX\  and the `TikZ` package are installed on your system, also see :ref:`this section <sec_wrappingup>`); or you can delete or clean a job to save disk space (see below).
 
 

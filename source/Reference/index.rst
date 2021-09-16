@@ -6,7 +6,7 @@ Reference pages
 
    MovieCompression
    PixelSizeIssues
-   Schedules
+   Schemes
    Helix
    STA/index
    Using-RELION

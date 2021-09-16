@@ -4,7 +4,28 @@ What's new?
 Release 4.0
 -----------
 
-TODO
+Watch Sjors giving a Structural Studies Colloquium at MRC-LMB about the new features in release 4.0 on `YouTube <https://www.youtube.com/watch?v=kZTX4K4KeOY>`_. Note that since then, *Schedules* have been renamed to *Schemes* to prevent confusion with the existing functionality to schedule jobs in the GUI.
+
+**A new approach to subtomogram averaging**
+
+Jasenko Zivanov and Joaquin (Kino) Oton have implemented a new approach to averaging in cryo-electron tomography, which replaces standard sub-tomograms with the concept of pseudo-sub-tomograms. The new approach leads to better weighting of the individual 2D images that make up a tilt series in ``relion_refine`` and the single-particle concepts of :jobtype:`Bayesian polishing` and :jobtype:`CTF refinement` have now also been implemented for tomography data. A preprint/publication about this work is pending.
+
+**The VDAM refinement algorithm**
+
+Dari Kimanius has implemented a new, gradient-driven algorithm with implicit regularisation, called Variable-metric Gradient Descent with Adaptive Moments (VDAM). The VDAM algorithm replaces the previously implemented SAGD algorithm for initial model generation, and makes 2D and 3D classification faster, especially for large data sets. A preprint/publication about this work, together with the automated class selection and the execution of workflow, is pending.
+
+**Automated 2D class selection**
+
+Liyi Dong developed a new algorithm for automatic selection of 2D class average images that combines features that are extracted from RELION's 2D classification metadata with a convolutional neural network that acts on the 2D class averages themselves. The corresponding program, ``relion_class_ranker`` can be called through the :jobtype:`Subset selection` job type.
+
+**Automatic execution of workflows**
+
+Sjors developed a framework for the automated execution of predefined workflows, which is explained in more detail in the section on :ref:`On-the-fly processing <sec_onthefly>`.
+
+**Tighter integration of the pipeliner with CCP-EM software**
+
+The `CCP-EM team <https://www.ccpem.ac.uk/>`__, mainly Matt Iadanza, Colin Palmer and Tom Burnley, have implemented a python-based pipeliner in the CCP-EM software that mimics the |RELION| pipeliner, but will be extended to include other CCP-EM softwares too. The python interface is convenient for scripting, and can also be called from |RELION|'s main GUI, by adding the additional argument ``relion --ccpem &``.
+
 
 Release 3.1
 -----------
@@ -67,8 +88,7 @@ Several tweaks have been made to enhance user experience:
     Note that the ``run.out`` and ``run.err`` files will be deleted upon a job overwrite.
 
 
-Tweaks to helical processing
-----------------------------
+** Tweaks to helical processing **
 
 Several new functionalities were implemented for helical processing:
 
