@@ -74,7 +74,7 @@ html_sidebars = {
 }
 
 html_theme_options = {
-   'logo': 'relion_logo_v1.jpg',
+   'logo': 'relion-3.1-logo.png',
    'github_user': '3dem',
    'github_repo': 'relion',
    'github_button': True,
