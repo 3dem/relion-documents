@@ -36,9 +36,12 @@ Defocus-estimation arguments:
 -----------------------------
 
 - ``--do_defocus``: instructs the program to estimate the defoci.
-- ``--lambda``: regularisation strength. High-tilt images do not offer enough signal to recover the defocus value precisely. The regularisation forces the estimated defoci to assume similar values within a given tilt series, which prevents those high-tilt images from overfitting.
+- ``--do_reg_defocus``: applies defocus regularisation. High-tilt images do not offer enough signal to recover the defocus value precisely. The regularisation forces the estimated defoci to assume similar values within a given tilt series, which prevents those high-tilt images from overfitting.
+- ``--lambda``: defocus regularisation strength.
 - ``--d0`` and ``--d1``: minimal and maximal defocus offset (from the initial value) to scan in the initial part of the defocus estimation. This scan allows the algorithm to escape a local minimum in case it has been intialised in one. Afterwards, a local astigmatic-defocus refinement is performed. Both values are assumed to be given in Å.
 - ``--ds``: number of steps between ``--d0`` and ``--d1``.
+- ``--kmin``: Lowest spatial frequency to consider, in Å.
+- ``--reset_to_common``: Reset the CTFs of all tilts to a common one prior to local refinement.
 
 
 Ice-thickness estimation arguments:
@@ -55,7 +58,7 @@ Aberrations-estimation arguments:
 - ``--do_even_aberrations``: instructs the program to estimate the even (i.e. symmetrical) aberrations. These deform the shape of the CTF.
 - ``--do_odd_aberrations``: instructs the program to estimate the odd (i.e. anti-symmetrical) aberrations. These rotate the phases of the observed images.
 - ``--ne``: number of Zernike bands used to fit the even aberrations. A greater number can quickly lead to overfitting. The user is advised to keep this value at 4 - this will allow for a correction to the spherical aberration term, as well as four-fold and first- and second-order two-fold astigmatism.
-- ``--ne``: number of odd Zernike bands. The user is advised to keep this value at 3 - this will allow for beam tilt and three-fold astigmatism.
+- ``--no``: number of odd Zernike bands. The user is advised to keep this value at 3 - this will allow for beam tilt and three-fold astigmatism.
 
 
 Program output:
