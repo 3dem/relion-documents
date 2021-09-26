@@ -8,7 +8,7 @@ Once we have obtained a refined map in high binning factor (low resolution) we c
 At this point in the tutorial, the 3D refinement could be directly processed using the original pixel size (binning factor 1).
 However, it's recommended to sequentially process 3D refinements through decreasing binning factors to speed up calculations as we don't longer need to setup a large valued low-pass filter for the initial reference.
 This initial low-pass filter prevents bias towards high-frequency components in the map and maintains the `gold-standard` of completely independent refinements at resolutions higher than the initial one.
-To overcome this, halfmap files can be used as reference maps for each halfset processed by `relion_refine`, keeping the 3D refinement independent along the whole worflow.
+To overcome this, halfmap files can be used as reference maps for each halfset processed by `relion_refine`, keeping the 3D refinement of both halfsets independent along the whole workflow.
 To that end, when the reference map filename contains either ``*half?*.mrc`` template, each halfmap is automatically assigned to its halfset.
 
 
