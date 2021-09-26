@@ -7,6 +7,7 @@ This means that the actual resolution is under-estimated during the actual refin
 First however, we'll need to make a mask to define where the protein ends and the solvent region starts.
 This is done using the :jobtype:`Mask Creation` job-type.
 
+.. _sec_mask:
 
 Making a mask
 -------------
@@ -53,6 +54,7 @@ You can look at slices through the resulting mask using the :button:`Display:` b
 The latter may be a good idea, together with the map from the auto-refine procedure, to confirm that the masks encapsulates the entire structure, but does not leave a lot of solvent inside the mask.
 You can continue the same job with new settings for the mask generation multiple times, until you have found a mask you like.
 
+.. _sec_postprocess:
 
 Post-processing
 ---------------
