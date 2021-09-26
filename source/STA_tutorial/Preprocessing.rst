@@ -77,7 +77,7 @@ In the GUI, select :jobtype:`Tomo import` from the jobt-type browser on the left
 
 :Import tomograms?: Yes
 
-:STAR file with tomograms description:: tomograms_descr.star
+:STAR file with tomograms description:: input/tomograms_descr.star
 
 :Append to tomograms set: \
 
