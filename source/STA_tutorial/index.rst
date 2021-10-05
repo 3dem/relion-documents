@@ -13,5 +13,7 @@ Subtomogram tutorial
    Refine3DIni
    ReconstructPart
    Refine3D
+   Postprocess
+   Class3D
    FrameAlign
    CtfRefine
