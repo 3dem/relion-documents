@@ -48,12 +48,18 @@ FLTK (only for GUI):
 FFT libraries:
     RELION needs an FFT library.
     The default is `FFTW <https://www.fftw.org/>`_.
+    This can be installed automatically (see below).
     Depending on your CPU, `Intel MKL FFT <https://software.intel.com/mkl>`_ or `AMD optimised FFTW <https://developer.amd.com/amd-aocl/fftw/>`_ might run faster.
     See below how to use them.
 
 libtiff:
     RELION needs `libtiff <http://www.libtiff.org/>`_ version >= 4.0.
     Most Linux distributions have packages called ``libtiff-dev`` or ``libtiff-devel``.
+    Note that you need a developer package.
+
+libpng:
+    RELION needs `libpng <http://www.libpng.org/pub/png/libpng.html>`_.
+    Most Linux distributions have packages called ``libpng-dev`` or ``libpng-devel``.
     Note that you need a developer package.
 
 UCSF MotionCor2 (optional):
@@ -66,6 +72,17 @@ ResMap (optional):
     Local-resolution estimation may be performed inside |RELION|'s own postprocessing program.
     Alternatively, one can also use Alp Kucukelbir's :textsc:`resmap` :cite:`kucukelbir_quantifying_2014`.
     Download it from `Alp's ResMap website <http://resmap.sourceforge.net/>`_  and follow his installation instructions.
+
+
+In practice, most of these dependencies can be installed by system's package manager if you have the root priviledge.
+
+In Debian or Ubuntu::
+
+    sudo apt install cmake git build-essential mpi-default-bin mpi-default-dev libfftw3-dev libtiff-dev libpng-dev
+
+In RHEL, Cent OS, Scientific Linux::
+
+    sudo yum install cmake git gcc gcc-c++ openmpi-devel fftw-devel libtiff-devel libpng-devel
 
 
 Download RELION
