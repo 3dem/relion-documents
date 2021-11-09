@@ -86,6 +86,7 @@ On our computer with 4 GPUs, we used 5 MPIs and 8 threads, and this calculation 
 
 Again, the 3D refinement will have achieved Nyquist resolution so we can finally proceed to process using the original pixel size at binning factor 1.
 
+.. _sec_sta_refine3d_subtomo:
 
 Pseudo-subtomograms and reference map at bin 1
 ----------------------------------------------
@@ -101,6 +102,8 @@ We could also set the solvent mask in the :jobtype:`Tomo reconstruct particle` c
 
 :FSC Solvent mask:: masks/mask_fsc.mrc
 
+
+.. _sec_sta_refine3d_refinebin1:
 
 Running the auto-refine job at bin 1
 -------------------------------------
@@ -139,10 +142,9 @@ On the :guitab:`Auto-sampling` tab set:
 
 :Initial angular sampling:: 1.8 degrees
 
+In our system, using 4 GPU cards, it took around half a day to finish.
 
-
-
-
+At this point, after running a :jobtype:`Post-processing` job using the tight mask ``masks/mask_fsc.com``, you should obtain a resolution around 3.6Å. At this moment, this is the best alignment we could reach before applying any specific tomo refinement, as shown in the following steps.
 
 
 

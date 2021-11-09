@@ -15,5 +15,5 @@ Subtomogram tutorial
    Refine3D
    Postprocess
    Class3D
-   FrameAlign
    CtfRefine
+   FrameAlign
