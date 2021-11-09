@@ -2,7 +2,8 @@ Introduction
 ============
 
 This tutorial provides an introduction for the subtomogram analysis workflow in |RELION|-4.0: preprocessing; importing tomograms; importing coordinates; pseudo-subtomograms construction; particle reconstruction; 3D classification; high-resolution 3D refinement; frame alignment refinement; CTF refinement and higher-order aberration correction; and final map sharpening and local-resolution estimation.
-Carefully going through this tutorial should take less than a day (if you have a suitable GPU or if you follow our precalculated results).
+Carefully going through this tutorial should take around a day to obtain a high resolution map before applying any CTF refinemend or frame alignment jobs (if you have a suitable GPU or if you follow our precalculated results).
+Completing the tutorial increases the time in 2-3 more days.
 After that, you should be able to run |RELION| on your own data.
 
 This tutorial uses a test data set composed by 5 tomograms of immature HIV-1 dMACANC VLPs available at `EMPIAR-10164 <https://www.ebi.ac.uk/pdbe/emdb/empiar/entry/10164/>`_.
