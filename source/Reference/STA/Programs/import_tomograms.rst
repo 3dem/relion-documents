@@ -65,8 +65,8 @@ Electron dose arguments:
 IMOD import arguments:
 ----------------------
 
-- ``--flipYZ``: if the IMOD_ tomogram has been flipped along Y and Z (i.e. rotated around X) after an IMOD reconstruction and before the particles have been picked, this will apply the same transformation to the |RELION| coordinate system. This will allow |RELION| to use particle positions defined in the X-rotated tomogram unchanged.
-- ``--flipZ``: same as above, in case the Z axis has been flipped. This can be used together with the ``--flipYZ`` option.
+- ``--flipYZ``: if the IMOD_ tomogram has been flipped along Y and Z (i.e. using clip flipyz) after an IMOD reconstruction and before the particles have been picked, this will apply the same transformation to the |RELION| coordinate system. In case a rotation around X was performed (i.e. using clip rotx) this parameter should be used together with ``--flipZ``. This will allow |RELION| to use particle positions defined in the X-rotated tomogram unchanged.
+- ``--flipZ``: same as above, in case the Z axis has been flipped. This can be used together with the ``--flipYZ`` option .
 - ``--flipAng``: indicates that all angles in the IMOD_ ``.tlt`` file have also been flipped. This is rare.
 - ``--off<x/y/z>``: applies an offset to the 3D coordinate system. Equivalent to the ``rlnTomoImportOffse<X/Y/Z>`` column in the input .star file.
 
