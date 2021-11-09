@@ -9,7 +9,7 @@ Combined with a procedure to estimate the accuracy of the angular assignments :c
 Thereby, this procedure requires very little user input, i.e. it remains objective, and has been observed to yield excellent maps for many  data sets.
 Another advantage is that one typically only needs to run it once, as there are hardly any parameters to optimize.
 
-However, as the pseudo-subtomogram files require more memory resources compared to SPA, we suggest to run this procedure in several steps, from high binning factors to 1, to improve the processing time.
+However, as the pseudo-subtomogram files require more memory resources compared to SPA, we suggest to run this procedure in several steps, from high binning factors to 1, to improve processing time.
 Since the initial model was processed using pseudo-subtomograms with binning factor 4, we will start the 3D refinement using those same particles.
 
 Running the auto-refine job
