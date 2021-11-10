@@ -35,6 +35,16 @@ Motion-related arguments:
 - ``--s_div``: the expected spatial smoothness of the particle trajectories (a greater value means spatially smoother motion).
 - ``--sq_exp_ker``: assume that the correlation of the velocities of two particles decays as a Gaussian over their distance, instead of as an exponential. This will produce spatially smoother motion and result in a shorter program runtime.
 
+Deformation-related arguments:
+------------------------------
+
+- ``--deformation``: perform 2D deformation estimation for each tilt-image.
+- ``--def_w``: Number of horizontal sampling points for the deformation grid.
+- ``--def_h``: Number of vertical sampling points for the deformation grid.
+- ``--def_model``: Type of model to estimate deformations (linear, spline or Fourier).
+- ``--def_reg (0.0)``: Value of the deformation regulariser
+- ``--per_frame_deformation``: Model separate 2D deformations for each tilt-image instead of the whole tilt series.
+
 Program output:
 ---------------
 
