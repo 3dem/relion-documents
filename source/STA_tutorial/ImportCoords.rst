@@ -5,7 +5,7 @@ Import coordinates
 
 The minimum required data to construct pseudo-subtomos is the set of 3D coordinates and corresponding tomogram name for each particle.
 Pixel coordinates should be related to dimensions and offsets given by ``newst.com`` ``tilt.com`` files for original pixel size (Bin1) (See :ref:`sec_sta_importomo`).
-During the import coordinates process, it checks if the tomogram names of all particles exist in the related |tomogram_set| ``tomograms.star`` file and adds the corresponding ``data_optics`` table to the output ``particles.star`` file.
+During the import coordinates process, it checks if the tomogram names of all particles exist in the related |tomogram_set| ``tomograms.star`` file and adds the corresponding ``data_optics`` table to the output ``particles.star`` file (More information in :ref:`program_tomo_import_particles` program help and :ref:`sec_sta_particle_set` description).
 
 Select :jobtype:`Tomo import` from the jobt-type browser on the left and fill in the following parameters on the :guitab:`Coordinates` tab:
 

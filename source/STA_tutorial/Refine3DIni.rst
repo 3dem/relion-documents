@@ -96,7 +96,7 @@ On the :guitab:`Running` tab, set:
 
 :Number of threads: 8
 
-As the MPI nodes are divided between one master (who does nothing else than bossing the others around) and two sets of slaves who do all the work on the two half-sets, it is most efficient to use an odd number of MPI processors, and the minimum number of MPI processes for :jobtype:`3D auto-refine` jobs is 3.
+As the MPI nodes are divided between one leader (who does nothing else than bossing the others around) and two sets of followers who do all the work on the two half-sets, it is most efficient to use an odd number of MPI processors, and the minimum number of MPI processes for :jobtype:`3D auto-refine` jobs is 3.
 Memory requirements may increase significantly at the final iteration, as all frequencies until Nyquist will be taken into account, so for larger sized boxes than the ones in this test data set you may want to run with as many threads as you have cores on your cluster nodes.
 
 On our computer with 4 GPUs, we used 5 MPIs and 8 threads, and this calculation took approximately 1 hour.
@@ -119,7 +119,7 @@ If you provided an :ref:`optimisation set <sec_sta_optimisation_set>` file as in
 This ``run_optimisation_set.star`` file  shouldn't be confused with the ``_optimiser.star`` files used regularly by `relion_refine`.
 
 
-This job will have likely achieved Nyquist frequency so, to go to higher resolution, we will need a new set of pseudo-subtomo particles and reference map at a smaller binning factor, 2 or directly 1.
+This job will have likely reached Nyquist frequency so, to go to higher resolution, we will need a new set of pseudo-subtomo particles and reference map at a smaller binning factor, 2 or directly 1.
 Before this, since the refined map we obtained in this initial 3D refinement covers HIV capsid and matrix, we need to make sure the mask we will be using in the next refinement is aligned and focused on the capsid only.
 We suggest to recenter the reference as masks provided in ``masks/`` folder are already centered.
 You could look at the output refined map (``Refine3D/job009/run_class001.mrc``) and mask (``masks/mask_align_bin4.mrc``) with a 3D viewer like IMOD :textsc:`3dmod` to estimate the Z offset between both maps, in pixels. In our case, it is 2.75 pixels but this could be different as it depends on the initial *de novo* model. Thus, recentering the particles can be done from the command-line:

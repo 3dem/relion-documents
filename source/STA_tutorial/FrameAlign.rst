@@ -60,7 +60,7 @@ Analysing the results
 ---------------------
 
 In the output folder ``FrameAlignTomo/job017`` you will find new ``tomograms.star`` and ``particles.star`` files including the corrected tilt series alignment and particle positions and a |trajectory_set| file ``motion.star`` with particle trajectories.
-Again, to assess the result, it is recommended to run a new :jobtype:`Tomo reconstruct particle`, with FSC estimation, using the new parameters. Compared to the previous FSC estimation, we should observe a clear improvement and a resolution around 3.5Å.
+Again, to assess the result, it is recommended to run a new :jobtype:`Tomo reconstruct particle` job, with FSC estimation, using the new parameters. Compared to the previous FSC estimation, we should observe a clear improvement and a resolution around 3.5Å.
 
 
 Tomo refinement cycle

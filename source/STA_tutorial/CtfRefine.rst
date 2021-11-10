@@ -12,13 +12,13 @@ For a full description of the arguments, check :ref:`program_tomo_refine_ctf` pr
 Reference map at bin 1 and FSC data
 -----------------------------------
 
-Before running any of the tomo refinement jobs (this :jobtype:`Tomo CTF refinement` or  :jobtype:`tomo frame alignment`), the user should run a :jobtype:`Tomo reconstruct particle` to estimate the reference map to feed these type of jobs.
+Before running any of the tomo refinement jobs (this :jobtype:`Tomo CTF refinement` or  :jobtype:`Tomo frame alignment` jobs), the user should run a :jobtype:`Tomo reconstruct particle` to estimate the reference map to feed these type of jobs.
 The main reason is that projection and reconstruction algorithms fully match and we will prevent suboptimal results because artifacts related to pseudo-subtomogram construction in the average map from the :jobtype:`3D auto-refine` job.
 
 On the other hand, a post-processed FSC data for the reference half-maps is optionally required to estimate the SNR. In case it is not provided, these programs internally calculate it without phase randomization so SNR would be slightly optimistic. Since the FSC data estimation is also integrated in the :jobtype:`Tomo reconstruct particle`
 job, we recommend to estimate it before running tomo refinement jobs.
 
-Note that, independently of the binning factor level you were processing in the previous :jobtype:`3D auto-refine` job, :jobtype:`Tomo CTF refinement` and :jobtype:`tomo frame alignment` protocols both process data in the original pixel size (binning 1).
+Note that, independently of the binning factor level you were processing in the previous :jobtype:`3D auto-refine` job, :jobtype:`Tomo CTF refinement` and :jobtype:`Tomo frame alignment` protocols both process data in the original pixel size (binning 1).
 Therefore, the reference map should always be reconstructed at this binning level as well as proper reference and FSC masks should be used.
 
 
@@ -75,7 +75,7 @@ With these running parameters, the process should take around 10 minutes to fini
 Analysing the results
 ---------------------
 
-If you check the output folder ```CtfRefineTomo/job013` you will find new ``tomograms.star`` and ``particles.star`` files with the refined CTF, scale and Zernike aberrations. To assess the result, it is recommended to run a new :jobtype:`Tomo reconstruct particle`, with FSC estimation, using the new parameters. Note this reference map will also be used as input for the next :jobtype:`Tomo frame alignment`. Compared to the previous FSC estimation, we should observe a slight improvement in the middle and high frequency ranges.
+If you check the output folder ``CtfRefineTomo/job013`` you will find new ``tomograms.star`` and ``particles.star`` files with the refined CTF, scale and Zernike aberrations. To assess the result, it is recommended to run a new :jobtype:`Tomo reconstruct particle` job, with FSC estimation, using the new parameters. Note this reference map will also be used as input for the next :jobtype:`Tomo frame alignment` run. Compared to the previous FSC estimation, we should observe a slight improvement in the middle and high frequency ranges.
 
 
 .. |optimisation_set| replace:: :ref:`optimisation set <sec_sta_optimisation_set>`

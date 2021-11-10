@@ -54,7 +54,7 @@ On the :guitab:`Reference` tab, set:
 
 :Initial low-pass filter (A): 12
 
-     (We set the low-pass filter slightly below the achieved resolution in the previous step. In this case, it's Nyquist resolution at binning factor 4.)
+     (We set the low-pass filter slightly below the reached resolution in the previous step. In this case, it's Nyquist resolution at binning factor 4.)
 
 :Symmetry: C6
 
@@ -73,7 +73,7 @@ On the :guitab:`Optimisation` tab set:
 :Use solvent-flattened FSCs?: Yes
 
 On the :guitab:`Auto-sampling` tab, to resume the refinement from the current resolution, we could adjust the angular sampling below the angular resolution given the initial low-pass filter argument and mask diameter.
-A coarse estimation can be obtained by :math:`\arctan{\frac{resolution*2}{diameter}}`. In our case:
+A coarse estimation can be obtained by :math:`\arctan({\frac{resolution*2}{diameter}})`. In our case:
 
 :Initial angular sampling:: 3.7 degrees
 
@@ -84,7 +84,7 @@ We leave the rest of arguments at their default values, except for:
 On our computer with 4 GPUs, we used 5 MPIs and 8 threads, and this calculation took approximately 6 hours.
 
 
-Again, the 3D refinement will have achieved Nyquist resolution so we can finally proceed to process using the original pixel size at binning factor 1.
+Again, the 3D refinement will have reached Nyquist resolution so we can finally proceed to process using the original pixel size at binning factor 1.
 
 .. _sec_sta_refine3d_subtomo:
 
@@ -120,7 +120,7 @@ On the :guitab:`Reference` tab, set:
 
 :Initial low-pass filter (A): 5.5
 
-     (We set the low-pass filter slightly below the achieved resolution in the previous step. In this case, it's Nyquist resolution at binning factor 2.)
+     (We set the low-pass filter slightly below the reached resolution in the previous step. In this case, it's Nyquist resolution at binning factor 2.)
 
 :Symmetry: C6
 
@@ -144,7 +144,7 @@ On the :guitab:`Auto-sampling` tab set:
 
 In our system, using 4 GPU cards, it took around half a day to finish.
 
-At this point, after running a :jobtype:`Post-processing` job using the tight mask ``masks/mask_fsc.com``, you should obtain a resolution around 3.6Å. At this moment, this is the best alignment we could reach before applying any specific tomo refinement, as shown in the following steps.
+Thereafter, running a :jobtype:`Post-processing` job with the tight mask ``masks/mask_fsc.com`` you should obtain a resolution around 3.6Å. At this moment, this is the best alignment we could reach without applying any specific tomo refinement, as shown in :ref:`sec_sta_ctfrefine` and :ref:`sec_sta_framealign` sections.
 
 
 

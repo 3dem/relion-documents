@@ -50,11 +50,11 @@ In the GUI, select :jobtype:`Tomo import` from the jobt-type browser on the left
 
 :Frame dose (e/A^2):: \
 
-    (If this values varies among the input tomograms, then specify it using its own column in the description input STAR file.)
+    (If this value varies among the input tomograms, then specify it using its own column in the description input STAR file.)
 
 :Ordered list:: input/order_list.csv
 
-    (A 2-column, comma-separated file with the frame-order list of the tilt series, where the first column is the frame (image) number (starting at 1) and the second column is the tilt angle (in degrees). If this values varies among the input tomograms, then specify it using its own column in the description input STAR file.)
+    (A 2-column, comma-separated file with the frame-order list of the tilt series, where the first column is the frame (image) number (starting at 1) and the second column is the tilt angle (in degrees). If this value varies among the input tomograms, then specify it using its own column in the description input STAR file.)
 
 :Flip YZ?: Yes
 

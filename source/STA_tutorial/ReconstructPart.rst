@@ -7,7 +7,7 @@ The usual method to obtain a 3D reference map from a set of particles has been b
 However, it is also possible to obtain that reference map directly by averaging the 2D projections for each particle from the tilt series.
 Here, although in the :jobtype:`Tomo reconstruct particle` jobtype we offer both options, we strongly recommend the reconstruction from 2D tilt series projections.
 This saves an interpolation step and prevent from artifacts related to pseudo-subtomogram construction.
-It also creates both halfmaps together with the reference map and saves computational time.
+It also creates both halfmaps along with the reference map and saves computational time.
 
 The main differences the user will find are:
 

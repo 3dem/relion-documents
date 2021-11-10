@@ -7,7 +7,7 @@ De novo 3D model generation
 As of release 4.0, this algorithm is different from the SGD algorithm in the CryoSPARC program :cite:`punjani_cryosparc:_2017`.
 Provided you have a reasonable distribution of angular directions, this algorithm is likely to yield a suitable, low-resolution model that can subsequently be used for :jobtype:`3D classification` or :jobtype:`3D auto-refine`.
 
-The sample used in is tutorial usually allows for obtaining initial orientations, normal to the spheroidal surface, during the picking process which could be used as initial reference.
+The sample used in this tutorial usually allows for obtaining initial orientations, normal to the spheroidal surface, during the picking process which could be used as initial reference.
 However, here we will show how to obtain a *de novo* model without any prior knowledge.
 
 Running the job
