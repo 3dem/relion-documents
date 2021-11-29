@@ -41,9 +41,17 @@ CTFFIND-4.1:
     Instead, |RELION| provides a wrapper to Alexis Rohou and Niko Grigorieff's :textsc:`ctffind` 4 :cite:`rohou_ctffind4:_2015`.
     Alternatively, you may also use (the closed-source) :textsc:`gctf` by Kai Zhang :cite:`zhang_gctf:_2016`, which may be downloaded from `Kai's website <http://www.mrc-lmb.cam.ac.uk/kzhang/>`_.
 
+Ghostscript:
+    RELION uses `Ghostscript <https://www.ghostscript.com/>`_ to generate PDF files.
+
 FLTK (only for GUI):
     RELION uses `FLTK <https://www.fltk.org/>`_ as a GUI tool kit.
     This can be installed automatically (see below).
+
+X Window system libraries (only for GUI):
+    RELION needs basic X11 libraries together with `Xft <https://www.freedesktop.org/wiki/Software/Xft/>`_ for the GUI.
+    Most Linux distributions have packages called ``libxft-dev`` or ``libXft-devel`` and ``libX11-devel``.
+    Note that you need developer packages if you build your own FLTK.
 
 FFT libraries:
     RELION needs an FFT library.
@@ -78,11 +86,11 @@ In practice, most of these dependencies can be installed by system's package man
 
 In Debian or Ubuntu::
 
-    sudo apt install cmake git build-essential mpi-default-bin mpi-default-dev libfftw3-dev libtiff-dev libpng-dev
+    sudo apt install cmake git build-essential mpi-default-bin mpi-default-dev libfftw3-dev libtiff-dev libpng-dev ghostscript libxft-dev
 
 In RHEL, Cent OS, Scientific Linux::
 
-    sudo yum install cmake git gcc gcc-c++ openmpi-devel fftw-devel libtiff-devel libpng-devel
+    sudo yum install cmake git gcc gcc-c++ openmpi-devel fftw-devel libtiff-devel libpng-devel ghostscript libXft-devel libX11-devel
 
 
 Download RELION
