@@ -402,8 +402,6 @@ You'll need to change all the paths for your own system, and translate the scrip
      
      # Default CTFFIND-4.1+ executable
      setenv RELION_CTFFIND_EXECUTABLE /public/EM/ctffind/ctffind.exe
-
-     setenv RELION_CTFFIND_EXECUTABLE /lmb/home/scheres/app/Alexis_16-03-18_5138_ctffind_160404_1358.exe
      
      # Default Gctf executable
      setenv RELION_GCTF_EXECUTABLE /public/EM/Gctf/bin/Gctf
