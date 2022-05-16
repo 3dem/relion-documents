@@ -409,6 +409,9 @@ You'll need to change all the paths for your own system, and translate the scrip
      # Default ResMap executable
      setenv RELION_RESMAP_EXECUTABLE /public/EM/ResMap/ResMap-1.1.4-linux64
      
+     # Default Topaz executable
+     setenv RELION_TOPAZ_EXECUTABLE /public/EM/RELION/topaz
+     
      # Enforce cluster jobs to occupy entire nodes with 24 hyperthreads
      setenv RELION_MINIMUM_DEDICATED 24
      # Do not allow the user to change the enforcement of entire nodes
