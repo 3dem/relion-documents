@@ -278,6 +278,12 @@ The following table contains all defined variables:
      - string
      - Installation-specific, see below
 
+The ``XXXcommandXXX`` variable needs a special care.
+For non-MPI commands (e.g. ``relion_refine``) not only the variable but the whole line is replaced.
+Thus, ``mpirun XXXcommandXXX`` will be ``mpirun relion_refine_mpi`` for an MPI job but ``relion_refine`` for a non-MPI job.
+Also note that some jobs consist of multiple lines of commands.
+See CCPEM threads (`1 <https://www.jiscmail.ac.uk/cgi-bin/wa-jisc.exe?A2=ind2205&L=CCPEM&O=D&P=38145>`_ and `2 <https://www.jiscmail.ac.uk/cgi-bin/wa-jisc.exe?A2=ind2204&L=CCPEM&D=0&O=D&P=61014>`_) for typical pitfalls.
+
 There are two environment variables that control the use of the entry of the 'Minimum number of dedicated cores per node' on the Running tabs of the GUI: ``RELION_MINIMUM_DEDICATED`` sets its default value (1 if not set); ``RELION_ALLOW_CHANGE_MINIMUM_DEDICATED`` sets whether the user will be able to change this entry. At LMB, we set the default to 24 and do not allow users to change it. In this way, we enforce that our hyper-threaded 12-core nodes get filled up entirely by individual |RELION| jobs.
 
 By default, the ``XXXextra1XXX``, ``XXXextra2XXX``, ... variables are not used.
