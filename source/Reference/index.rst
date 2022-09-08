@@ -12,4 +12,5 @@ Reference pages
    Using-RELION
    Conventions
    DeveloperGuide
+   Cli
    Bibliography
