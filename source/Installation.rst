@@ -108,10 +108,13 @@ To do so, use the shell command-line::
 This will create a local Git repository.
 All subsequent git-commands should be run inside this directory.
 
-Note that the beta-release of |RELION|-4.0 is stored on a separate branch until it becomes the latest stable release.
-To switch to |RELION|-4.0-beta, just type::
+The `master` branch (default) contains the stable release of |RELION|-4.0.
+By performing::
 
     git checkout ver4.0
+
+you can access the latest (developmental) updates for RELION 4.0x.
+The code there is not tested as throughfully as that in the `master` branch and not generally recommended.
 
 The code will be intermittently updated to amend issues.
 To incorporate these changes, use the command-line::
