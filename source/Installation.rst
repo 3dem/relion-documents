@@ -70,6 +70,11 @@ libpng:
     Most Linux distributions have packages called ``libpng-dev`` or ``libpng-devel``.
     Note that you need a developer package.
 
+pbzip2, xz, zstd:
+    RELION needs these commands in the ``PATH`` to read MRC movies compressed by bzip2, xz or ZStandard, respectively.
+    Note that RELION uses ``pbzip2``, not ``bzip2``.
+    Most Linux distributions provide packages for these utilities.
+
 UCSF MotionCor2 (optional):
     |RELION| implements its own (CPU-only) implementation of the UCSF |MotionCor2| algorithm for whole-frame micrograph movie-alignment :cite:`zheng_motioncor2:_2017`.
     If you want, you can still use the (GPU-accelerated) UCSF program.

@@ -332,6 +332,20 @@ If we round them to nearest integers, the output can be saved as integers, not f
 Since the number of defects are very small (1000 to 5000 out of 14 million pixels in K2) and their values are not very accurate anyway, such a slightly-lossy compression scheme probably do not hurt the resolution.
 Implementation and verification of such a strategy is on our TODO list.
 
+Compressed MRC files
+--------------------
+
+Some movies, especially Falcon 3 or Falcon 4 movies (non-EER), can be compressed significantly better by bzip2 than deflate TIFF.
+RELION 4.0.1 and newer support MRC movies compressed by bzip2, xz or ZStandard in RELION's own motion correction and Bayesian Polish for SPA.
+Other RELION features, including tomography, ``relion_movie_reconstruct`` and ``relion_image_handler``, do NOT support compressed MRC files (yet).
+
+To read compressed MRC files, RELION needs ``pbzip2`` (not ``bzip2``), ``xz`` and ``zstd`` command in your ``PATH`` for bzip2, xz and ZStandard, respectively.
+
+These formats do not allow random access; in other words, RELION has to decompress all the N - 1 preceeding frames only to read the N-th frame.
+This is not a big issue for tools that read all frames anyway (e.g. motion correction and Polish), but poses significant inefficiency for others.
+Fortunately, LZW-TIFF achieves similar (or better) compression for K2/K3 movies and Falcon 3/4 movies converted from EER.
+Thus, we hope the compressed MRC format is necessary only for archiving old Falcon 3/4 MRC movies.
+
 Examples
 --------
 
@@ -352,7 +366,7 @@ The deposited file is already in TIFF, but decompressed to 16 bit integer MRC fo
 *   relion_convert_to_tiff, auto = zip level 6: 1,337,873,325 (53.2 %)
 *   bzip2: 1,067,277,634 (42.4 %)
 
-Note that bzip2 gives a smaller file but you cannot process them directly in RELION; you have to decompress them before processing.
+Note that bzip2 gives a smaller file.
 
 K2 counting, gain normalised from EPU
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
