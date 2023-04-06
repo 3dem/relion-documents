@@ -301,6 +301,12 @@ The following table contains all defined variables:
    * - String
      - Variable
      - Meaning
+   * - ``XXXoutfileXXX``
+     - string
+     - The standard output log file RELION GUI displays.
+   * - ``XXXerrfileXXX``
+     - string
+     - The standard error log file RELION GUI displays.
    * - ``XXXcommandXXX``
      - string
      - relion command + arguments
