@@ -477,7 +477,7 @@ On the following on the :guitab:`Colors` tab, set:
 
 :Red value:: -3
 
-and save the settings use the option `Save job settings` from the top left `Jobs` menu.
+and save the settings to the project directory with the `Save job.star` menu item from the top left `Jobs` menu.
 
 Then, select ``autopick.star`` from the :button:`Display:` button of the ``Autopick/job010`` job to launch the GUI. 
 From the ``File`` menu at the top left of its main window, one can use ``Set FOM threshold`` to display only picks with a FOM above the threshold
