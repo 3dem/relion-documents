@@ -226,35 +226,14 @@ That tar-ball can then be extracted in any new |RELION| project directory:
 Executing a *Scheme*
 ^^^^^^^^^^^^^^^^^^^^^^
 
-Once a *Scheme* has been created using the `--scheme` argument to the GUI, it is no longer necessary to provide that argument.
-One can instead launch the GUI normally (and have slider bars for numbers and Yes/No pull-down menues for booleans):
+Once you have created the Scheme/name/ (sub)directories (with "name" being the name of your scheme), you can launch a separate GUI using:
+
 
 ::
 
-    relion &
+    relion_schemegui.py name
 
 
-The *Scheme* can then be accessed through the 'Scheduling' menu at the top of the GUI, where all defined *Schemes* are available through the 'Schemes' sub-menu.
-The same GUI can be toggled back into the normal 'pipeline' mode from the same menu (or by pressing ALT+'p' on Linux).
-If one wants to start a *Scheme* from scratch, one would typically press the :button:`Reset` button first, and then press the :runbutton:`Run!` button.
-This will lock the *Scheme* directory from further writing by the GUI and to reflect this, the lower part of the GUI will be de-activated.
-Once the *Scheme* finishes, the lock (in effect a hidden directory with the name ``.relion_lock_scheme_NAME``) will be removed and the bottom part of the GUI will be re-activated.
-One can safely toggle between the pipeliner and the schemer mode during execution of any *Scheme*, and multiple (different) *Schemes* can run simultaneously.
-
-When a *Scheme* for whatever reason dies in error, the lock will not be automatically removed.
-If this happens, use the :runbutton:`Unlock` button to remove the lock manually.
-Be careful not to remove the lock on a running *Scheme* though, as this itself will cause it to die with an error.
-
-If one would like to stop a running *Scheme* for whatever reason, one can press the :runbutton:`Abort` button.
-This will send an abort signal (i.e. it will create files called ``RELION_JOB_ABORT_NOW`` in the job directory of the currently running job, and in the directory of the *Scheme* itself), which will cause the *Scheme* to stop, and the lock to be removed.
-If one were to press the :runbutton:`Run!` button again, the same *Scheme* would continue the same execution as before, from the point where it was aborted.
-Most likely though, one has aborted because one would like to change something in the *Scheme* execution.
-For example, one could change parameters of a specific *Job*.
-To do so, select that *Job* by clicking on it in the list of *Jobs* in the lower part of the GUI.
-Then, edit the corresponding parameters on the relevant tabs of that *Job* on the top part of the GUI.
-Then, one may want to set `jobHasStarted` status to False, in order to make these options effective for all data processed in the *Scheme* thus far.
-For example, after running a *Scheme* for automated pre-processing for a while, one might want to change the threshold for picking particles in a :jobtype:`Auto-picking` job.
-One would then reset the `jobHasStarted` status of the :jobtype:`Auto-picking` job to False, while one would leave the `jobHasStarted` status of other jobs like :jobtype:`Motion correction` and :jobtype:`CTF estimation` to True.
-Thereby, upon a re-start of the *Scheme*, only new movies would be subjected to :jobtype:`Motion correction` and :jobtype:`CTF estimation` inside the same output directories as generated previously, but a new :jobtype:`Auto-picking` directory would be created, in which all movies acquired thus far would be processed.
+You can start, stop, change parameters, and restart the scheme from there. You can also look into this python script to see the actual calls it makes to relion_schemer, which is the command line program that executes the scheme. While it runs, you can then follow the generation of new jobs in the normal relion GUI.
 
 
