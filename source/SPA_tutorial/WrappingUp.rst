@@ -4,19 +4,6 @@ Wrapping up
 ===========
 
 
-Making a flowchart
-------------------
-
-Do you wonder how you got to your final reconstruction? Select the last job you performed from the :joblist:`Finished jobs` list and try the ``Make flowchart`` option from the :button:`Job actions` button.
-You'll need :math:`\LaTeX` and the ``TikZ`` package on your system in order for this to work.
-On the first page will be an overview flowchart without the exact job names, which may be useful for publication purposes (perhaps after editing it in your favourite vector-based design program).
-After the overview flowchart, the first detailed flowchart shows you the path how you got to this end.
-Note that flowcharts longer than 10 steps will be cut into pieces.
-There may be branches in your work flow.
-Therefore, following the flowchart of your last job, there will also be flowcharts for each branch.
-You can click on the links to get to the corresponding position in the PDF file.
-
-
 Cleaning up your directories
 ----------------------------
 
