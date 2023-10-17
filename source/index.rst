@@ -14,7 +14,7 @@ It is developed in the group of `Sjors Scheres <https://www2.mrc-lmb.cam.ac.uk/g
 Table of Contents
 -----------------
 
-**These pages refer to RELION-4.0-beta.**
+**These pages refer to RELION-4.0.**
 For RELION-3.1, please see `here <https://relion.readthedocs.io/en/release-3.1/>`_. 
 
 -   :doc:`Whats-new`
