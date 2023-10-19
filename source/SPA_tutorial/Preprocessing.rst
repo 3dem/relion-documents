@@ -324,7 +324,7 @@ On the :guitab:`I/O` tab of the :jobtype:`Manual picking` job-type, use the :but
 
 :OR use Topaz denoising?:: Yes
 
-     (This is a new feature in |RELION|-4.0 and will make a system call to topaz)
+     (This has been a feature since |RELION|-4.0 and will make a system call to topaz)
 
 
 
