@@ -11,7 +11,7 @@
 Installation
 ============
 
-The sections below explain how to download and install |RELION| on your computer.
+The sections below explain how to download and install |RELION| on your computer. More information, including detailed instructions on how to build with HIP or SYCL, is available via `github <https://github.com/3dem/relion/blob/master/README.md>`_
 
 Note that |RELION| depends on and uses several external programs and libraries.
 
@@ -92,6 +92,7 @@ In practice, most of these dependencies can be installed by system's package man
 In Debian or Ubuntu::
 
     sudo apt install cmake git build-essential mpi-default-bin mpi-default-dev libfftw3-dev libtiff-dev libpng-dev ghostscript libxft-dev
+ 
 
 In RHEL, Cent OS, Scientific Linux::
 
@@ -116,10 +117,9 @@ All subsequent git-commands should be run inside this directory.
 The `master` branch (default) contains the stable release of |RELION|-4.0.
 By performing::
 
-    git checkout ver4.0
+    git checkout ver5.0
 
-you can access the latest (developmental) updates for RELION 4.0x.
-The code there is not tested as throughfully as that in the `master` branch and not generally recommended.
+you can access the latest (developmental) updates for RELION 5.0x.
 
 The code will be intermittently updated to amend issues.
 To incorporate these changes, use the command-line::
@@ -130,6 +130,21 @@ inside you local repository (the source-code directory downloaded).
 If you have changed the code in some way, this will force you to commit a local merge.
 You are free to do so, but we will assume you have not changed the code.
 Refer to external instructions regarding git and merging so-called conflicts if you have changed the code an need to keep those changes.
+
+Setup a conda environment
+-------------------------
+
+To add support for Python modules (e.g. Blush, ModelAngelo and DynaMight) you will have to install a Python environment. We recommend installing `miniconda3 <https://docs.conda.io/en/latest/miniconda.html>`_.
+
+Once you have Conda setup, you can install all the RELION Python dependencies into a new environment by running::
+
+    conda env create -f environment.yml
+
+Also code in this environment will be updated intermittently. You can incorporate the latest changes by running::
+
+    conda env update -f environment.yml
+
+The ``cmake`` command should autimatically detect your newly created conda environment. If it does not, you can specify ``-DPYTHON_EXE_PATH=path/to/your/conda/python``. Additionally, if you intend to make use of automatically downloaded pretrained model weights (used in e.g. Blush, ModelAngelo and class_ranker), it's recommended to set the TORCH_HOME directory. To do this, include the flag ``-DTORCH_HOME_PATH=path/to/torch/home``.
 
 Compilation
 -----------
@@ -407,12 +422,12 @@ You'll need to change all the paths for your own system, and translate the scrip
      endif
      
      # CUDA for RELION
-     setenv PATH /public/EM/CUDA/Cuda7.0/bin:$PATH
-     setenv LD_LIBRARY_PATH /public/EM/CUDA/Cuda7.0/lib64:$LD_LIBRARY_PATH
-     setenv CUDA_HOME /public/EM/CUDA/Cuda7.0
+     setenv PATH /public/EM/CUDA/Cuda11.4/bin:$PATH
+     setenv LD_LIBRARY_PATH /public/EM/CUDA/Cuda11.4/lib64:$LD_LIBRARY_PATH
+     setenv CUDA_HOME /public/EM/CUDA/Cuda11.4
      
      # Where is qsub template script stored
-     setenv RELION_QSUB_TEMPLATE /public/EM/RELION/relion-prerelease/bin/qsub.csh
+     setenv RELION_QSUB_TEMPLATE /public/EM/RELION/relion-devel/bin/qsub.csh
      
      # Default PDF viewer
      setenv RELION_PDFVIEWER_EXECUTABLE evince
@@ -428,9 +443,6 @@ You'll need to change all the paths for your own system, and translate the scrip
  
      # Default ResMap executable
      setenv RELION_RESMAP_EXECUTABLE /public/EM/ResMap/ResMap-1.1.4-linux64
-     
-     # Default Topaz executable
-     setenv RELION_TOPAZ_EXECUTABLE /public/EM/RELION/topaz
      
      # Enforce cluster jobs to occupy entire nodes with 24 hyperthreads
      setenv RELION_MINIMUM_DEDICATED 24
