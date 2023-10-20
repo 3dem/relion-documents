@@ -90,7 +90,7 @@ On the :guitab:`Optimisation` tab set:
 
 :Use Blush regularisation?: Yes
 
-     (This is new as of |RELION|-5.0. It switches from the default smoothness prior in Fourier space to a new prior in the form of a denoising convolutional neural network that was trained on many EMDB half-maps. It is particularly powerful when the signal-to-noise ratios in the images is low, e.g. because of small complexes, and standard 3D classification, 3D auto-refinement (see next section of this tutorial), or multi-body refinement suffers from overfitting. This tutorial data set has relatively high signal-to-noise ratios, so using Blush regularisation is probably not necessary. We used it here anyway to make you aware of the option. To run this option, the |RELION|-5 conda environment should be installed and you need CUDA-enabled GPUs to run ``pytorch`` on. If you cannot run this, don't worry and just set the option to ``No``.)
+     (Blush regularisation is a new feature in |RELION|-5.0. It switches from the default smoothness prior in Fourier space to a new prior in the form of a denoising convolutional neural network that was trained on many EMDB half-maps. It is particularly powerful when the signal-to-noise ratios in the images is low, e.g. because of small complexes, and standard 3D classification, 3D auto-refinement (see next section of this tutorial), or multi-body refinement suffers from overfitting. This tutorial data set has relatively high signal-to-noise ratios, so using Blush regularisation is probably not necessary. We used it here anyway to make you aware of the option. To run this option, the |RELION|-5 conda environment should be installed and you need CUDA-enabled GPUs to run ``pytorch`` on. If you cannot run this, don't worry and just set the option to ``No``.)
 
 
 On the :guitab:`Sampling` tab one usually does not need to change anything (only for large and highly symmetric particles, like icosahedral viruses, does one typically use a 3.7 degree angular sampling at this point).
@@ -125,7 +125,7 @@ On the :guitab:`Running` tab, set:
 
 3D classification takes more memory than 2D classification, so often more threads are used.
 However, in this case the images are rather small and RAM-shortage may not be such a big issue.
-On our computer with 4 GPUs, we used 5 MPIs and 6 threads, and this calculation took approximately 6 minutes without Blush. Switching Blush on changed this to xx minutes. The relatively difference will be much smaller for larger data sets that spend more time during their E-step. 
+On our computer with 4 GPUs, we used 5 MPIs and 6 threads, and this calculation took approximately 6 minutes without Blush. Switching Blush on changed this to 13 minutes. The relatively difference will be much smaller for larger data sets that spend most of their time during their E-step, whereas Blush regularisation happens only in the M-step. 
 
 When analysing the resulting class reconstructions, it is useful to also look at them in 2D slices, not only as a thresholded map in for example UCSF :textsc:`chimera`.
 In the slices view you will get a much better impression of unresolved heterogeneity, which will show up as fuzzy or streaked regions in the slices.
