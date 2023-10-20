@@ -1,6 +1,20 @@
 What's new?
 ===========
 
+Release 5.0
+-----------
+
+**Blush regularisation**
+
+**DynaMight for modelling continuous structural heterogeneity**
+
+**ModelAngelo for automated atomic model building**
+
+**Select subsets of filaments using dendrograms**
+
+**A complete subtomo-gram averaging pipeline**
+
+
 Release 4.0
 -----------
 

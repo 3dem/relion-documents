@@ -24,20 +24,20 @@ On the :guitab:`Mask` tab set:
 
      (This value will be taken automatically from the header of the input map.)
 
-:Initial binarisation threshold:: 0.005
+:Initial binarisation threshold:: 0.01
 
      (This should be a threshold at which rendering of the low-pass filtered map in for example :textsc:`chimera` shows no noisy spots outside the protein area.
      Move the threshold up and down to find a suitable spot.
      Remember that one can use the command-line program called ``relion_image_handler`` with the options ``--lowpass 15 --angpix 1.244`` to get a low-pass filtered version of an input map.
      Often good values for the initial threshold are around 0.002-0.02.)
 
-:Extend binary map this many pixels:: 0
+:Extend binary map this many pixels:: 03
 
      (The threshold above is used to generate a black-and-white mask.
      The white volume in this map will be grown this many pixels in all directions.
      Use this to make your initial binary mask less tight.)
 
-:Add a soft-edge of this many pixels:: 6
+:Add a soft-edge of this many pixels:: 8
 
      (This will put a cosine-shaped soft edge on your masks.
      This is important, as the correction procedure that measures the effect of the mask on the FSC curve may be quite sensitive to too sharp masks.
@@ -68,7 +68,7 @@ Now select the :jobtype:`Post-processing` job-type, and on the :guitab:`I/O` tab
 :Calibrated pixel size (A):: 1.244
 
     (Sometimes you find out when you start building a model that what you thought was the correct pixel size, in fact was off by several percent.
-     Inside |RELION|, everything up until this point was still consistent. so you do not need to re-refine your map and/or re-classify your data.
+     Inside |RELION|, everything up until this point was still consistent (at least up to ~2A resolution), so you do not need to re-refine your map and/or re-classify your data.
      All you need to do is provide the correct pixel size here for your correct map and final resolution estimation.)
 
 

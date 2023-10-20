@@ -1,6 +1,11 @@
 Introduction
 ============
 
+.. warning::
+    This tutorial has not yet been updated for the new subtomogram averaging pipeline in |RELION|-5.0. Please be patient while we work on this.
+    
+
+
 This tutorial provides an introduction for the subtomogram analysis workflow in |RELION|-4.0: preprocessing; importing tomograms; importing coordinates; pseudo-subtomograms construction; particle reconstruction; 3D classification; high-resolution 3D refinement; frame alignment refinement; CTF refinement and higher-order aberration correction; and final map sharpening and local-resolution estimation.
 Carefully going through this tutorial should take around a day to obtain a high resolution map before applying any CTF refinemend or frame alignment jobs (if you have a suitable GPU or if you follow our precalculated results).
 Completing the tutorial increases the time in 2-3 more days.

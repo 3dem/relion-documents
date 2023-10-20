@@ -15,9 +15,13 @@ Select the ``Select/job014/particles.star`` file on the :guitab:`I/O` tab of the
 Everything is aready in order on the :guitab:`CTF`.
 Fill in the :guitab:`Optimisation` tab as follows (leave the defaults for the angular and offset sampling):
 
-:Number of iterations: 100
+:Number of VDAM mini-batches: 100
 
-     (The algorithm will loop over mini-batches, which contain only hundreds to thousands of particles.)
+     (The VDAM algorithm will loop over mini-batches, which contain only hundreds to thousands of particles each.)
+
+:Regularisation parameter T: 4
+
+     (The default is 4 for 3D runs.)
 
 :Number of classes: 1
 
@@ -32,25 +36,18 @@ Fill in the :guitab:`Optimisation` tab as follows (leave the defaults for the an
 
 :Symmetry: D2
 
-     (The actual refinement will be run in C1, which has been observed to converge better than performing it in higher symmetry groups.
-     After the refinement, the ``relion_align_symmetry`` program is run to automatically detect the symmetry axes and the symmetry will be applied.)
-
-:Initial angular sampling:: 15 degrees
-
-     (The default angular and offset samplings should be fine for most cases, perhaps with the exception of highly symmetric particles like viruses, which may require finer samplings.) 
-
-:Offset search range (pix):: 6
-
-:Offset search step (pix):: 2
+:Run in C1 and apply symmetry later?: Yes
+				      
+     (The actual refinement will be run in C1, which has been observed to converge better than running VDAM in higher symmetry groups.
+     After the refinement, the ``relion_align_symmetry`` program is run automatically to detect the symmetry axes and the symmetry will be applied.)
 
 
 On the :guitab:`Compute` tab, set:
 
 :Use parallel disc I/O?: Yes
 
-:Number of pooled particles:: 30
+:Number of pooled particles: 30
 
-:Skip gridding?: Yes
 
 :Pre-read all particles into RAM?: Yes
 
@@ -68,7 +65,7 @@ On the :guitab:`Running` tab, set:
 
 :Number of MPI procs: 1
 
-     (Remember that the gradient-driven algorithm does not scale well with MPI.)
+     (Remember that the gradient-driven algorithm cannot be run with multiple MPI processes.)
 
 :Number of threads: 12
 
@@ -78,7 +75,5 @@ Using the settings above, this job took 2 minutes on our system.
 Analysing the results
 ---------------------
 
-You could look at the output map from the gradient-driven algorithm (``InitialModel/job015/run_it100_class001.mrc``) with a 3D viewer like UCSF :textsc:`chimera`. 
-You should probably conform that the symmetry point group was correct and that the symmetry axes were identified correctly. 
-If so, the symmetrised output map (``InitialModel/job015/initial_model.mrc``) should look similar to the output map from the gradient-driven algorithm.
+You can look at the output map in 2D slices through the 3D map by selecting ``InitialModel/job015/initial_model.mrc`` from the :button:`Display:` button. We like looking at 3D maps in 2D slices, as it is a good way to assess artifacts, for example streaks in the solvent region. You may also want to look at your map in 3D, with a 3D viewer like UCSF :textsc:`chimera`.
 
