@@ -22,7 +22,7 @@ David Li developed a useful utility to select subsets of filament particles that
 
 **Support for AMD and Intel GPUs (ROCm and HIP)**
 
-
+Suyash Tandom from AMD and Jason Do from Intel, together with their colleagues, have contributed code for GPU acceleration of |RELION|-5 in ROCm and HIP, respectively. This means that the ``relion_refine`` program can now be run efficiently on AMD and Intel GPUs. 
 
 **A complete subtomo-gram averaging pipeline**
 
