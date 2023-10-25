@@ -61,8 +61,16 @@ Sjors designed the *regularised likelihood algorithm* and is the *original archi
 Past members
 ------------
 
+Alister Burt
+^^^^^^^^^^^^
+
+TODO
+
+
 David Li
 ^^^^^^^^
+
+`Google Scholar <https://scholar.google.com/citations?user=AGKZlfsAAAAJ>`__
 
 David studied Electrical Engineering and Computer Science at MIT. He worked in the lab of Prof Feng Zhang on CRISPR systems. David joined our group as an MPhil student in October 2022 to work on in vitro assembly of tau filaments. During his stay with us David also developed new classification software for filaments. David went on to do a PhD at Stanford.
 

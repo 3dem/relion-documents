@@ -20,9 +20,13 @@ Kiarash Jamali developed a machine-learning approach for automated atomic model 
 
 David Li developed a useful utility to select subsets of filament particles that belong to the same structural class. It has been implemented on the Helix tab of the Subset selection job type.
 
+**Support for AMD and Intel GPUs (ROCm and HIP)**
+
+
+
 **A complete subtomo-gram averaging pipeline**
 
-Alister Burt, Sjors Scheres and others have developed a new pipeline for sub-tomogram averaging that starts with serialEM mdoc files and raw movies, and potentially ends with automated model building by ModelAngelo. You can access it by launching ``relion --tomo`` from the command line. However, please do note that this part of the code is not yet well tested and we have not yet been able to write an explanatory tutorial for this, so please be patient. Until we have finished the documentation and testing, you can play with the code already, but we cannot yet provide any feedback...
+Alister Burt, Euan Pyle, Sjors Scheres and others have developed a new pipeline for sub-tomogram averaging that starts with serialEM mdoc files and raw movies, and potentially ends with automated model building by ModelAngelo. You can access it by launching ``relion --tomo`` from the command line. However, please do note that this part of the code is not yet well tested and we have not yet been able to write an explanatory tutorial for this, so please be patient. Until we have finished the documentation and testing, you can play with the code already, but we cannot yet provide any feedback...
 
 Release 4.0
 -----------
