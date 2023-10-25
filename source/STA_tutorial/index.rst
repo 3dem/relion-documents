@@ -5,15 +5,3 @@ Subtomogram tutorial
    :maxdepth: 2
 
    Introduction
-   Preprocessing
-   ImportTomo
-   ImportCoords
-   MakePseudosubtomos
-   InitialModel
-   Refine3DIni
-   ReconstructPart
-   Refine3D
-   Postprocess
-   Class3D
-   CtfRefine
-   FrameAlign
