@@ -64,7 +64,9 @@ Past members
 Alister Burt
 ^^^^^^^^^^^^
 
-TODO
+`Google Scholar <https://scholar.google.co.uk/citations?hl=en&user=ERGSZbUAAAAJ>`__
+
+Alister studied Chemistry at the University at York, UK and did his PhD at the IBS in Grenoble, France. He was a post-doc in the group of David Barford, where he contributed code to the new sub-tomogram avaraging pipeline in |RELION|-5;
 
 
 David Li
