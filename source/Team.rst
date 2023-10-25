@@ -8,6 +8,7 @@ Current members
 ---------------
 
 
+
 Kiarash Jamali
 ^^^^^^^^^^^^^^
 
@@ -35,6 +36,13 @@ Dari joined our group as a post-doc in May 2019.
 Dari implemented *GPU-acceleration* during his PhD.
 For his postdoc at LMB, he works on the incorporation of *more informative priors* through deep convolutional neural networks, as well as on the design of more efficient *optimisation algorithms*.
 
+
+Euan Pyle
+^^^^^^^^^
+
+`Google Scholar <https://scholar.google.com/citations?user=bkRQ0BQAAAAJ>`__
+
+Euan studied Chemistry and Biology at Durham University before going on to complete his PhD at Imperial College London. As a post-doc position in Giulia Zanetti's lab at Birkbeck College/The Francis Crick Institute, he contributed code to the RELION 5.0 tomography pipeline, in close collaboration with Alister Burt.
 
 Takanori Nakane
 ^^^^^^^^^^^^^^^
