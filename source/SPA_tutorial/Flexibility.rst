@@ -42,7 +42,7 @@ For nowm ignore the :guitab:`Tasks` tab; on the :guitab:`Running` tab set:
 Visualising the deformations
 ----------------------------
 
-On our, relatively old, 1080 GPU, estimating the deformations took xxx hours. To visualise the flexibility in the beta-galactosidase complex, we use a continuation of the :jobtype:`DynaMight flexibility` job, where on the :guitab:`Tasks` tab we set:
+On our, relatively old, 1080 GPU, estimating the deformations took less than onehour and a half. To visualise the flexibility in the beta-galactosidase complex, we use a continuation of the :jobtype:`DynaMight flexibility` job, where on the :guitab:`Tasks` tab we set:
 
 :Checkpoint file:: DynaMight/job034/forward_deformations/checkpoints/checkpoint\_final.pth
 
@@ -82,7 +82,7 @@ The 3D deformations are defined from the consensus positions of the Gaussians to
      
 :Do deformed backprojection?: No
 
-Running this by pressing the :runbutton:`Continue!` button took xxx hours on one of our 1080s. 
+Running this by pressing the :runbutton:`Continue!` button took a bit over an hour on one of our 1080s. 
 
 Deformed backprojection
 -----------------------
@@ -102,7 +102,7 @@ Finally, the resulting inverse deformations can then be used for a deformed back
 
      (Batches are processes in parallel on the GPU. Again, because our 1080s don't have a lot of memory, we could only run with a batchsize of 2. If you have a larger GPU, you could try and use more, e.g. 5 or 10.)
 
-This took xxx hours on our system. The resulting half-maps can be used for a standard :jobtype:`Post-processing` job. In this case, nothing really interesting happens as there are hardly any deformations. The resolution actually decreases by about 0.5 Angstrom, probably because the deformed backprojection algorithm is not as good as good as the Fourier inversion algorithm for structurally homogeneous data sets. More interesting examples of deformed backprojection reconstructions are in the DynaMight paper :cite:`schwab_dynamight_2023`.
+This took approximately 45 minutes on our system. The resulting half-maps can be used for a standard :jobtype:`Post-processing` job. In this case, nothing really interesting happens as there are hardly any deformations. The resolution actually decreases by about 0.5 Angstrom, probably because the deformed backprojection algorithm is not as good as good as the Fourier inversion algorithm for structurally homogeneous data sets. More interesting examples of deformed backprojection reconstructions are in the DynaMight paper :cite:`schwab_dynamight_2023`.
 
 
 

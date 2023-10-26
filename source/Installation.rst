@@ -336,6 +336,7 @@ Configuration with SYCL acceleration
 Enable accelerated the SYCL code path with:
     ``cmake -DSYCL=ON``
 
+Note that this is mutually exclusive with GPU acceleration (-DCUDA=ON).
 For now, this way of building RELION is `explained here: <https://github.com/3dem/relion/blob/ver5.0/README_sycl.md>`_.
 
 
