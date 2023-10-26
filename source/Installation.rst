@@ -3,15 +3,10 @@
     |RELION| is distributed under a GPLv2 license, i.e. it is completely free, open-source software for both academia and industry.
 
 
-..
-    TODO:
-
-    - Write about Torch
-
 Installation
 ============
 
-The sections below explain how to download and install |RELION| on your computer. More information, including detailed instructions on how to build with HIP or SYCL, is available via `github <https://github.com/3dem/relion/blob/master/README.md>`_
+The sections below explain how to download and install |RELION| on your computer. 
 
 Note that |RELION| depends on and uses several external programs and libraries.
 
@@ -20,21 +15,29 @@ C++ compiler:
     For GCC, this means version 4.8.1 or later.
     Note that GCC 4.4, which comes with RedHat Enterprise Linux or CentOS 6.x, is too old.
 
-    To use Torch related features, you need C++14 support.
-    For GCC, this means version 5.0 or later.
-
 MPI:
     Your system will need `MPI <https://en.wikipedia.org/wiki/Message_Passing_Interface>`_ runtime (most flavours will do).
     If you don't have an MPI installation already on your system, we recommend installing `OpenMPI <http://www.open-mpi.org/>`_.
 
-CUDA:
-    If you have a modern GPU from :textsc:`nvidia` with compute capability 3.5+, you can accelerate many jobs considerably.
-    In order to compile |RELION| with GPU-acceleration support, you'll need to install :textsc:`cuda`.
-    Download it from `NVIDIA website <https://developer.nvidia.com/cuda-downloads>`_.
+CUDA, HIP/ROCm, SYCL or oneAPI intel compilers:
+    If you have GPUs from :textsc:`nvidia`, AMD or Intel, you can accelerate many jobs considerably.
 
+    By default, |RELION| will build with GPU-acceleration support, for which you'll need :textsc:`cuda`.
+    Download it from `NVIDIA website <https://developer.nvidia.com/cuda-downloads>`_.
     Note that CUDA toolkits support only a limited range of C compilers.
     Also note that a newer CUDA toolkit requires a newer GPU driver.
     Carefully read the release note and make sure you have a compatible set of GPU driver, C compiler and CUDA toolkit.
+
+    If you want to compile with HIP/ROCm, you will need
+        - `AMD ROCm <https://docs.amd.com/bundle/ROCm-Installation-Guide-v5.4.2/page/Introduction_to_ROCm_Installation_Guide_for_Linux.html>`_
+    
+    If you want to compile with SYCL, you will need
+        - `Intel oneAPI Base Toolkit and HPC Toolkit <https://www.intel.com/content/www/us/en/developer/tools/oneapi/toolkits.html>`_ (All components recommended; this is also recommended if you want to build the CPU acceleration path, see below)
+	- `Intel software for general purpose GPU capabilities <https://dgpu-docs.intel.com)>`_
+	- `Intel CPU Runtime for OpenCL(TM) Applications <https://www.intel.com/content/www/us/en/developer/articles/technical/intel-cpu-runtime-for-opencl-applications-with-sycl-support.html)>`_ (optional)
+	- `Codeplay oneAPI for NVIDIA GPU <https://developer.codeplay.com/products/oneapi/nvidia>`_ (optional)
+	- `Codeplay oneAPI for AMD GPU <https://developer.codeplay.com/products/oneapi/amd>`_ (optional)
+
 
 CTFFIND-4.1:
     CTF estimation is not part of |RELION|.
@@ -46,7 +49,7 @@ Ghostscript:
 
 FLTK (only for GUI):
     RELION uses `FLTK <https://www.fltk.org/>`_ as a GUI tool kit.
-    This can be installed automatically (see below).
+    This will be installed automatically (see below).
 
 X Window system libraries (only for GUI):
     RELION needs basic X11 libraries together with `Xft <https://www.freedesktop.org/wiki/Software/Xft/>`_ for the GUI.
@@ -56,7 +59,7 @@ X Window system libraries (only for GUI):
 FFT libraries:
     RELION needs an FFT library.
     The default is `FFTW <https://www.fftw.org/>`_.
-    This can be installed automatically (see below).
+    This will be installed automatically (see below).
     Depending on your CPU, `Intel MKL FFT <https://software.intel.com/mkl>`_ or `AMD optimised FFTW <https://developer.amd.com/amd-aocl/fftw/>`_ might run faster.
     See below how to use them.
 
@@ -198,10 +201,12 @@ Wherever you install |RELION|, make sure your ``PATH`` environmental variable po
 Launching |RELION| with a path like ``/path/to/relion`` is not the right way;
 this starts the right GUI, but the GUI might invoke other versions of |RELION| in the ``PATH``.
 
-Configuration options
+General configuration
 ---------------------
 
 `CMake <https://cmake.org/>`_ allows configuration of many aspects of the installation, some of which are outlined here.
+Note that by default, |RELION| is configured to build with CUA acceleration on NVidia GPUs. Instructions for building with CPU, HIP/Rocm (AMD) SYCL (Intel et al) acceleration are given in the next section below.
+
 Most options can be set by adding options to the ``cmake`` configuration.
 Under the below subheadings, some example replacement commands are given to substitute the original configuration command.
 It is also recommended to clean or purge your build-directory between builds, since CMake caches some of previous configurations::
@@ -277,6 +282,9 @@ Specifying an installation location:
     This does not work!
     If you are happy with binaries in the build directory, leave ``CMAKE_INSTALL_PREFIX`` as default and omit the ``make install`` step.
 
+Configuration with CPU acceleration
+-----------------------------------
+
 Enable accelerated CPU code path:
     ``cmake -DALTCPU=ON``
 
@@ -288,10 +296,13 @@ Use Intel compilers:
     Intel compilers are available free of chage as part of `Intel oneAPI HPC toolkit <https://software.intel.com/content/www/us/en/develop/tools/oneapi/hpc-toolkit.html>`_.
     To use Intel compilers, run below after sourcing Intel compilers' initialization scripts::
 
+        mkdir build-cpu
+        cd build-cpu
         cmake .. -DMKLFFT=ON \
         -DCMAKE_C_COMPILER=icc -DCMAKE_CXX_COMPILER=icpc -DMPI_C_COMPILER=mpiicc -DMPI_CXX_COMPILER=mpiicpc \
         -DCMAKE_C_FLAGS="-O3 -ip -g -xCOMMON-AVX512 -restrict " \
         -DCMAKE_CXX_FLAGS="-O3 -ip -g -xCOMMON-AVX512 -restrict "
+	make -j 24
 
     This generates binaries optimized with AVX512 instructions.
     If your CPU supports only up to AVX256, use ``-xCORE-AVX2`` instead of ``-xCOMMON-AVX512``.
@@ -299,6 +310,33 @@ Use Intel compilers:
     If you don't want to use Intel MPI, change ``mpiicc`` and ``mpiicpc`` accordingly.
     For example, to use OpenMPI with Intel compilers, specify ``mpicc`` and ``mpicxx`` after setting environmental variables ``OMPI_CC=icc`` and ``OMPI_CXX=icpc``.
     See `OpenMPI FAQ <https://www.open-mpi.org/faq/?category=mpi-apps#override-wrappers-after-v1.0>`_ for details.
+
+
+Configuration with HIP/ROCm acceleration
+----------------------------------------
+
+Enable accelerated the HIP/ROCm code path with:
+    ``cmake -DHIP=ON``
+
+Note that this is mutually exclusive with GPU acceleration (-DCUDA=ON).
+On our system, we build with HIP/ROCm acceleration to use AMD GPUs with the following commands::
+
+        setenv LD_LIBRARY_PATH /opt/rocm/lib:$LD_LIBRARY_PATH
+        setenv PATH /opt/rocm/:$PATH
+        setenv ROCM_PATH /opt/rocm/
+        mkdir build-amd
+        cd build-amd
+        cmake -DCMAKE_BUILD_TYPE=Release -DHIP=ON -DHIP_ARCH="gfx90a,gfx908" -DFORCE_OWN_FFTW=ON  -DAMDFFTW=on ..
+        make -j 24
+
+
+Configuration with SYCL acceleration
+------------------------------------
+
+Enable accelerated the SYCL code path with:
+    ``cmake -DSYCL=ON``
+
+For now, this way of building RELION is `explained here: <https://github.com/3dem/relion/blob/ver5.0/README_sycl.md>`_.
 
 
 Set-up queue job submission
