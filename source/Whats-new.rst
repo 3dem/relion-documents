@@ -20,9 +20,9 @@ Kiarash Jamali developed a machine-learning approach for automated atomic model 
 
 David Li developed a useful utility to select subsets of filament particles that belong to the same structural class. It has been implemented on the Helix tab of the Subset selection job type.
 
-**Support for AMD and Intel GPUs (ROCm and HIP)**
+**Support for AMD and Intel GPUs (HIP/ROCm and SYCL)**
 
-Suyash Tandon from AMD and Jason Do from Intel, together with their colleagues, have contributed code for GPU acceleration of |RELION|-5 in ROCm and HIP, respectively. This means that the ``relion_refine`` program can now also be run efficiently on AMD and Intel GPUs. (The previously existing CUDA implementation and vectorised CPU-acceleration still work too.)  
+Suyash Tandon from AMD and Jason Do from Intel, together with their colleagues, have contributed code for GPU acceleration of |RELION|-5 in HIP/ROCm and SYCL, respectively. This means that the ``relion_refine`` program can now also be run efficiently on AMD and Intel GPUs. (The previously existing CUDA implementation and vectorised CPU-acceleration still work too.)  
 
 **A complete subtomo-gram averaging pipeline**
 
