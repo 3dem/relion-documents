@@ -29,12 +29,12 @@ CUDA, HIP/ROCm, SYCL or oneAPI intel compilers:
     Carefully read the release note and make sure you have a compatible set of GPU driver, C compiler and CUDA toolkit.
 
     If you want to compile with HIP/ROCm, you will need
-        - `AMD ROCm <https://docs.amd.com/bundle/ROCm-Installation-Guide-v5.4.2/page/Introduction_to_ROCm_Installation_Guide_for_Linux.html>`_
+        - `AMD ROCm <https://docs.amd.com/en/docs-5.7.1/deploy/linux/index.html>`_
     
     If you want to compile with SYCL, you will need
         - `Intel oneAPI Base Toolkit and HPC Toolkit <https://www.intel.com/content/www/us/en/developer/tools/oneapi/toolkits.html>`_ (All components recommended; this is also recommended if you want to build the CPU acceleration path, see below)
-	- `Intel software for general purpose GPU capabilities <https://dgpu-docs.intel.com)>`_
-	- `Intel CPU Runtime for OpenCL(TM) Applications <https://www.intel.com/content/www/us/en/developer/articles/technical/intel-cpu-runtime-for-opencl-applications-with-sycl-support.html)>`_ (optional)
+	- `Intel software for general purpose GPU capabilities <https://dgpu-docs.intel.com>`_
+	- `Intel CPU Runtime for OpenCL(TM) Applications <https://www.intel.com/content/www/us/en/developer/articles/technical/intel-cpu-runtime-for-opencl-applications-with-sycl-support.html>`_ (optional)
 	- `Codeplay oneAPI for NVIDIA GPU <https://developer.codeplay.com/products/oneapi/nvidia>`_ (optional)
 	- `Codeplay oneAPI for AMD GPU <https://developer.codeplay.com/products/oneapi/amd>`_ (optional)
 
