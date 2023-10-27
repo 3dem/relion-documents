@@ -38,7 +38,6 @@ CUDA, HIP/ROCm, SYCL or oneAPI intel compilers:
 	- `Codeplay oneAPI for NVIDIA GPU <https://developer.codeplay.com/products/oneapi/nvidia>`_ (optional)
 	- `Codeplay oneAPI for AMD GPU <https://developer.codeplay.com/products/oneapi/amd>`_ (optional)
 
-
 CTFFIND-4.1:
     CTF estimation is not part of |RELION|.
     Instead, |RELION| provides a wrapper to Alexis Rohou and Niko Grigorieff's :textsc:`ctffind` 4 :cite:`rohou_ctffind4:_2015`.
@@ -137,9 +136,10 @@ Refer to external instructions regarding git and merging so-called conflicts if 
 Setup a conda environment
 -------------------------
 
-To add support for Python modules (e.g. Blush, ModelAngelo and DynaMight) you will have to install a Python environment. We recommend installing `miniconda3 <https://docs.conda.io/en/latest/miniconda.html>`_.
+To add support for Python modules (e.g. Blush, ModelAngelo and DynaMight) you will have to setup a Python environment with dependencies.
+We recommend installing via `Miniconda3 <https://docs.conda.io/en/latest/miniconda.html>`_.
 
-Once you have Conda setup, you can install all the RELION Python dependencies into a new environment by running::
+Once you have conda setup, you can install all the RELION Python dependencies into a new environment by running::
 
     conda env create -f environment.yml
 
@@ -147,7 +147,10 @@ Also code in this environment will be updated intermittently. You can incorporat
 
     conda env update -f environment.yml
 
-The ``cmake`` command should autimatically detect your newly created conda environment. If it does not, you can specify ``-DPYTHON_EXE_PATH=path/to/your/conda/python``. Additionally, if you intend to make use of automatically downloaded pretrained model weights (used in e.g. Blush, ModelAngelo and class_ranker), it's recommended to set the TORCH_HOME directory. To do this, include the flag ``-DTORCH_HOME_PATH=path/to/torch/home``.
+The ``cmake`` command should automatically detect the `relion-5.0` conda environment created above.
+If it does not, you can specify ``-DPYTHON_EXE_PATH=path/to/your/conda/python``.
+Additionally, if you intend to make use of automatically downloaded pretrained model weights (used in e.g. Blush, ModelAngelo and class_ranker), it's recommended to set the `TORCH_HOME` directory by include the flag ``-DTORCH_HOME_PATH=path/to/torch/home``.
+Otherwise, it will be downloaded to the default location (usually `~/.cache/torch`).
 
 Compilation
 -----------
@@ -173,6 +176,7 @@ For instance:
 *   The path to the MPI library.
 *   GPU-capability will only be included if a CUDA SDK is detected.
     If not, the program will install, but without support for GPUs.
+*   The path to the Python interpreter.
 *   If FFTW is not detected, instructions are included to download and install it in a local directory known to the |RELION| installation.
 *   As above, regarding FLTK (required for GUI).
     If a GUI is not desired, this can be escaped as explained in the following section.
@@ -234,10 +238,10 @@ Using double-precision on the GPU:
     This will slow down GPU-execution considerably, while this does *NOT* improve the resolution.
     Thus, this option is not recommended.
 
-Compiling GPU-code for your architecture:
+Compiling NVIDIA GPU codes for your architecture:
     ``cmake -DCUDA_ARCH=52 ..`` (default is 35, meaning compute capability 3.5, which is the lowest supported by |RELION|)
 
-    CUDA-capable devices have a so-called compute capability, which code can be compiled against for optimal performance.
+    CUDA-capable NVIDIA devices have a so-called compute capability, which code can be compiled against for optimal performance.
     The compute capability of your card can be looked up at `the table in NVIDIA website <https://developer.nvidia.com/cuda-gpus>`_.
     WARNING: If you use a wrong number, compilation might succeed but the resulting binary can fail at the runtime.
 
@@ -289,12 +293,16 @@ Enable accelerated CPU code path:
     ``cmake -DALTCPU=ON``
 
     Note that this is mutually exclusive with GPU acceleration (``-DCUDA=ON``).
-    Intel compilers are recommended for this option (see below).
+    Intel Classic compilers are recommended for this option (see below).
 
-Use Intel compilers:
-    Intel compilers often generate faster binaries for Intel CPUs, especially when combined with the accelerated CPU code path above.
-    Intel compilers are available free of chage as part of `Intel oneAPI HPC toolkit <https://software.intel.com/content/www/us/en/develop/tools/oneapi/hpc-toolkit.html>`_.
-    To use Intel compilers, run below after sourcing Intel compilers' initialization scripts::
+Use Intel Classic compilers:
+    Intel Classic compilers often generate faster binaries for Intel CPUs, especially when combined with the accelerated CPU code path above.
+    Intel Classic compilers are available free of chage as part of `Intel oneAPI HPC toolkit <https://software.intel.com/content/www/us/en/develop/tools/oneapi/hpc-toolkit.html>`_.
+    Note that Intel Classic compilers are being deprecated in favour of LLVM-based new Intel compilers.
+    As of 2023 October, the classic compilers generate faster binaries than newer compilers.
+    We recommend you to keep oneAPI toolkit installers, in case Intel stops the distribution of classic compilers.
+
+    To use Intel Classic compilers, run below after sourcing the initialization script (`setvars.sh`)::
 
         mkdir build-cpu
         cd build-cpu
@@ -309,34 +317,38 @@ Use Intel compilers:
 
     If you don't want to use Intel MPI, change ``mpiicc`` and ``mpiicpc`` accordingly.
     For example, to use OpenMPI with Intel compilers, specify ``mpicc`` and ``mpicxx`` after setting environmental variables ``OMPI_CC=icc`` and ``OMPI_CXX=icpc``.
-    See `OpenMPI FAQ <https://www.open-mpi.org/faq/?category=mpi-apps#override-wrappers-after-v1.0>`_ for details.
+    If `cmake` still picks up Intel MPI, specify `MPI_HOME`.
+    See `OpenMPI FAQ <https://www.open-mpi.org/faq/?category=mpi-apps#override-wrappers-after-v1.0>`_ and `FindMPI manual <https://cmake.org/cmake/help/latest/module/FindMPI.html#variables-for-locating-mpi>`_ for details.
 
 
-Configuration with HIP/ROCm acceleration
-----------------------------------------
+Configuration with HIP/ROCm acceleration for AMD GPUs
+-----------------------------------------------------
 
-Enable accelerated the HIP/ROCm code path with:
+Enable the accelerated HIP/ROCm code path with:
     ``cmake -DHIP=ON``
 
-Note that this is mutually exclusive with GPU acceleration (-DCUDA=ON).
+Note that this is mutually exclusive with other accelerated code paths (e.g. CUDA, ALTCPU and SYCL).
 On our system, we build with HIP/ROCm acceleration to use AMD GPUs with the following commands::
 
-        setenv LD_LIBRARY_PATH /opt/rocm/lib:$LD_LIBRARY_PATH
-        setenv PATH /opt/rocm/:$PATH
-        setenv ROCM_PATH /opt/rocm/
+        export LD_LIBRARY_PATH=/opt/rocm/lib:$LD_LIBRARY_PATH
+        export PATH=/opt/rocm/:$PATH
+        export ROCM_PATH=/opt/rocm/
         mkdir build-amd
         cd build-amd
         cmake -DCMAKE_BUILD_TYPE=Release -DHIP=ON -DHIP_ARCH="gfx90a,gfx908" -DFORCE_OWN_FFTW=ON  -DAMDFFTW=on ..
         make -j 24
 
 
-Configuration with SYCL acceleration
-------------------------------------
+Configuration with SYCL acceleration (Intel GPUs)
+-------------------------------------------------
 
 Enable accelerated the SYCL code path with:
     ``cmake -DSYCL=ON``
 
-Note that this is mutually exclusive with GPU acceleration (-DCUDA=ON).
+Note that this is mutually exclusive with other accelerated code paths (e.g. CUDA, ALTCPU and HIP/ROCm).
+Technically speaking, you can build SYCL for AMD and NVIDIA GPUs to make a single binary that runs on NVIDIA, AMD and Intel GPUs,
+but this is highly experimental and not tested well.
+
 For now, this way of building RELION is `explained here: <https://github.com/3dem/relion/blob/ver5.0/README_sycl.md>`_.
 
 
@@ -430,7 +442,7 @@ Edit the environment set-up
 ---------------------------
 
 For |RELION|, we source the following C-shell setup in our ``.cshrc`` file.
-You'll need to change all the paths for your own system, and translate the script in case you use a bash shell (which uses export instead of setenv, etc).
+You'll need to change all the paths for your own system, and translate the script in case you use a bash shell (which uses `export` instead of `setenv` etc).
 
 ::
 
