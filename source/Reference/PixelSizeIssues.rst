@@ -78,11 +78,17 @@ Combining millions of bad particles simply because you have them is a very bad i
 For RELION 3.0, please see `an excellent explanation posted to CCPEM by Max Wilkinson <https://www.jiscmail.ac.uk/cgi-bin/webadmin?A2=CCPEM;fd0e7fab.1810>`_.
 
 From RELION 3.1, you can refine particles with different pixel sizes and/or box sizes.
-Suppose you want to join two particle STAR files.
-First, make sure they have different ``rlnOpticsGroupName``.
+Suppose you want to bring polished (shiny) particles from the dataset2 project into the dataset1 project.
+
+First, go to the ``Polish`` directory within the dataset1 project.
+Make a symbolic link to dataset2's ``Polish/jobXXX`` by **a full path**. A link by a relative path sometimes causes unexpected problems in RELION when it tries to expand paths.
+
+If you are unlucky and the job number ``jobXXX`` is already present in the ``Polish`` directory of the dataset1 project, you have to make a link by another name. In this case, you have to replace the file names in dataset2's ``shiny.star``.
+
+Next, make sure they have different ``rlnOpticsGroupName``.
 For example:
 
-Dataset1.star::
+dataset1's shiny.star::
 
      data_optics
     
@@ -99,7 +105,7 @@ Dataset1.star::
                 1  dataset1     0.100000     2.700000   300.000000     1.000000     1.000000          140            2
 
 
-Dataset2.star::
+dataset2's shiny.star::
 
     data_optics
     
@@ -116,6 +122,8 @@ Dataset2.star::
                 1  dataset2     0.100000     2.700000   300.000000     1.100000     1.100000          128            2
 
 Then use JoinStar.
+You don't have to import; just go above the ``.Nodes`` directory to see the file from dataset2.
+
 The result should look like::
 
     data_optics
@@ -136,8 +144,7 @@ The result should look like::
 Note that the dataset2's ``rlnOpticsGroup`` has been re-numbered to 2.
 
 If two datasets came from different detectors and/or had very different pixel sizes, you might want to apply MTF correction during refinement.
-To do this, add two more columns: ``rlnMtfFileName`` to specify the MTF STAR file (the path is relative to the project directory) and ``rlnMicrographOriginalPixelSize`` to specify the detector pixel size (i.e.
-before down-sampling during extraction).
+To do this, add two more columns: ``rlnMtfFileName`` to specify the MTF STAR file (the path is relative to the project directory) and ``rlnMicrographOriginalPixelSize`` to specify the detector pixel size (i.e. before down-sampling during extraction).
 
 Refine this combined dataset.
 For a reference and mask, you must use the pixel size and box size of the first optics group (or use ``--trust_ref_size`` option).
@@ -149,6 +156,8 @@ Then run Refine3D again.
 The **absolute** pixel size of the output can drift a bit.
 It needs to be calibrated against atomic models.
 
+You can do similar things for other job types as long as you make all relevant paths consistent.
+For example, to run Polish in a new project directory, you have to make sure the paths to raw movies, the gain reference and the motion correction job are valid as well as paths to the particles and the references.
 For Polishing, do **NOT** merge MotionCorr STAR files.
 First, run Polishing on one of the MotionCorr STAR files with ``run_data.star`` that contains all particles.
 This will process and write only particles from micrographs present in the given MotionCorr STAR file.
