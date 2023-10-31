@@ -11,9 +11,10 @@ The sections below explain how to download and install |RELION| on your computer
 Note that |RELION| depends on and uses several external programs and libraries.
 
 C++ compiler:
-    RELION 4.0 requires a C++ compiler that fully supports the C++11 standard.
-    For GCC, this means version 4.8.1 or later.
-    Note that GCC 4.4, which comes with RedHat Enterprise Linux or CentOS 6.x, is too old.
+    RELION 5.0 requires a C++ compiler that fully supports the C++14 standard.
+    For GCC, this means `version 5.0 or later <https://gcc.gnu.org/projects/cxx-status.html#cxx14>`_.
+    Note that GCC 4.8, which comes with RedHat Enterprise Linux / Cent OS 7.x, is too old.
+    You can obtain newer GCC via devtoolset or use free Intel compiler that comes with oneAPI toolkit (see below).
 
 MPI:
     Your system will need `MPI <https://en.wikipedia.org/wiki/Message_Passing_Interface>`_ runtime (most flavours will do).
