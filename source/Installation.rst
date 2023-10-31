@@ -160,7 +160,7 @@ Additionally, if you intend to make use of automatically downloaded pretrained m
 Otherwise, it will be downloaded to the default location (usually ``~/.cache/torch``).
 
 At the moment, the model weights for Blush are stored on MRC-LMB's FTP server.
-If your network blocks FTP, please follow [instructions here](https://github.com/3dem/relion/issues/1003#issuecomment-1786280151).
+If your network blocks FTP, please follow `instructions here <https://github.com/3dem/relion/issues/1003#issuecomment-1786280151>`_.
 
 Compilation
 -----------
