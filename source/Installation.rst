@@ -149,15 +149,15 @@ Also code in this environment will be updated intermittently. You can incorporat
     conda env update -f environment.yml
 
 .. warning::
-    You should **NOT** activate this `relion-5.0` conda environment when compiling and using RELION;
+    You should **NOT** activate this ``relion-5.0`` conda environment when compiling and using RELION;
     RELION activates it automatically only when necessary.
     Otherwise, system-wide installation of compilers/libraries/MPI runtime might get mixed up with those provided by conda, leading to compilation failures or runtime errors.
     The same applies to other software packages that provide their own libraries/MPI runtime, such as CCPEM, CCP4, EMAN2, DIALS, PHENIX.
 
-The ``cmake`` command should automatically detect the `relion-5.0` conda environment created above.
+The ``cmake`` command should automatically detect the ``relion-5.0`` conda environment created above.
 If it does not, you can specify ``-DPYTHON_EXE_PATH=path/to/your/conda/python``.
-Additionally, if you intend to make use of automatically downloaded pretrained model weights (used in e.g. Blush, ModelAngelo and class_ranker), it's recommended to set the `TORCH_HOME` directory by include the flag ``-DTORCH_HOME_PATH=path/to/torch/home``.
-Otherwise, it will be downloaded to the default location (usually `~/.cache/torch`).
+Additionally, if you intend to make use of automatically downloaded pretrained model weights (used in e.g. Blush, ModelAngelo and class_ranker), it's recommended to set the ``TORCH_HOME`` directory by include the flag ``-DTORCH_HOME_PATH=path/to/torch/home``.
+Otherwise, it will be downloaded to the default location (usually ``~/.cache/torch``).
 
 At the moment, the model weights for Blush are stored on MRC-LMB's FTP server.
 If your network blocks FTP, please follow [instructions here](https://github.com/3dem/relion/issues/1003#issuecomment-1786280151).
