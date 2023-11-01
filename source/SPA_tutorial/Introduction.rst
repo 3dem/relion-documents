@@ -9,7 +9,7 @@ After that, you should be able to run |RELION| on your own data.
 This tutorial uses a test data set on beta-galactosidase that was kindly given to us by Takayuki Kato from the Namba group at Osaka university, Japan.
 It was collected on a JEOL CRYO ARM 200 microscope.
 The data and our precalculated results may be downloaded and unpacked using the commands below.
-The full data set is also available at EMPIAR-10204.
+The full data set is also available at `EMPIAR-10204 <https://www.ebi.ac.uk/empiar/EMPIAR-10204/>`_.
 
 ::
 
@@ -17,7 +17,6 @@ The full data set is also available at EMPIAR-10204.
     wget ftp://ftp.mrc-lmb.cam.ac.uk/pub/scheres/relion50_tutorial_precalculated_results.tar.gz
     tar -xf relion30_tutorial_data.tar
     tar -zxf relion50_tutorial_precalculated_results.tar.gz
-
 
 If you have any questions about |RELION|, first read this entire document, check the `FAQ <http://www2.mrc-lmb.cam.ac.uk/relion/index.php/FAQs>`_ on the |RELION| Wiki and the archives of the `CCPEM <https://www.jiscmail.ac.uk/ccpem>`_ mailing list.
 If that doesn't help, subscribe to the CCPEM email list and use the email address above for asking your question.

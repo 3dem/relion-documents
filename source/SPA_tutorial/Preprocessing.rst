@@ -13,10 +13,10 @@ We like to call this directory ``Movies/`` if all movies are in one directory, o
 If for some reason you do not want to place your movies inside the |RELION| project directory, then inside the project directory you can also make a symbolic link to the directory where your movies are stored.
 
 .. warning::
-    Symbolic links must be made by an absolute path (e.g. ``/storage/data/15jan16``). Use of relative paths (e.g. ``../../storage/data/15jan16``) will cause problems in later steps.
+    Symbolic links must be made by an absolute path (e.g. ``/storage/data/15jan16``). Use of relative paths (e.g. ``../../storage/data/15jan16``) cancause problems in later steps. Our precalculated example contains a symbolic link from `Movies` to `../Tutorial4.0/Movies/` but please do not follow this practice. Because we don't know where you decompress the archive, we cannot include a link by an absolute path.
 
 Single-image micrographs should have a ``.mrc`` extension, while movies can have a ``.mrc``, ``.mrcs``, ``.tif``, ``.tiff`` or ``.eer`` extension.
-For EER movies, see :ref:`this <eer_movies>` for the details. RELION 5.0 can also read :ref:`compressed movies <compressed_movies>`.
+For EER movies, see :ref:`this <eer_movies>` for the details. RELION 5.0 can also read :ref:`MRC movies compressed by bzip2, xz, zstd or gzip <compressed_movies>`.
 When you unpacked the tutorial test data, the (``Movies/``) directory was created.
 It should contain 24 movies in compressed TIFF format, a gain-reference file (``gain.mrc``) and a ``NOTES`` file with information about the experiment.
 
