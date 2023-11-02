@@ -348,6 +348,7 @@ On our system, we build with HIP/ROCm acceleration to use AMD GPUs with the foll
         cmake -DCMAKE_BUILD_TYPE=Release -DHIP=ON -DHIP_ARCH="gfx90a,gfx908" -DFORCE_OWN_FFTW=ON  -DAMDFFTW=on ..
         make -j 24
 
+If you get problems finding ``omp.h``, make sure you have ``openmp-extras-devel`` installed on your system too.
 
 Configuration with SYCL acceleration (Intel GPUs)
 -------------------------------------------------
