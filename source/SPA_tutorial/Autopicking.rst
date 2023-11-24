@@ -66,7 +66,7 @@ On the :guitab:`Laplacian` tab, set:
 
 :Adjust default threshold: 0
 
-     (Positive values, i.e. high thresholds, will pick fewer particles, negative values will pick fewer particles.
+     (Positive values, i.e. high thresholds, will pick fewer particles, negative values will pick more particles.
      Useful values are probably in the range [-1,1], but in many cases the default value of zero will do a decent job.
      The threshold is moved this many standard deviations away from the average.)
 
