@@ -62,6 +62,11 @@ Select ``Import`` from the job-type browser on the left, and fill in the followi
 :Beamtilt in Y (mrad):: 0
 
 
+The MTF file can be obtained from `the Gatan Web site <https://www.gatan.com/techniques/cryo-em#MTF>`_.
+If you are working offline and cannot obtain the file, you can ignore it.
+The MTF correction does not change the final resolution (but changes the B factor).
+You can also apply it in PostProcessing.
+
 On the :guitab:`Others` tab, make sure the following is set:
 
 :Import other node types?: No
