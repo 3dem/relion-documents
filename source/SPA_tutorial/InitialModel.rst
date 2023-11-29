@@ -3,7 +3,7 @@
 De novo 3D model generation
 ===============================
 
-|RELION|-4.0 uses a gradient-driven algorithm to generate a *de novo* :jobtype:`3D initial model` from the 2D particles. 
+|RELION|-4.0 uses a gradient-driven algorithm to generate a *de novo* :jobtype:`3D initial reference` from the 2D particles.
 As of release 4.0, this algorithm is different from the SGD algorithm in the CryoSPARC program :cite:`punjani_cryosparc:_2017`.
 Provided you have a reasonable distribution of viewing directions, and your data were good enough to yield detailed class averages in :jobtype:`2D classification`, this algorithm is likely to yield a suitable, low-resolution model that can subsequently be used for :jobtype:`3D classification` or :jobtype:`3D auto-refine`.
 
@@ -11,7 +11,7 @@ Provided you have a reasonable distribution of viewing directions, and your data
 Running the job
 ---------------
 
-Select the ``Select/job014/particles.star`` file on the :guitab:`I/O` tab of the :jobtype:`3D initial model` jobtype.
+Select the ``Select/job014/particles.star`` file on the :guitab:`I/O` tab of the :jobtype:`3D initial reference` jobtype.
 Everything is aready in order on the :guitab:`CTF`.
 Fill in the :guitab:`Optimisation` tab as follows (leave the defaults for the angular and offset sampling):
 
