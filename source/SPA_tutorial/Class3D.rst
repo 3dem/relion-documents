@@ -99,8 +99,6 @@ Ignore the :guitab:`Helix` tab, and on the :guitab:`Compute` tab set:
 
 :Skip padding?: No
 
-:Skip gridding?: Yes
-
 :Pre-read all particles into RAM?: Yes
 
      (Again, this is only possible here because the data set is small. For your own data, you would like write the particles to a scratch disk instead, see below.)

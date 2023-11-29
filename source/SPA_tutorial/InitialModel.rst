@@ -50,8 +50,6 @@ On the :guitab:`Compute` tab, set:
 
 :Number of pooled particles:: 30
 
-:Skip gridding?: Yes
-
 :Pre-read all particles into RAM?: Yes
 
      (Again, this is only possible here because the data set is small. For your own data, you would like write the particles to a scratch disk instead, see below.)
