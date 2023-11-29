@@ -156,7 +156,7 @@ Also code in this environment will be updated intermittently. You can incorporat
 
 The ``cmake`` command should automatically detect the ``relion-5.0`` conda environment created above.
 If it does not, you can specify ``-DPYTHON_EXE_PATH=path/to/your/conda/python``.
-Additionally, if you intend to make use of automatically downloaded pretrained model weights (used in e.g. Blush, ModelAngelo and class_ranker), it's recommended to set the ``TORCH_HOME`` directory by include the flag ``-DTORCH_HOME_PATH=path/to/torch/home``.
+Additionally, if you intend to make use of automatically downloaded pretrained model weights (used in e.g. Blush, ModelAngelo and class_ranker), it's recommended to set the ``TORCH_HOME`` directory by including the flag ``-DTORCH_HOME_PATH=path/to/torch/home``.
 Otherwise, it will be downloaded to the default location (usually ``~/.cache/torch``).
 
 At the moment, the model weights for Blush are stored on MRC-LMB's FTP server.
