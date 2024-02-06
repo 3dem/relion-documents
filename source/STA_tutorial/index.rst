@@ -10,3 +10,5 @@ Subtomogram tutorial
    CtfEstimation
    ExcludeTiltImages
    AlignTiltSeries
+   ReconstructTomo
+   ParticlePicking
