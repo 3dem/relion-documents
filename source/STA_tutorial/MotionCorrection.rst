@@ -86,7 +86,7 @@ The output star file containing all necessary metadata for input into other jobs
 
 ::
 
-    less MotionCorr/job002/TS_01/tilt_series.star
+    less MotionCorr/job002/tilt_series/TS_01.star
 
 
     
