@@ -1,7 +1,7 @@
 .. _sec_sta_importomo:
 
-Import tilt series
-==================
+Import
+======
 
 We will now import the raw data into RELION. In the GUI, select :jobtype:`Import` from the jobt-type browser on the top left and fill in the following parameters on the :guitab:`General` tab:
 

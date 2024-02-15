@@ -1,18 +1,15 @@
 .. _sec_sta_particlepicking:
 
-Picking Particles
-=====================
+Particle picking
+================
 
 Particle picking is probably the most difficult part of the subtomogram averaging pipeline. 
-It is important that you pick particles as accurately as possible so RELION is not trying to align and average particles which are completely different. 
-We have provided a Napari plug in to pick particles directly in your tomograms either individually or based on geometric shapes within your tomograms such as membranes or vesicles. 
-It will then output a STAR file with the particle coordinates saved. This tutorial will use the Napari plugin for particle picking.
+It is important that you pick particles as accurately as possible, so RELION is not trying to align and average particles without the appropriate signal.
+Alister Burt has written a Napari plug-in to pick particles directly in your tomograms. His picker can be used to pick individual particles, or particles that are randomly sampled from geometric shapes (curved lines for filaments, spheres for capsids or vesicles, or surfaces for membranes or other larger objects. (Please not the surface picker is not functional yet). 
 
-Click on the :jobtype:`Pick tomograms` job from the job types.
+To launch the Napari picker, **again make sure you are working on the computer you are actually sitting behind as Napari performs poorly over remote connections**, and select the :jobtype:`Pick tomograms` job type. On the :guitab:`I/O` tab, set:
 
-On the :guitab:`I/O` tab
-
-:Input tomograms.star: ReconstructTomograms/job[Number]/tomograms.star
+:Input tomograms.star: ReconstructTomograms/job006/tomograms.star
 
 If you have denoised tomograms make sure to choose the tomograms.star from the DenoiseTomo/job[Number] job.
 
