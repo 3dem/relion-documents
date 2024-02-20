@@ -39,7 +39,7 @@ On the :guitab:`Reconstruct` tab:
 On the :guitab:`Running` tab choose the approriate number of MPIs and Threads and then click on the :runbutton:`Run!` button. 
 With 1 MPI and 12 threads this step took less than 2 minutes on our computer. But denoising tomograms will take more time.
 
-The output tomograms are called ``ReconstructTomograms/job006/tomograms/rec_TS_01.mrc`` etc. You can visualise them in your favourite viewer, including IMOD's 3dmod or Napari.
+The output tomograms are called ``Tomograms/job006/tomograms/rec_TS_01.mrc`` etc. You can visualise them in your favourite viewer, including IMOD's 3dmod or Napari.
 The main objectives of these tomograms are to assess the quality of your sample and to allow particle picking. They do not need to contain high-resolution information at this point.
 
 

@@ -9,7 +9,7 @@ Alister Burt has written a Napari plug-in to pick particles directly in your tom
 
 To launch the Napari picker, **again make sure you are working on the computer you are actually sitting behind as Napari performs poorly over remote connections**, and select the :jobtype:`Pick tomograms` job type. On the :guitab:`I/O` tab, set:
 
-:Input tomograms.star: ReconstructTomograms/job006/tomograms.star
+:Input tomograms.star: Tomograms/job006/tomograms.star
 
 :Picking mode: spheres
 
@@ -26,9 +26,6 @@ On the :guitab:`Running` tab set:
 And click on the :runbutton:`Run!` button to launch the Napari GUI.
 
 
-
-Picking in Napari GUI
----------------------
 
 Napari will automatically open the first tomogram on the GUI. Keep down (drag) the left mouse button (``lef-mouse + drag``) to rotate the scene; use the scroll wheel to zoom in/out; use ``Shift + lef-mouse + drag`` to move the visualised plane along the Z axis (normal to plane). [We should mention the problem of the viewer getting stuck in perspective mode and what to here...] 
 
