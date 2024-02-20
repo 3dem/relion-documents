@@ -1,26 +1,21 @@
 .. _sec_sta_makepseudosubtomo:
 
-Make pseudo-subtomograms
-========================
+Extract (pseudo-)subtomograms
+=============================
 
-Before processing with any of the regular |RELION| programs (those not specifically intended for tomography, e.g. `relion_refine`), we first need to construct the individual pseudo-subtomogram particles, equivalent to the particle extraction process in the SPA workflow.
+Now that we have 3D particle coordinates, we can extract the relevant cropped areas of the tilt series images for each individual particle and save them as CTF-premultiplied extracted 2D image stacks (or as 3D volumes, where Fourier slices of the 2D images are combined in 3D) on the disk for further processing using the `relion_refine` program. As these are not really boxed out of a 3D tomogram, we call these particles pseudo-subtomograms. 
 
-Pseudo-subtomogram particle files are not only related to a |particle_set|. Indeed, they also rely on a |tomogram_set| (tilt series alignment, defocus estimation ...) and, in case the motion of particles has been refined, on a |trajectory_set|.
-Therefore, everytime a :jobtype:`Tomo frame alignment` or :jobtype:`Tomo CTF refinement` job-types are run, a new set of updated pseudo-subtomos particles should be reconstructed to keep processing with regular |RELION| programs. This is not necessary in case of specific tomo |RELION| programs (prefix name ``relion_tomo_``) as they are directly fed with original tilt series stack files so referred pseudo-subtomo files are ignored.
+Pseudo-subtomogram particles are described by a **[TODO: edit these data types!!]** |particle_set| star file, as well as a |tomogram_set| star file. In addition, if :jobtype:`Tomo frame alignment` has been performed, the pseudo-subtomograms are also described by a |trajectory_set| star file. For convenience, a single |optimisation_set| star file provides links to the corresponding three star files. After a :jobtype:`Tomo frame alignment` and/or :jobtype:`Tomo CTF refinement` job, a new set of updated pseudo-subtomos particles should be extracted, prior to can be extractedcalculated should be reconstructed to keep processing with further refinement or classification by `relion_refine`.
 
-In this tutorial, we will first construct the particles in lower resolution, in a binning scale factor 4, to start obtaining a de novo 3D model.
+We will start by extracting pseudo-subtomograms in relatively large boxes with a large (binned) pixel size to speed up the initial calculations to obtain a *de novo* initial model. Select the :jobtype:`Extract subtomos` jobtype, and on the :guitab:`IO` tab set:
 
 
-Running the job
----------------
-
-Select the :guitab:`IO` tab from the :jobtype:`Make pseudo-subtomo` jobtype.
-Note that input files can be passed using either an |optimisation_set| file solo and/or the |particle_set| and |tomogram_set| files to override the file within the |optimisation_set| file. Here, we will be using |optimisation_set| files where available.
-
-:Input optimisation set:: ImportTomo/job002/optimisation_set.star
-:Input particle set:: \
-:Input tomogram set:: \
-:Input trajectory set:: \
+:Input optimisation set:: ""
+    (We don't have an |optimisation_set| star file yet, so we will use individual starfiles below. **TODO: let Picking jobtype write out optimisation_set**)
+:OR: use direct entries? Yes			
+:Input particle set:: Picks/job007/particles.star
+:Input tomogram set:: Tomograms/job008/tomograms.star
+:Input trajectory set:: ""
 
 On the :guitab:`Reconstruct` tab, make sure the following is set to reconstruct particles with a binning factor of 4:
 
