@@ -11,71 +11,53 @@ To launch the Napari picker, **again make sure you are working on the computer y
 
 :Input tomograms.star: ReconstructTomograms/job006/tomograms.star
 
-If you have denoised tomograms make sure to choose the tomograms.star from the DenoiseTomo/job[Number] job.
-
 :Picking mode: spheres
 
-Napari tool has 4 modes of picking: particles, spheres, filaments and surfaces(?). For tutorial data we use
-spheres mode because HIV-VLPs are more-or-less like spheres. By picking on spheres we can
-assign Euler angles to the particles to give an approximate particle orientation.
+    (The Napari picker has 4 modes of picking: particles, spheres, filaments and surfaces. For the tutorial data we use spheres, because HIV-VLPs are more-or-less that shape. Besides randomly picking particles with the distance specified them below, this mode of picking also provides prior angles on the particles that will mean that with a tilt angle of 90 degrees, they will be oriented with their Z-axis along the normal to the sphere surface. In what follows, this prior information will be used in refinements and classification of the subtomograms. Filaments are picked as multiple points forming a (curved) line; with priors that result in tilt=90 angles orienting particles with their Z-axis along the helical axis. Individual particle picking does not provide any priors. Surface picking is not functional yet.)
 
-:Particle spacing (A): 75
+:Particle spacing (A): 60
 
-This is the interparticle distance and it determines the number of particles on the sphere. For tutorial data
-we know this distance is ca. 75 A.
+    (This is the inter-particle distance with which particle positions will be randomly sampled from on the sphere. HIV capsid hexamers are approximately 75 Angstroms apart. By over-sampling the sphere we reduce the number of missed particles.)
 
-On the :guitab:`Running` tab 
+On the :guitab:`Running` tab set:
 
 :Submit to queue: No
 
-By clicking on the :runbutton:`Run!` button will launch the Napari GUI.
+And click on the :runbutton:`Run!` button to launch the Napari GUI.
+
 
 
 Picking in Napari GUI
 ---------------------
 
-Napari will automatically open the first tomogram on the GUI. To move along the Z xis (normal to plane)
-use 'Shift' + click + drag. 
-
-Individual particle picking:
-    To pick indiviual particles 'Alt' + click or 'Alt' + 'Ctrl' + click on some linux flavours. By default
-    Napari will open the middle section of the tomogram. But for picking we found gradual navigation from
-    either top or bottom is easy. Locate the particles on each Z-section and click on the particle
-    when it is centered on the Z axis while pressing the 'Alt' key. Napri will show this location
-    with a small blue sphere centered around the particle. In case, if you want to move or delete any particle picked
-    select that particle by clicking on it (just left mouse click), go the the 'n3d points' layer on the Napari GUI and 
-    choose the approximate action button (x - delete, arrow- move).
-    Once you finished picking all the particles in one tomogram click on the 'save particles' button
-    at the lower-left corner of the GUI. Then choose the next tomogram from the tomograms list in the GUI. Once you finished
-    picking all the tomograms just close the Napari GUI.
+Napari will automatically open the first tomogram on the GUI. Keep down (drag) the left mouse button (``lef-mouse + drag``) to rotate the scene; use the scroll wheel to zoom in/out; use ``Shift + lef-mouse + drag`` to move the visualised plane along the Z axis (normal to plane). [We should mention the problem of the viewer getting stuck in perspective mode and what to here...] 
 
 Sphere annotation: 
-    The first step is to locate the centre of the sphere-like object in the tomogram. In tutorial data,
+    The first step is to locate the centre of the sphere-like object in the tomogram. In the tutorial data,
     HIV-VLPs are more-or-less distorted spheres. Move along the Z-dim of a chosen capsid to find the
-    maximum diameter and locate the middle of that capsid. Then 'Ctrl' + 'Alt' + click in that centre to
-    place a small sphere. To resize the sphere press letter 'r'. Oftentimes just one press will not be sufficent.
-    The strategy worked for us was zooming in and out combined with pressing 'r'. We have noticed that
-    pressing 'r' after every zoom out makes the radius bigger. You'll need to play a bit to get the right
-    radius of the sphere. The right sphere size is when the surface of the sphere cuts through the middle of
+    maximum diameter and locate the middle of that capsid. Then use ``Alt + left-click`` or (``Ctrl + Alt + left-click`` on some Linux flavours) at that centre to
+    place a small sphere. To resize the sphere press letter ``r`` and the sphere will be resized to point where the mouse is pointing.
+    You'll need to play a bit to get the right radius of the sphere. The right sphere size is when the surface of the sphere cuts through the middle of
     the capsid membrane. Then go to a new capsid and repeat the above process. To move on to a new capsid
-    press the letter 'n'. Once you finished annotating all the sphere in one tomogram press the button
-    'save spheres'. Next you can choose the second tomogram and so on. Once you finished annotating all
+    press the letter ``n``. Once you finished annotating all the spheres in one tomogram press the button
+    ``save spheres``. Next you can choose the second tomogram and so on. Once you finished annotating all
     the tomograms close the Napari window.
 
 filaments annotation: 
-    TODO
+    If you're picking filaments, find the start of one and use ``(Ctrl +) Alt + left-click`` to add a point to its (curved) line;
+    keep adding as many points as you need to describe the curvature.  To move on to a new filament press the letter ``n``. Once you finished annotating all the filaments in one tomogram press the button
+    ``save filaments`` and move to the next tomogram. 
 
 surface annotation: 
-    TODO
+    This is not functional yet. Please stay tuned.
+
+Individual particle picking:
+    To pick indiviual particles use ``(Ctrl +) Alt + left-click`` on some linux flavours. Napari will show this location with a small blue sphere. 
+    To delete any particle picked select that particle by left-clicking on it, go the the ``n3d points`` layer on the Napari GUI and choose the approximate action button (``x`` = delete, ``arrow`` = move). [This is not clear at all!]
+    Once you finished picking all the particles in one tomogram click on the ``save particles`` button and move to the next tomogram.
+    picking all the tomograms just close the Napari GUI.
 
 
-The results from picking will be output to PickTomo/job[Number]/particles.star file. 
-This star file should contain the coordinates of your particles in 3 dimensions under the headers 
-rlnCoordinate<X/Y/Z> and the name of the tomogram each particle is contained in under the header rlnTomoName. 
-Also, note that the particle positions are given in unbinned coordinates. 
+After the Napari picker is closed, a python script will convert the picked coordinates from each tomogram, which are saved in the directory ``Picks/job007/annotations`` to individual particle picks (in case spheres, filaments or surfaces were picked), and then write out a file called ``PickTomo/job007/particles.star`` with all particles from all tomograms. This star file contains the coordinates of your particles in 3 dimensions under the headers ``rlnCoordinate<X/Y/Z>``, which are in (unbinned) pixels starting from (1,1,1) in the top corner of the tomogram. We are currently working to write out these coordinates as ``rlnCenteredCoordinate<X/Y/Z>Angst``, which wil be in Angstroms from the centre of the tomogram. Please bear with us as this work is being finished during beta-code development.
 
-For your own data, you may want to try other particle pickers such as TomoTwin, DeePiCt, DeepFinder, CrYOLO, or many more. 
-We strongly recommend only picking in tomograms generated in ReconstructTomograms or DenoiseTomo jobs unless you can verify 
-that the coordinates that you picked in tomograms generated outside of RELION match the coordinates of the RELION tomograms perfectly. 
-The only requirement to continue in the RELION pipeline is that the coordinates of your picked particles are contained in a particles.star.
-In such cases, make sure that particle positions are given in unbinned coordinates.
+For your own data, you may also want to try other particle pickers such as TomoTwin, DeePiCt, DeepFinder, CrYOLO, or others. We strongly recommend only picking in tomograms generated in ``ReconstructTomograms`` (or ``Denoise``) jobs, unless you can verify that the coordinates that you picked in tomograms generated outside of RELION match the coordinates of the RELION tomograms perfectly. Future developments in the ccp-em tomography pipeline will hopefully make using third-party pickers easier.
