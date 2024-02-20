@@ -3,6 +3,8 @@
 De novo 3D model generation
 ===============================
 
+**Changes have been made for relion-5 up to this point; Please bear with us, as we modify the rest of the tutorial for relion-5!**
+
 |RELION|-4.0 uses a gradient-driven algorithm to generate a *de novo* :jobtype:`3D initial model` from the pseudo-subtomograms.
 As of release 4.0, this algorithm is different from the SGD algorithm in the CryoSPARC program :cite:`punjani_cryosparc:_2017`.
 Provided you have a reasonable distribution of angular directions, this algorithm is likely to yield a suitable, low-resolution model that can subsequently be used for :jobtype:`3D classification` or :jobtype:`3D auto-refine`.

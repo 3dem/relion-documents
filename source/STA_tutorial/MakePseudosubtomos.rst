@@ -1,7 +1,7 @@
 .. _sec_sta_makepseudosubtomo:
 
-Extract (pseudo-)subtomograms
-=============================
+Extract subtomos
+================
 
 Now that we have 3D particle coordinates, we can extract the relevant cropped areas of the tilt series images for each individual particle and save them as CTF-premultiplied extracted 2D image stacks (or as 3D volumes, where Fourier slices of the 2D images are combined in 3D) on the disk for further processing using the `relion_refine` program. As these are not really boxed out of a 3D tomogram, we call these particles pseudo-subtomograms. 
 
@@ -10,32 +10,58 @@ Pseudo-subtomogram particles are described by a **[TODO: edit these data types!!
 We will start by extracting pseudo-subtomograms in relatively large boxes with a large (binned) pixel size to speed up the initial calculations to obtain a *de novo* initial model. Select the :jobtype:`Extract subtomos` jobtype, and on the :guitab:`IO` tab set:
 
 
-:Input optimisation set:: ""
-    (We don't have an |optimisation_set| star file yet, so we will use individual starfiles below. **TODO: let Picking jobtype write out optimisation_set**)
-:OR: use direct entries? Yes			
-:Input particle set:: Picks/job007/particles.star
-:Input tomogram set:: Tomograms/job008/tomograms.star
-:Input trajectory set:: ""
+:Input optimisation set: Picks/job007/optimisation_set.star
+			
+    (You can have a look how this file refers to the inidividual |particle_set| and |tomogram_set| star files using ``cat Picks/job007/optimisation_set.star``.)
 
-On the :guitab:`Reconstruct` tab, make sure the following is set to reconstruct particles with a binning factor of 4:
+:OR use direct entries?: No
+			 
+:Input particle set: ""
+		     
+:Input tomogram set: ""
+		     
+:Input trajectory set: ""
 
-:Box size (pix):: 192
-:Cropped box size (pix):: 96
-:Binning factor:: 4
+On the :guitab:`Reconstruct` tab, we set:
 
-:Use cone weight?: No
-:Cone angle:: \
+:Binning factor: 6
 
-On the :guitab:`Running` tab, set:
+    (This will result in a pixel size of 8.1 Angstroms...)
+    
+:Box size (binned pix): 256
 
-:Number of MPI procs:: 5
-:Number of threads:: 24
+    (This is the box size for the original cropping of the particle from the tilt series images. This box is often set larger than the cropped box size below, because a larger box will allow more of the high-frequency signal to be captured by pre-multiplication of the CTF.)
+    
+:Cropped box size (binned pix): 96
 
-Note that the MPI versions of the tomo |RELION| programs are parallelized in a tomogram base, that is, tomograms will be distributed among the number of processors.
-Therefore, the ``Number of MPI processes`` will not improve the performance if it's greater than the number of tomograms.
-Using the settings above, this job took less than 10 minutes on our system.
+    (This is the final box size of the particles. If this value is smaller than the original box size above, then a second cropping operation is performed after the CTF pre-multiplication.) 
+				
+:Maximum dose (2/A^2): 60
 
-Your pseudo-subtomo particles and their related CTF and multiplicty patterns will be stored into MRC files in a new directory called ``PseudoSubtomo/job007/Subtomograms/`` separated by tomogram folder. You can check that, together with the updated ``particles.star`` file, a ``optimisation_set.star`` file is also created.
+	(Tilt series frames with a dose higher than this maximum dose (in electrons per squared Angstroms) will not be included in the 3D pseudo-subtomogram, or in the 2D stack. For 2D stacks, this will reduce disc I/O operations and increase speed.)
+	
+:Minimum nr. frames: 10
+
+	(Some particles are outside the field of view (i.e. invisible) in high-tilt images. When set to a positive value, each particles needs to be visible in at least this number of tilt series frames with doses below the maximum dose to be written out as a pseudo-subtomogram.)
+
+:Write output as 2D stacks?: Yes
+
+    ( This is new as of relion-5 and the preferred way of generating pseudo-subtomograms. If set to No, then relion-4 3D pseudo-subtomograms will be written out. Either can be used in subsequent refinements and classifications, but 2D stacks take up less disk space and give slightly better results in 3D refinements. In some cases, we have noticed that 3D pseudo-subtomograms behave better in the VDAM algorithm of :jobtype:`3D initial reference` jobs, which is why one can still write in this format too.)
+			     
+:Write output in float16?: Yes
+
+	(This will save a factor of 2 in disk space.)
+
+On the :guitab:`Running` tab, we aim to saturate the processes on our 112-core CPU node by setting:
+
+:Number of MPI procs: 5
+:Number of threads: 24
+
+Note that the MPI versions of this program (and those of :jobtype:`Recopnstruct particle`, :jobtype:`CTF refinement` and :jobtype:`Bayesian polishing` are parallelized at the level of individual tomograms. Therefore, the ``Number of MPI processes`` should not exceed the number of tomograms.
+
+Using the settings above, this job took less than 2 minutes on our system.
+
+Your pseudo-subtomogram 2D stacks will be stored into MRC files in a new directory called ``Extract/job008/Subtomograms/TS_01/1_stack2d.mrc`` etc. The program will also write out an updated |particle_set| as ``Extract/job008/particles.star`` and a new |optimisation_set| as ``Extract/job008/optimisation_set.star``.
 
 
 
