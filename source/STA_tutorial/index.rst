@@ -12,7 +12,7 @@ Subtomogram tutorial
    AlignTiltSeries
    ReconstructTomo
    ParticlePicking
-   MakePseudosubtomos
+   ExtractSubtomos
    InitialModel
    Refine3DIni
    Class3D
