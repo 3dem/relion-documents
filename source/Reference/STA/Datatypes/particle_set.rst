@@ -21,9 +21,4 @@ Since only the latter angles are considered by ``relion_refine``, the priors wil
 .. image:: subtomogram.svg
     :align: center
 
-[TODO BOGDAN: does this paragraph still apply?]
-There are currently two ways in which a new particle set can be created: it can be either imported from an existing data set, or the particles can be sampled along a set of user-defined (and possibly fitted) :ref:`manifolds <sec_sta_manifold_set>` using the program :ref:`program_tomo_sample_manifold`.
-In the latter case, the program will automatically define the subtomogram orientations in relation to the manifold, such that the Z axis of the (yet to be created) subtomograms will point perpendicularly to the manifold.
-A more detailed description on how to import particles from existing data sets is provided in :ref:`program_tomo_import_particles`.
-
 .. |tomogram_set| replace:: :ref:`tomogram set <sec_sta_tomogram_set>`
