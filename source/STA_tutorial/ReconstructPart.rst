@@ -3,6 +3,8 @@
 Reconstruct particle
 ====================
 
+**[TODO: update]**
+
 The usual method to obtain a 3D reference map from a set of particles has been by averaging their extracted pseudo-subtomograms in a given orientation.
 However, it is also possible to obtain that reference map directly by averaging the 2D projections for each particle from the tilt series.
 Here, although in the :jobtype:`Tomo reconstruct particle` jobtype we offer both options, we strongly recommend the reconstruction from 2D tilt series projections.

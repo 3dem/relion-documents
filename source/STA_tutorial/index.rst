@@ -14,9 +14,9 @@ Subtomogram tutorial
    ParticlePicking
    ExtractSubtomos
    InitialModel
+   ReconstructPart
    Refine3DIni
    Class3D
-   ReconstructPart
    CtfRefine
    FrameAlign
    Refine3D

@@ -13,7 +13,7 @@ To launch the Napari picker, **again make sure you are working on the computer y
 
 :Picking mode: spheres
 
-    (The Napari picker has 4 modes of picking: particles, spheres, filaments and surfaces. For the tutorial data we use spheres, because HIV-VLPs are more-or-less that shape. Besides randomly picking particles with the distance specified below, this mode of picking also provides prior angles on the particles that will mean that with a tilt angle of 90 degrees, they will be oriented with their Z-axis along the normal to the sphere surface. In what follows, this prior information will be used in refinements and classification of the subtomograms. Filaments are picked as multiple points forming a (curved) line; with priors that result in tilt=90 angles orienting particles with their Z-axis along the helical axis. Individual particle picking does not provide any priors. Surface picking is not functional yet.)
+    (The Napari picker has 4 modes of picking: particles, spheres, filaments and surfaces. For the tutorial data we use spheres, because HIV-VLPs are more-or-less that shape. Besides randomly picking particles with the distance specified below, this mode of picking also provides prior angles on the particles that will mean that with a tilt angle of 90 degrees, they will be oriented with their Z-axis along the normal to the sphere surface. In what follows, this prior information will be used in refinements and classification of the subtomograms. Filaments are picked as multiple points forming a (curved) line, with priors that result in tilt=90 angles orienting particles with their Z-axis along the helical axis. Individual particle picking does not provide any priors. Surface picking is not functional yet.)
 
 :Particle spacing (A): 60
 

@@ -1,6 +1,6 @@
 .. _sec_sta_reconstructtomo:
 
-Reconstruct Tomograms
+Reconstruct tomograms
 =====================
 
 We can now generate our tomograms. Click on the :jobtype:`Reconstruct tomograms` job from the job types, and on the :guitab:`I/O` tab set:

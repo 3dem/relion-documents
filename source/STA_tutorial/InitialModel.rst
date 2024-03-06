@@ -5,14 +5,15 @@ De novo 3D model generation
 
 **Changes have been made for relion-5 up to this point; Please bear with us, as we modify the rest of the tutorial for relion-5!**
 
-**[TODO Bogdan: update the exact parameters after finishing all the VDAM runs]**
+**[TODO: update the exact parameters after finishing all the VDAM runs]**
 
 |RELION|-5.0 uses a gradient-driven algorithm to generate a *de novo* :jobtype:`3D initial reference` from the pseudo-subtomograms.
 This algorithm is different from the SGD algorithm in the CryoSPARC program :cite:`punjani_cryosparc:_2017`.
 Provided you have a reasonable distribution of angular directions, this algorithm is likely to yield a suitable, low-resolution model that can subsequently be used for :jobtype:`3D classification` or :jobtype:`3D auto-refine`.
 
-The sample used in this tutorial usually allows for obtaining initial orientations, normal to the spheroidal surface, during the picking process, which could be used as initial reference.
-However, here we will show how to obtain a *de novo* model without any prior knowledge.
+The sample and the sphere picking procedure used in this tutorial make it possible to obtain initial orientations normal to the spheroidal surface during the picking process, which can be used to obtain an initial reference using the :jobtype:`Reconstruct particle` job, as explained in the :ref:`sec_sta_reconstructpart` section. The map obtained this way will be used as a reference for the first :jobtype:`3D auto refine` job at bin 6, which will be explained in the :ref:`sec_sta_refine3d_ini` section.
+
+However, here we will show how to obtain a *de novo* model without any prior knowledge, using the VDAM algorithm. We have noticed that in some cases VDAM generates better initial models using 3D pseudo-sobtomograms rather than 2D stacks, so you may want to try both for your own dataset. To generate 3D stacks, a new :jobtype:`Extract subtomos` job should be run with the **Write output as 2D stacks?** option set to ``No`` (see the :ref:`sec_sta_makepseudosubtomo` section).
 
 Running the job
 ---------------

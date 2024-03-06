@@ -1,6 +1,6 @@
 .. _sec_sta_ctfestimation:
 
-CTF Estimation
+CTF estimation
 =================
 
 Next, we will estimate the CTF parameters for each motion-corrected image of the five tilt series.

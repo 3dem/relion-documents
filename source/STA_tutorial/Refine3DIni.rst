@@ -10,7 +10,7 @@ Thereby, this procedure requires very little user input, i.e. it remains objecti
 Another advantage is that one typically only needs to run it once, as there are hardly any parameters to optimize.
 
 However, as the pseudo-subtomogram files require more memory resources compared to SPA, we suggest to run this procedure in several steps, from high binning factors to 1, to improve processing time.
-Since the initial model was processed using pseudo-subtomograms with binning factor 6, we will start the 3D refinement using those same particles.
+Since the initial reference map was processed using pseudo-subtomograms at binning factor 6, we will start the 3D refinement using those same particles.
 
 Running the auto-refine job
 ---------------------------
@@ -37,7 +37,7 @@ On the :guitab:`I/O` tab of the :jobtype:`3D auto-refine` job-type set:
 
     (This is blank as we have not run a :jobtype:`Bayesian polishing` job yet.)
 
-:Reference map:: InitialModel/job008/initial_model.mrc
+:Reference map:: **TODO: update to Reconstruct particle** InitialModel/job008/initial_model.mrc
 
 :Reference mask (optional):: ""
 
@@ -141,7 +141,7 @@ This ``run_optimisation_set.star`` file  should not be confused with the ``_opti
 
 This job will have likely reached Nyquist frequency so, to go to higher resolution, we will need a new set of pseudo-subtomo particles and reference map at a smaller binning factor, 2 or directly 1.
 
-**[TODO Bogdan: Move the paragraph below to the High-resolution 3D refinement page and adapt for bin2 and bin1]**
+**[TODO: Move the paragraph below to the High-resolution 3D refinement page and adapt for bin2 and bin1]**
 Before this, since the refined map we obtained in this initial 3D refinement covers the HIV capsid and matrix, we need to make sure the mask we will be using in the next refinement is aligned and focused on the capsid only.
 We suggest to recenter the reference as masks provided in ``masks/`` folder are already centered.
 You could look at the output refined map (``Refine3D/job009/run_class001.mrc``) and mask (``masks/mask_align_bin4.mrc``) with a 3D viewer like IMOD :textsc:`3dmod` to estimate the Z offset between both maps, in pixels. In our case, it is 2.75 pixels but this could be different as it depends on the initial *de novo* model. Thus, recentering the particles can be done from the command-line:

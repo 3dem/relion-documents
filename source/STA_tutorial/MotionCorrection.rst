@@ -1,6 +1,6 @@
 .. _sec_sta_motioncor:
 
-Motion Correction
+Motion correction
 =================
 
 As the raw data in EMPIAR-10164 are movies, we need to carry out motion correction. If your own raw data are already motion-corrected, you can skip this section provided you have selected ‘Yes’ under ‘Movies already motion corrected?’ in the :jobtype:`Import`
