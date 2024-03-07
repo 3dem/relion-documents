@@ -37,7 +37,7 @@ On the :guitab:`I/O` tab of the :jobtype:`3D auto-refine` job-type set:
 
     (This is blank as we have not run a :jobtype:`Bayesian polishing` job yet.)
 
-:Reference map:: **TODO: update to Reconstruct particle** InitialModel/job008/initial_model.mrc
+:Reference map:: Reconstruct/job010/merged.mrc
 
 :Reference mask (optional):: ""
 
@@ -68,7 +68,7 @@ On the :guitab:`Optimisation` tab set:
 
 and keep the defaults for the remaining options.
 
-We found that setting a large mask diameter of 500A (remember the HIV capsid hexamers are 75A apart) in the first :jobtype:`3D auto-refine` job at bin 6 helps to obtain a better map that will then be further refined with a smaller mask of diameter 230A, likely due to including more information for the first alignment at low resolution, when the uncertainty in the orientations is the highest.
+Note that the box size at bin 6 is 96 x 8.1Å = 777.6Å, so setting a large mask diameter of 500Å (remember the HIV capsid hexamers are 75Å apart) in the first :jobtype:`3D auto-refine` job at bin 6 allows us to use more information in the low-resolution images to obtain a first round of particle alignments and a map that will then be further refined with a smaller mask of diameter 230Å and a smaller binning factor (i.e. higher resolution).
 
 On the :guitab:`Auto-sampling` tab, one can usually keep the defaults.
 Note that the orientational sampling rates on the :guitab:`Auto-sampling` tab will only be used in the first few iterations, from there on the algorithm will automatically increase the angular sampling rates until convergence.
@@ -135,7 +135,7 @@ It is based on signal-to-noise considerations that are explained in :cite:`scher
 The program will not use finer angular and translational sampling rates than it deems necessary (because it would not improve the results).
 The estimated accuracies and employed sampling rates, together with current resolution estimates, are stored in the ``_optimiser.star`` and ``_model.star`` files, but may also be extracted from the stdout file. For more information, check the SPA tutorial :ref:`high-resolution 3D refinement <sec_refine3d>` step.
 
-If you provided an :ref:`optimisation set <sec_sta_optimisation_set>` file as input, then the program also writes another optimisation set ``run_optimisation_set.star`` file, updated with ``run_data.star`` (i.e. the particles file) and the tomograms and trajectories files (given as input to the :jobtype:`3D auto-refine` job).
+The program also writes an optimisation set ``run_optimisation_set.star`` file, updated with ``run_data.star`` (i.e. the particles file) and the tomograms and trajectories files (given as input to the :jobtype:`3D auto-refine` job).
 This ``run_optimisation_set.star`` file  should not be confused with the ``_optimiser.star`` files used regularly by `relion_refine`.
 
 

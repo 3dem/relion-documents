@@ -3,7 +3,9 @@
 Extract subtomos
 ================
 
-Now that we have 3D particle coordinates, we can extract the relevant cropped areas of the tilt series images for each individual particle and save them as CTF-premultiplied extracted 2D image stacks (or as 3D volumes, where Fourier slices of the 2D images are combined in 3D) on the disk for further processing using the `relion_refine` program. As these are not really boxed out of a 3D tomogram, we call these particles pseudo-subtomograms. 
+Now that we have 3D particle coordinates, the :jobtype:`Extract` job extracts the relevant cropped areas of the tilt series images for each individual particle and saves them as CTF-premultiplied extracted 2D image stacks (or as 3D volumes) on the disk for further processing using the `relion_refine` program. As these are not really boxed out of a 3D tomogram, we call these particles pseudo-subtomograms. 
+
+The pseudo-subtomograms can be either 2D stacks or 3D volumes (where Fourier slices of the 2D images are combined in 3D). While both options are available in :jobtype:`Extract`, we strongly recommend working with 2D stacks, as they take less disk space and, in the case of reconstruction and refinement, this saves an interpolation step and therefore avoids artifacts related to pseudo-subtomogram construction.
 
 Pseudo-subtomogram particles are described by a |particle_set| star file, as well as a |tomogram_set| star file. In addition, if :jobtype:`Bayesian polishing` has been performed, the pseudo-subtomograms are also described by a |trajectory_set| star file. For convenience, a single |optimisation_set| star file provides links to the corresponding three star files. After a :jobtype:`Bayesian polishing` and/or :jobtype:`CTF refinement` job, a new set of updated pseudo-subtomos particles should be extracted prior to further refinement or classification by `relion_refine`.
 

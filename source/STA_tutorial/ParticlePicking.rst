@@ -17,7 +17,7 @@ To launch the Napari picker, **again make sure you are working on the computer y
 
 :Particle spacing (A): 60
 
-    (This is the inter-particle distance with which particle positions will be randomly sampled from on the sphere. HIV capsid hexamers are approximately 75 Angstroms apart. By over-sampling the sphere we reduce the number of missed particles.)
+    (This is the inter-particle distance with which particle positions will be randomly sampled from on the sphere. HIV capsid hexamers are approximately 75Å apart. By over-sampling the sphere we reduce the number of missed particles.)
 
 :Input particles.star (optional): ""
 
