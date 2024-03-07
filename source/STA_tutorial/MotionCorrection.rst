@@ -13,7 +13,7 @@ To start, click the :jobtype:`Motion correction` job type in the job-type browse
 
 :EER fractionation: 32
 
-		    (This dataset was not saved in the EER format. Therefore, we can ignore the EER fractionation field; but don't leave it empty. If your own data are collected in the EER format, the fractionation should be adjusted as described here)
+		    (This dataset was not saved in the EER format. Therefore, we can ignore the EER fractionation field; but don't leave it empty. If your own data are collected in the EER format, the fractionation should be adjusted as described here.)
 
 :Write output in float16?: Yes
 

@@ -5,7 +5,7 @@ Reconstruct particle
 
 The :jobtype:`Reconstruct particle` job generates a reference map from a particle set by averaging the particles using positions and orientations given in the input particles file. This reference map will then be used for further processing in :jobtype:`3D auto-refne`, :jobtype:`3D classification`, :jobtype:`CTF refinement` or :jobtype:`Bayesian polishing`.
 
-Continuing the tutorial, we will now generate a first 3D reference map using the particles obtained by the previous :jobtype:`Extract` job at bin 6.
+Continuing the tutorial, we will now generate a first 3D reference map using the particles obtained by the previous :jobtype:`Extract subtomos` job at bin 6.
 
 Running the job
 ---------------

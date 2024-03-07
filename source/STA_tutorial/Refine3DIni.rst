@@ -9,10 +9,10 @@ Combined with a procedure to estimate the accuracy of the angular assignments :c
 Thereby, this procedure requires very little user input, i.e. it remains objective, and has been observed to yield excellent maps for many  data sets.
 Another advantage is that one typically only needs to run it once, as there are hardly any parameters to optimize.
 
-However, as the pseudo-subtomogram files require more memory resources compared to SPA, we suggest to run this procedure in several steps, from high binning factors to 1, to improve processing time.
-Since the initial reference map was processed using pseudo-subtomograms at binning factor 6, we will start the 3D refinement using those same particles.
+However, as the pseudo-subtomogram files require more memory resources compared to SPA, we suggest running this procedure in several steps, from high binning factors to 1, to improve processing time.
+Since the first set of pseudo-subtomograms have been extracted at binning factor 6, we will start the 3D refinement using those same particles.
 
-Running the auto-refine job
+Running the auto-refine job at bin 6
 ---------------------------
 
 On the :guitab:`I/O` tab of the :jobtype:`3D auto-refine` job-type set:
@@ -139,7 +139,94 @@ The program also writes an optimisation set ``run_optimisation_set.star`` file, 
 This ``run_optimisation_set.star`` file  should not be confused with the ``_optimiser.star`` files used regularly by `relion_refine`.
 
 
-This job will have likely reached Nyquist frequency so, to go to higher resolution, we will need a new set of pseudo-subtomo particles and reference map at a smaller binning factor, 2 or directly 1.
+This job will have likely reached Nyquist frequency so, to go to higher resolution, we will need a new set of pseudo-subtomo particles at a smaller binning factor, 2 or directly 1.
+
+
+Pseudo-subtomograms at bin 2
+----------------------------
+
+We will now generate a new set of pseudo-subtomograms at binning factor 2, which will allow us to do 3D refinement at binnig factor 2. To do this, go tothe :jobtype:`Extract subtomos` jobtype on the GUI, and on the :guitab:`I/O` set:
+
+:Input optimisation set:: Refine3D/job011/run_optimisation_set.star
+
+On the :guitab:`Reconstruct` tab, make sure the following is set to extract particles with a binning factor of 2:
+
+:Binning factor:: 2
+:Box size (binned pix):: 256
+:Cropped box size (binned pix):: 128
+
+The other parameters are the same as in the previous :jobtype:`Extract subtomos` job: 
+
+:Maximum dose (2/A^2): 50
+:Minimum nr. frames: 1
+:Write output as 2D stacks?: Yes
+:Write output in float16?: Yes
+
+With the newly extracted bin 2 particles, we will now proceed to the bin 2 :jobtype:`3D auto-refine` job.
+
+
+
+**[TODO: Generate bin 2 reference map to use below]**
+
+Running the auto-refine job at bin 2
+-----------------------------------------------
+
+On the :guitab:`I/O` tab of the :jobtype:`3D auto-refine` job-type set:
+
+:Input optimisation set:: Extract/job012/optimisation_set.star
+
+:OR use direct entries?: No
+
+    (Note that the input particle set, input tomogram set and input trajectory set are empty as this information is extracted from the optimisation set file.)
+
+:Reference map:: Refine3D/job011/run_class001.mrc
+
+    (Here we use the resulting map from the bin 6 :jobtype:`3D auto-refine` job. TODO: use the half map and also use the one from Reconstruct particle)
+
+On the :guitab:`Reference` tab, set:
+
+:Ref. map is on absolute greyscale?: Yes
+
+:Resize reference if needed?: Yes
+
+:Initial low-pass filter (A): 40 
+
+     (We set the low-pass filter slightly below the reached resolution in the previous step. In this case, it's Nyquist resolution at binning factor 4.)
+
+:Symmetry: C6
+
+On the :guitab:`CTF` tab set:
+
+:Do CTF correction?: Yes
+
+:Ignore CTFs until first peak?: No
+
+On the :guitab:`Optimisation` tab set:
+
+:Mask diameter (A):: 230
+
+On the :guitab:`Auto-sampling` tab, to resume the refinement from the current resolution, we could adjust the angular sampling below the angular resolution given the initial low-pass filter argument and mask diameter.
+A coarse estimation can be obtained by :math:`\arctan({\frac{resolution*2}{diameter}})`. In our case:
+
+:Initial angular sampling:: 3.7 degrees
+
+We leave the rest of arguments at their default values, except for:
+
+:Use finer angular sampling faster?: Yes
+
+On our computer with 4 GPUs, we used 5 MPIs and 8 threads, and this calculation took approximately 6 hours. **[TODO: adjust time after last run]**. Again, the 3D refinement will have reached Nyquist resolution. 
+
+Before doing further refinement at binning factor 1, we need to eliminate duplicate particles that would lead to inflated FSC curves and overestimated resolution, as well as bad particles that do not have sufficient information for high-resolution refinement. 
+
+
+
+
+-------------------------------
+
+
+
+
+
 
 **[TODO: Move the paragraph below to the High-resolution 3D refinement page and adapt for bin2 and bin1]**
 Before this, since the refined map we obtained in this initial 3D refinement covers the HIV capsid and matrix, we need to make sure the mask we will be using in the next refinement is aligned and focused on the capsid only.
