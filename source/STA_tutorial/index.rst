@@ -18,5 +18,6 @@ Subtomogram tutorial
    Refine3DIni
    DiscardParticles 
    Refine3DHighRes
+   Postprocess
    CtfRefine
    FrameAlign
