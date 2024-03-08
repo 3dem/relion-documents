@@ -16,7 +16,7 @@ Subtomogram tutorial
    InitialModel
    ReconstructPart
    Refine3DIni
-   Class3D
+   DiscardParticles 
+   Refine3DHighRes
    CtfRefine
    FrameAlign
-   Refine3D
