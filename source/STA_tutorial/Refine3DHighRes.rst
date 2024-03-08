@@ -80,5 +80,21 @@ In our system, using 4 GPU cards, it took around half a day to finish.
 Thereafter, running a :jobtype:`Post-processing` job with the tight mask ``masks/mask_fsc.com`` you should obtain a resolution around 3.6Å. At this moment, this is the best alignment we could reach without applying any specific tomo refinement, as shown in :ref:`sec_sta_ctfrefine` and :ref:`sec_sta_framealign` sections.
 
 
+-------------------------------
+
+
+**[TODO: Integrate the below paragraph into this page]**
+
+Before this, since the refined map we obtained in this initial 3D refinement covers the HIV capsid and matrix, we need to make sure the mask we will be using in the next refinement is aligned and focused on the capsid only.
+We suggest to recenter the reference as masks provided in ``masks/`` folder are already centered.
+You could look at the output refined map (``Refine3D/job009/run_class001.mrc``) and mask (``masks/mask_align_bin4.mrc``) with a 3D viewer like IMOD :textsc:`3dmod` to estimate the Z offset between both maps, in pixels. In our case, it is 2.75 pixels but this could be different as it depends on the initial *de novo* model. Thus, recentering the particles can be done from the command-line:
+
+::
+
+    relion_star_handler --i Refine3D/job009/run_data.star \
+    --o Refine3D/job009/run_data_z2.75.star --center --center_Z 2.75
+
+
+To assess the capsid within the reference map is aligned with the mask, we could reconstruct it using the :jobtype:`Tomo reconstruct particle` job-type, described in the next step :ref:`reconstruct particle <sec_sta_reconstructpart>`.
 
 .. |optimisation_set| replace:: :ref:`optimisation set <sec_sta_optimisation_set>`
