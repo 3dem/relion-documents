@@ -3,6 +3,8 @@
 High-resolution 3D refinement
 =============================
 
+**NOTE: The Relion 5 Tomo tutorial has been revised up to this point. For the next steps, use at your own risk.**
+
 Once we have obtained a refined map in high binning factor (low resolution) we can proceed to refine this dataset to higher resolution.
 
 At this point in the tutorial, the 3D refinement could be directly processed using the original pixel size (binning factor 1).
