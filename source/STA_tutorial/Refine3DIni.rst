@@ -21,7 +21,7 @@ On the :guitab:`I/O` tab of the :jobtype:`3D auto-refine` job-type set:
 
     (If an optimisation set file is provided, the input particles and tomograms STAR files are set based on its content.)
 
-:OR use direct entries?: No
+:OR\: use direct entries?: No
 
     (Since we provide an optimisation set file in the field above, we will not be providing a particle set, tomogram set or trajectory set.)
 
@@ -145,7 +145,9 @@ This job will have likely reached Nyquist frequency so, to go to higher resoluti
 Pseudo-subtomograms at bin 2
 ----------------------------
 
-We will now generate a new set of pseudo-subtomograms at binning factor 2, which will allow us to do 3D refinement at binnig factor 2. To do this, go tothe :jobtype:`Extract subtomos` jobtype on the GUI, and on the :guitab:`I/O` set:
+We will now perform 3D refinement at binning factor 2, which will lead to a higher resolution features than the previous binning factor. 
+To do this, we first need to extract a new set of pseudo-subtomograms at binning factor 2.
+Go to the :jobtype:`Extract subtomos` jobtype on the GUI, and on the :guitab:`I/O` set:
 
 :Input optimisation set:: Refine3D/job011/run_optimisation_set.star
 
@@ -175,7 +177,7 @@ On the :guitab:`I/O` tab of the :jobtype:`3D auto-refine` job-type set:
 
 :Input optimisation set:: Extract/job012/optimisation_set.star
 
-:OR use direct entries?: No
+:OR\: use direct entries?: No
 
     (Note that the input particle set, input tomogram set and input trajectory set are empty as this information is extracted from the optimisation set file.)
 

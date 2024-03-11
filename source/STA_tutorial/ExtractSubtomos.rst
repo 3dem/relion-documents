@@ -16,7 +16,7 @@ We will start by extracting pseudo-subtomograms in relatively large boxes with a
 			
     (You can see how this file refers to the inidividual |particle_set| and |tomogram_set| star files using ``cat Picks/job008/optimisation_set.star``.)
 
-:OR use direct entries?: No
+:OR\: use direct entries?: No
 			 
 :Input particle set: ""
 		     

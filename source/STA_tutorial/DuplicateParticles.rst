@@ -18,7 +18,7 @@ To do this, go to the :jobtype:`Subset selection` job-type, and on the :guitab:`
 
 Leave all the other fields at their default values, except on the :guitab:`Duplicates` tab:
 
-:OR remove duplicates?: Yes
+:OR\: remove duplicates?: Yes
 :Minimum inter-particle distance(A): 30
 
       (Since the distance between two adjacent hexamers is approximately 75Å, we can reasonably assume that any particles closer than 30Å will eventually converge to the same particle, and therefore should be considered duplicates.)

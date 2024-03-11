@@ -13,7 +13,7 @@ Running the job
 Select the :guitab:`IO` tab from the :jobtype:`Reconstruct particle` jobtype.
 
 :Input optimisation set:: Extract/job009/optimisation_set.star
-:OR use direct entries:: No
+:OR\: use direct entries:: No
 :Input particle set:: \ 
 :Input tomogram set:: \
 :Input trajectory set:: \

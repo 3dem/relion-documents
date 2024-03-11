@@ -16,7 +16,7 @@ Select the :jobtype:`3D classification` job-type, and on the :guitab:`I/O` tab, 
 
 :Input optimisation set:: ""
 
-:OR use direct entries?: Yes
+:OR\: use direct entries?: Yes
 
       (Since we ran the :jobtype:`Subset selection` job to remove the duplicate particles in the previous step, we will now use its output particles file as the particle set instead of the previously used optimisation set. The tomogram set will be the same as the one in the previous optimisation set file.)
 
