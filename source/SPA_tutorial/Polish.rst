@@ -3,7 +3,7 @@
 Bayesian polishing
 ==================
 
-|RELION| also implements a Bayesian approach to per-particle, reference-based beam-induced motion correction.
+|RELION| implements a Bayesian approach to per-particle, reference-based beam-induced motion correction.
 This approachs aims to optimise a regularised likelihood, which allows us to associate with each hypothetical set of particle trajectories a prior likelihood that favors spatially coherent and temporally smooth motion without imposing any hard constraints.
 The smoothness prior term requires three parameters that describe the statistics of the observed motion.
 To estimate the prior that yields the best motion tracks for this particular data set, we can first run the program in 'training mode'.
@@ -13,7 +13,7 @@ Once the estimates have been obtained, one can then run the program again to fit
 Running in training mode
 ------------------------
 
-Using 16 threads in parallel, this job took almost 2 hours on our computer...
+Using 24 threads in parallel, this job took almost 2 hours on our computer...
 If you do not want to wait for this, you can just proceed to `the next section <sec_polish>`_ and use the sigma-values from our precalculated results, which are already given in that section.
 For many data sets the default parameters on the GUI (:math:`\sigma_{\text{vel}}=0.2; \sigma_{\text{div}}=5000; \sigma_{\text{acc}}=2`) will also perform well, so people often skip training for :jobtype:`Bayesian polishing`.
 
@@ -47,6 +47,8 @@ If you do want to run the training job yourself, on the :guitab:`I/O` tab of the
      (This option can be used to re-scale the polished particles to a different size than the ones from the input refinement above.
      It is irrelevant for a training job.)
 
+:Write output in float16?: Yes
+
 On the :guitab:`Train` tab set:
 
 :Train optimal parameters?: Yes
@@ -55,7 +57,7 @@ On the :guitab:`Train` tab set:
 
      (Just leave the default here)
 
-:Use this many particles:: 3500
+:Use this many particles:: 3000
 
      (That's almost all we have anyway.
      Note that the more particles, the more RAM this program will take.
@@ -70,7 +72,7 @@ On the :guitab:`Polish` tab make sure you set:
 
 Note that the training step of this program has not been MPI-parallelised.
 Therefore, make sure you use only a single MPI process.
-We ran the program with 16 threads to speed it up.
+We ran the program with 24 threads to speed it up.
 Still, the calculation took more than 1 hour.
 
 
@@ -86,7 +88,7 @@ Then, on the :guitab:`Polish` tab set:
 
 :Perform particle polishing?: Yes
 
-:Optimised parameter file:: Polish/job027/opt\_params.txt
+:Optimised parameter file:: Polish/job027/opt\_params\_all\_groups.txt
 
 :OR use your own parameters?: No
 
@@ -107,11 +109,11 @@ Alternatively, if you decided to skip the training set, then you can fill in the
 
 :OR use your own parameters?: Yes
 
-:Sigma for velocity (A/dose): 0.40
+:Sigma for velocity (A/dose): 0.45
 
-:Sigma for divergence (A): 1155
+:Sigma for divergence (A): 1290
 
-:Sigma for acceleration (A/dose): 2.71
+:Sigma for acceleration (A/dose): 2.66
 
 :Minimum resolution for B-factor fit (A):: 20
 
@@ -121,12 +123,12 @@ Alternatively, if you decided to skip the training set, then you can fill in the
 
 
 This part of the program is MPI-parallelised.
-Using 1 MPI process, with 16 threads, our run finished in twenty minutes. 
+Using 3 MPI processes, with 8 threads each, our run finished in less than six minutes. 
 We could have used multiple MPI processes to speed this up, although disk access may become limited.
 
 The :jobtype:`Bayesian polishing` job outputs a STAR file with the polished particles called `shiny.star` and a PDF logfile.
 The latter contains plots of the scale and B-factors used for the radiation-damage weighting, plus plots of the refined particle tracks for all included particles on all micrographs.
-Looking at the plots for this data set, it appeared that the stage was a bit drifty: almost all particles move from the top right to the bottom left during the movies.
+Looking at the plots for this data set, it appeared that the stage was a bit drifty: almost all particles move from the top right to the bottom left during the movies. The B-factors and scale factors look like expected: a slight dip for the first frames, which comes from a small amount of initial fast beam-induced movement, and then going down linearly as a result of radiation damage. 
 
 Re-running refinement and post-processing
 -----------------------------------------
@@ -138,7 +140,7 @@ We chose to run the :jobtype:`3D auto-refine` job with the shiny particles using
 
 :Reference Map:: Refine3D/job025/run\_half1\_class001\_unfil.mrc 
 
-     (In release-4.0, one can give one of the half-maps as reference and both half-maps will be read for the gold-standard refinement. This prevents overfitting by reading in a joint reconstruction, and therefore one can start the refinement from higher initial resolutions.)
+     (By giving one of the half-maps as reference, both half-maps will actually be read in for gold-standard refinement. This prevents overfitting by reading in a joint reconstruction, and therefore one can start the refinement from higher initial resolutions.)
 
 :Reference mask (optional):: MaskCreate/job020/mask.mrc
 
@@ -163,8 +165,17 @@ On the :guitab:`Optimisation` tab, we set:
 Also, on the :guitab:`Auto-sampling` tab, we now set:
 
 :Use finer angular sampling faster?: No
+				     
+     (This was OK in the earlier stages to speed up calculations, but at this stage we want to get the highest resolution we can, so we will opt for the slower, but safer options.)
+     
+And on the :guitab:`Compute` tab, we now set:
 
-As you can see in the pre-calculated results, after a final :jobtype:`Post-processing` job, we obtained an overall resolution of 2.84 Å.
+:Skip padding?: No
+		
+     (For the same reason as above: skipping padding speeds up, but some aliasing artefacts can fold back in. As we do have the required computer memory for the padded reconstruction, let's go safe for this last refinement.)
+		
+ 
+As you can see in the pre-calculated results, after a final :jobtype:`Post-processing` job, we obtained an overall resolution of 2.9 Å.
 Not bad for 3GB of data, right?
 
 

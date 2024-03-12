@@ -66,7 +66,7 @@ On the :guitab:`Laplacian` tab, set:
 
 :Adjust default threshold: 0
 
-     (Positive values, i.e. high thresholds, will pick fewer particles, negative values will pick fewer particles.
+     (Positive values, i.e. high thresholds, will pick fewer particles, negative values will pick more particles.
      Useful values are probably in the range [-1,1], but in many cases the default value of zero will do a decent job.
      The threshold is moved this many standard deviations away from the average.)
 
@@ -203,13 +203,18 @@ On the :guitab:`Optimisation` tab, set:
      In general, if your class averages appear very noisy, then lower T; if your class averages remain too-low resolution, then increase T.
      The main thing is to be aware of overfitting high-resolution noise.)
 
+
+:Use EM algorithm?: Yes
+
+     (This is the standard Expectation Maximisation algorithm in |RELION|.)
+
 :Number of iterations:: 25
 
      (For the default EM-algorithm, one normally doesn't change the default of 25 iterations)
 
-:Use gradient-driven algorithm?: No
+:Use VDAM algorithm?: No
 
-     (This is a new option in |RELION|-4.0, which runs much faster than the standard EM-algorithm for large data set, and has been observed to yield better class average images in many cases.
+     (This is gradient-descent-like algorithm that was introduced in |RELION|-4.0. It runs much faster than the standard EM-algorithm for large data sets, and has been observed to yield better class average images in many cases.
      It is however slower for data sets with only a few thousand particles, which is the main reason we are not using it here.)
 
 :Mask diameter (A):: 200
@@ -230,7 +235,7 @@ On the :guitab:`Optimisation` tab, set:
 
 :Center class averages?: Yes
 
-     (This is a new option in |RELION|-4.0. It will re-center all class average images every iteration based on their center of mass. 
+     (This will re-center all class average images every iteration based on their center of mass. 
      This is useful for their subsequent use in template-based auto-picking, but also for the automated 2D class average image selection in the next section.)
 
 On the :guitab:`Sampling` tab we hardly ever change the defaults.
@@ -322,13 +327,17 @@ On the :guitab:`Class options` tab, give:
 
 :Automatically select 2D classes?: Yes
 
-:Minimum threshold for auto-selection: 0.5
+:Minimum threshold for auto-selection: 0.21
 
-     (The score ranges from 0 for absolute rubbish class average images to 1 for gorgeous ones.)
+     (The score ranges from 0 for absolute rubbish class average images to 1 for gorgeous ones. We are using a relatively low value here, because we only have a few particles, so the 2D class averages will probably not look very good. On your own data sets, you will probably want to run the program once, sort your class averages on their predicted score and decide what a good value is for those class averages; also see below.)
 
-:Python executable: python
+:Select at least this many particles: -1
 
-     (This version of python should include torch and numpy. We have found that the one from topaz (which is also used for auto-picking) works well. At the LMB, it is here: /public/EM/anaconda3/envs/topaz/bin/python)
+     (If this is value is positive, then even if they have scores below the minimum threshold, select at least this many particles with the best scores.)
+				      
+:OR\: select at least this many classes: -1
+
+     (If this is value is positive, then even if they have scores below the minimum threshold, select at least this many classes with the best scores.)
 
 :Re-center the class averages?: No
 
@@ -352,7 +361,7 @@ Re-training the TOPAZ neural network
 ------------------------------------
 
 In older versions of the |RELION| tutorial, one would now use the selected 2D class averages as templates for reference-based auto-picking. 
-Instead, the new wrapper to |Topaz| will be used to first re-train the neural network in |Topaz| and then to pick the entire data set using the retrained network.
+Instead, the new wrapper to |Topaz| will be used to first re-train the neural network in |Topaz| and then to pick the entire data set using the retrained network. Note that for this data set one could also have foregone re-training of |Topaz| and just use the pretrained network it comes with. This tutorial is merely showing you the re-training option as it may be relevant for your own data.
 
 On the :guitab:`I/O` tab of the :jobtype:`Auto-picking` job-type, set:
 
@@ -368,24 +377,15 @@ On the :guitab:`I/O` tab of the :jobtype:`Auto-picking` job-type, set:
 
 On the :guitab:`Topaz` tab, set:
 
-:Topaz executable: /where/ever/it/is/topaz
+:Particle diameter (A): 180
 
-     (The location of the Topaz executable. 
-     You can control the default of this field by setting environment variable ``RELION_TOPAZ_EXECUTABLE``.
-     If you need to activate conda environment, please make a wrapper shell script to do so and specify it. 
-     At LMB, we use the following script as topaz executable:
-
-     ``#!/bin/bash``
-     
-     ``source /public/EM/anaconda3/bin/activate topaz``
-     
-     ``topaz $@``
-
-     )
-
+:Perform topaz picking?: No
+			 
 :Perform topaz training?: Yes
 
-:Input picked coordinates for training: \ 
+:Nr of particles per micrograph: 300
+				 
+:Input picked coordinates for training: 
 
      (This option can be used to train on manually selected particles from a :jobtype:`Manual picking` job.
      We will use the automatically selected particles from the previous step instead.)
@@ -393,12 +393,6 @@ On the :guitab:`Topaz` tab, set:
 :OR train on a set of particles?: Yes
 
 :Particles STAR file for training: Select/job009/particles.star
-
-:Perform topaz picking?: No
-
-:Particle diameter (A): 180
-
-:Nr of particles per micrograph: 300
 
 :Additional topaz arguments: \ 
 
@@ -432,21 +426,18 @@ On the :guitab:`I/O` tab of a new :jobtype:`Auto-picking` job, set:
 
 On the :guitab:`Topaz` tab, set:
 
-:Topaz executable: /where/ever/it/is/topaz
-
-:Perform topaz training?: No
+:Particle diameter (A): 180
 
 :Perform topaz picking?: Yes
 
 :Trained topaz model: AutoPick/job010/model_epoch10.sav
-
-     (If you leave this field empty, then the default pre-trained (general) neural network of |Topaz| will be used.)
-
-:Particle diameter (A): 180
+			 
+:Perform topaz training?: No
 
 :Nr of particles per micrograph: 300
-
+				 
 :Additional topaz arguments: \ 
+
 
 On the :guitab:`autopicking` tab, you can ignore everything except the below:
 
@@ -455,9 +446,8 @@ On the :guitab:`autopicking` tab, you can ignore everything except the below:
      (Topaz picking and training require one GPU)
 
 :Which GPUs to use:: 0
-
-Ignore the other tabs, and as this has been parallelised, you could for example run using four MPI processors from the :guitab:`Running tab`.
-On our computer, this step takes approximately 1 minute.
+		   
+On our computer, running with a single process, this step takes approximately 4 minutes. Note that re-training of |Topaz| is not parallelised and should always be performed with a single MPI process. However, picking with |Topaz| has been parallelised and can be run using multiple MPI processes.
 
 The number of particles from default |Topaz| picking will be relatively high, because no threshold to its figure-of-merit will be applied. 
 The figure-of-merits for all picks are stored in the ``rlnAutopickFigureOfMerit`` column in the output `STAR` files.
@@ -479,7 +469,7 @@ On the following on the :guitab:`Colors` tab, set:
 
 and save the settings to the project directory with the `Save job.star` menu item from the top left `Jobs` menu.
 
-Then, select ``autopick.star`` from the :button:`Display:` button of the ``Autopick/job010`` job to launch the GUI. 
+Then, select ``autopick.star`` from the :button:`Display:` button of the ``Autopick/job011`` job to launch the GUI. 
 From the ``File`` menu at the top left of its main window, one can use ``Set FOM threshold`` to display only picks with a FOM above the threshold
 A similar option is also available in the per-micrograph viewer, using the right-mouse button pop-up menu.
 Picks with a high threshold will be blue; picks with a low threshold will be red.

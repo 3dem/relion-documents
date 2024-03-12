@@ -1,6 +1,33 @@
 What's new?
 ===========
 
+Release 5.0
+-----------
+
+**Blush regularisation**
+
+Dari Kimanius has developed a new method to incorporate more prior knowledge into the cryo-EM refinement process than the one typically used (which merely assumes smoothness in real-space, or limited power in Fourier-space). This method is called Blush regularisation and it uses a denoising convolutional neural network inside the iterative refinement algorithm of Class3D, Refine3D or MultiBody jobs. The effects of this are largest when the signal is weak and standard refinement in RELION would overfit (as for example visible from streaky artefacts in the solvent region). Using Blush reglarisation, Dari successfully refined a data set of a 40 kDa protein:RNA complex to 2.5A. The same data set was intractable in standard RELION or CryoSPARC. 
+
+**DynaMight for modelling continuous structural heterogeneity**
+
+Johannes Schwab developed a method called DynaMight that 'explores protein **Dyna**-mics, and **Might** improve your map'. It is based on a variational auto-encoder that predicts 3D deformations of a Gaussian model for the consensus map, and a deformed backprojection algorithm that attempts to "un-do" these deformations to reconstruct an improved consensus map.
+
+**ModelAngelo for automated atomic model building**
+
+Kiarash Jamali developed a machine-learning approach for automated atomic model building and identification of unknown proteins in cryo-EM maps. ModelAngelo will build most of your automatically, provided the resolution extends beyond 3.5-4.0 Angstroms. Goodbye to months in the dark graphics room!
+
+**Select subsets of filaments using dendrograms**
+
+David Li developed a useful utility to select subsets of filament particles that belong to the same structural class. It has been implemented on the Helix tab of the Subset selection job type.
+
+**Support for AMD and Intel GPUs (HIP/ROCm and SYCL)**
+
+Suyash Tandon from AMD and Jason Do from Intel, together with their colleagues, have contributed code for GPU acceleration of |RELION|-5 in HIP/ROCm and SYCL, respectively. This means that the ``relion_refine`` program can now also be run efficiently on AMD and Intel GPUs. (The previously existing CUDA implementation and vectorised CPU-acceleration still work too.)  
+
+**A complete subtomo-gram averaging pipeline**
+
+Alister Burt, Euan Pyle, Sjors Scheres and others have developed a new pipeline for sub-tomogram averaging that starts with serialEM mdoc files and raw movies, and potentially ends with automated model building by ModelAngelo. You can access it by launching ``relion --tomo`` from the command line. However, please do note that this part of the code is not yet well tested and we have not yet been able to write an explanatory tutorial for this, so please be patient. Until we have finished the documentation and testing, you can play with the code already, but we cannot yet provide any feedback...
+
 Release 4.0
 -----------
 

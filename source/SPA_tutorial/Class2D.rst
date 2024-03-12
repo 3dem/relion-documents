@@ -27,15 +27,17 @@ and on the :guitab:`Optimisation` tab, we used:
      In general, if your class averages appear very noisy, then lower T; if your class averages remain too-low resolution, then increase T.
      The main thing is to be aware of overfitting high-resolution noise.)
 
-:Number of iterations:: 100
+:Use EM algorithm?: No
 
-     (We will now use a new gradient-driven algorithm that is new in |RELION|-4.0. 
-     It uses batches (of hundreds or thousands) of particles per iteration, but therefore needs to perform more iterations. 
-     A 100 iterations has been observed to be a good number in many cases)
+     (This is the standard Expectation Maximisation algorithm in |RELION|.)
 
-:Use gradient-driven algorithm?: Yes
+:Use VDAM algorithm?: Yes
 
-     (This is a new option in |RELION|-4.0, which runs much faster than the standard EM-algorithm for large data set, and has been observed to yield better class average images in many cases.)
+     (This is gradient-descent-like algorithm that was introduced in |RELION|-4.0. It runs much faster than the standard EM-algorithm for large data sets, and has been observed to yield better class average images in many cases.)
+
+:Number of VDAM mini-batches: 100
+
+     (Number of mini-batches to be processed using the VDAM algorithm. Using 200 has given good results for many data sets. Using 100 will run faster, but sometimes at the expense of some quality loss.)
 
 :Mask diameter (A):: 200
 
@@ -55,14 +57,16 @@ and on the :guitab:`Optimisation` tab, we used:
 
 :Center class averages?: Yes
 
-     (This is a new option in |RELION|-4.0. It will re-center all class average images every iteration based on their center of mass. 
+     (This will re-center all class average images every iteration based on their center of mass. 
      This is useful for their subsequent use in template-based auto-picking, but also for the automated 2D class average image selection in the next section.)
 
-The gradient-driven algorithm doesn't scale well with MPI parallelisation. Therefore, we ran with the following options on the :guitab:`Compute` tab:
+The VDAM algorithm cannot be run with MPI parallelisation. Therefore, we ran with the following options on the :guitab:`Compute` tab:
 
 :Use GPU acceleration?: Yes
 
 :Which GPUs to use:: 0,1,2,3
+		   
+     (Our machine has 4 GPUs, so we're using them all.)
 
 and on the :guitab:`Running` tab, we used:
 
@@ -86,13 +90,13 @@ On the :guitab:`Class options` tab, set:
 
 :Automatically select 2D classes?: Yes
 
-:Minimum threshold for auto-selection: 0.25
+:Minimum threshold for auto-selection: 0.1
 
-     (We are less restrictive in the selection of particles at this stage, as we don't want to leave any minority views behind.)
+     (You may need to run the program twice, perhaps by overwriting the previous run (using the `Overwrite` option from the :button:`Jobactions:` button, to select the appropriate threshold. Alternatively, you can also selected the classes interactively, while sorting on rlnClassDistribution.)
 
-We got over 5800 particles from 36 selected classes.
+We got 4598 particles from 34 selected classes.
 
-Note that this procedure of :jobtype:`2D classification` and :jobtype:`Subset selection` may be repeated several times.
+Note that this procedure of :jobtype:`2D classification` and :jobtype:`Subset selection` may be repeated several times. But if you do so, be careful not to throw away your minority views!
 
 
 Analysing the Class2D results in more detail
@@ -121,9 +125,9 @@ For the last iteration of our 2D class averaging calculation these are:
     If you compare this with the class averages themselves, you will see that particles with few classes are low-resolution, while classes with many particles are high-resolution.
     This is an important feature of the Bayesian approach, as averaging over fewer particles will naturally lead to lower signal-to-noise ratios in the average.
     The estimated spectral signal-to-noise ratios for each class are stored in the ``data_model_class_N`` tables, where ``N`` is the number of each class.
-    Likewise, the estimated noise spectra for each group are stored in the tables called ``data_model_group_N``.
     The table ``data_model_groups`` stores a refined intensity scale-factor for each group: groups with values higher than one have a stronger signal than the average, relatively low-signal groups have values lower than one.
     These values are often correlated with the defocus, but also depend on accumulated contamination and ice thickness.
+    For each different optics group, the estimated noise spectra are stored in tables called ``data_model_optics_group_N``.
 
 -   ``Class2D/job013/run_it100_data.star`` contains all metadata related to the individual particles.
     Besides the information in the input ``particles.star`` file, there is now additional information about the optimal orientations, the optimal class assignment, the contribution to the log-likelihood, etc.
@@ -137,7 +141,7 @@ For the last iteration of our 2D class averaging calculation these are:
     As of release-4.0, |RELION| also uses the optimiser.star files as input nodes for different types of subsequent jobs. 
     For example, it replaces the model.star input nodes for :jobtype:`Subset selection` jobs.
 
-- ``Class2D/job013/run_it100_sampling.star`` contains information about the employed sampling rates.
+-   ``Class2D/job013/run_it100_sampling.star`` contains information about the employed sampling rates.
     This file is also necessary for restarting.
 
 
@@ -148,7 +152,7 @@ Making groups
     If you are in a hurry to get through this tutorial, you can skip this sub-section.
     It contains more detailed information for the interested reader.
 
-|RELION| groups particles together to do two things: estimate their average noise power spectrum and estimate a single-number intensity scale factor that describes differences in overall signal-to-noise ratios between different parts of the data, e.g. due to ice thickness, defocus or contamination.
+|RELION| groups particles together for the estimation of a single-number intensity scale factor that describes differences in overall signal-to-noise ratios between different parts of the data, e.g. due to ice thickness, defocus or contamination.
 
 The default behaviour is to treat all particles from each micrograph as a separate group.
 This behaviour is fine if you have many particles per micrograph, but when you are using a high magnification, your sample is very diluted, or your final selection contains only a few particles per micrograph, then the estimation of the intensity scale factor (and the noise spectra) may become unstable.

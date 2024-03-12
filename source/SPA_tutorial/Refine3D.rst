@@ -39,13 +39,11 @@ To do this, go to the :jobtype:`Particle extraction` jobtype on the GUI, and on 
 
      (We want to keep the centre of the molecule in the middle of the box.)
 
-:Manually set pixel size?: No
+:Write output in float16?: Yes
 
-     (This is only necessary when the input micrograph :textsc:`star` file does NOT contain CTF information.)
-
-
+			   
 And on the :guitab:`extract` tab, we keep everything as it was, except:
-
+			      
 :Particle box size (pix): 360
 
      (we will use a larger box, so that de-localised CTF signals can be better modeled.
@@ -60,13 +58,13 @@ And on the :guitab:`extract` tab, we keep everything as it was, except:
 
 
 In addition, we will need to rescale the best map obtained thus far to the 256-pixel box size.
-This is done from the command-line, but make sure you select the correct class:
+This is done from the command-line, but make sure you select the correct class (check the file ``Class3D/job016/run_it025_model.star`` to see which class is the largest)!:
 
 ::
 
-    relion_image_handler --i Class3D/job016/run_it025_class004.mrc \
+    relion_image_handler --i Class3D/job016/run_it025_class002.mrc \
      --angpix 3.54 --rescale_angpix 1.244 --new_box 256 \
-     --o Class3D/job016/run_it025_class004_box256.mrc
+     --o Class3D/job016/run_it025_class002_box256.mrc
 
 
 Running the auto-refine job
@@ -102,7 +100,7 @@ On the :guitab:`Reference` tab, set:
      (We now aim for high-resolution refinement, so imposing symmetry will effectively quadruple the number of particles.)
 
 
-Parameters on the :guitab:`CTF`, :guitab:`Optimisation` tabs remain the same as they were in the :jobtype:`3D classification` job.
+Parameters on the :guitab:`CTF`, :guitab:`Optimisation` tabs remain the same as they were in the :jobtype:`3D classification` job, but let's skip Blush regularisation for this data set with its relatively high signal-to-noise particles.
 
 On the :guitab:`Auto-sampling` tab, one can usually keep the defaults. 
 Note that the orientational sampling rates on the :guitab:`Sampling` tab will only be used in the first few iterations, from there on the algorithm will automatically increase the angular sampling rates until convergence.
@@ -116,11 +114,33 @@ The only thing we will change here is to set:
      This will therefore speed up the calculations. 
      You might want to check that you're not loosing resolution for this in the later stages of your own processing, but during the initial stages it often does not matter much.) 
 
+On the :guitab:`Compute` tab, we also replicate the settings of the :jobtype:`3D classification`:
+
+:Use parallel disc I/O?: Yes
+
+:Number of pooled particles:: 30
+
+:Skip padding?: Yes
+		
+     (By default, |RELION| will pad the 3D maps with zeros, to allow better interpolations in Fourier space. This requires 8x more computer memory (RAM). By switching this off for this early refinement, we will save RAM and increase speed. One risk is that aliasing artefacts fold in at the edges of the 3D reconstruction, so be careful with this option if your box is very tight.)
+		
+:Pre-read all particles into RAM?: Yes
+
+     (Again, this is only possible here because the data set is small. For your own data, you would like write the particles to a scratch disk instead, see below.)
+
+:Copy particles to scratch directory: \ 
+
+:Combine iterations through disc?: No
+
+:Use GPU acceleration?: Yes
+
+:Which GPUs to use: 0:1:2:3
+
+  
 As the MPI nodes are divided between one master (who does nothing else than bossing the others around) and two sets of slaves who do all the work on the two half-sets, it is most efficient to use an odd number of MPI processors, and the minimum number of MPI processes for :jobtype:`3D auto-refine` jobs is 3.
 Memory requirements may increase significantly at the final iteration, as all frequencies until Nyquist will be taken into account, so for larger sized boxes than the ones in this test data set you may want to run with as many threads as you have cores on your cluster nodes.
 
 On our computer with 4 GPUs, we used 5 MPIs and 6 threads, and this calculation took approximately 7 minutes.
-
 
 
 Analysing the results

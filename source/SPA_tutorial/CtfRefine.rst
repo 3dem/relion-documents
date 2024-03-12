@@ -92,7 +92,7 @@ And this time, on the :guitab:`Fit` tab set:
 Using 1 MPI and 12 threads, on our computer, this job finished in approximately one minute.
 
 Again, the relevant images to analyse are in the ``logfile.pdf``.
-There seem to be some blue-red trends, but the actual anisotropy is very small, as assessed from the ``_rlnMagMat??`` elements of the (2x2) transformation matrix in the optics table of the output STAR file:
+There seem to be some blue-red trends, but the actual anisotropy is very small, as assessed from the ``_rlnMagMat??`` elements of the (2x2) transformation matrix in the optics table of the output STAR file, which are close to the 0 and 1 values of the identity matrix:
 
 ::
 
@@ -158,4 +158,4 @@ and on the :guitab:`Reference` tab:
 
 :Ref. map is on absolute greyscale?: Yes
 
-After another :jobtype:`Post-processing` job, the resolution improved to 2.95 Å.
+After another :jobtype:`Post-processing` job, the resolution improved to 3.0 Å.

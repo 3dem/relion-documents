@@ -1,21 +1,21 @@
-.. _sec_sta_framealign:
+.. _sec_sta_bayesian_polishing:
 
-Tomo frame alignment
+Bayesian polishing
 ====================
 
 |RELION| has also implemented the analogous to :ref:`Bayesian polishing <sec_bayesian_polishing>` in 2D for tomography.
 This procedure refines the projections that map 3D space onto the images of the tilt series. Optionally, the beam-induced motion trajectories of the particles and deformations can also be estimated.
 For a complete description of the arguments, check :ref:`program_tomo_align` program.
 
-If you are running this job without following the tutorial, please, note the requirements for the reference map as described for :jobtype:`Tomo CTF refinement` job in subsection :ref:`sec_sta_ctfrefine_refmap`.
+If you are running this job without following the tutorial, please, note the requirements for the reference map as described for :jobtype:`CTF refinement` job in subsection :ref:`sec_sta_ctfrefine_refmap`.
 
 
 Running the job
 ---------------
 
-The |optimisation_set| file we are using as input has updated the reference mask file field in the previous :jobtype:`Tomo CTF refinement` job, so we don't need to override any other input file.
+The |optimisation_set| file we are using as input has updated the reference mask file field in the previous :jobtype:`CTF refinement` job, so we don't need to override any other input file.
 
-On the :guitab:`I/O` tab of the :jobtype:`Tomo frame alignment` job-type set:
+On the :guitab:`I/O` tab of the :jobtype:`Bayesian polishing` job-type set:
 
 :Input optimisation set:: ReconstructParticleTomo/job015/optimisation_set.star
 
@@ -60,7 +60,7 @@ Analysing the results
 ---------------------
 
 In the output folder ``FrameAlignTomo/job017`` you will find new ``tomograms.star`` and ``particles.star`` files including the corrected tilt series alignment and particle positions and a |trajectory_set| file ``motion.star`` with particle trajectories.
-Again, to assess the result, it is recommended to run a new :jobtype:`Tomo reconstruct particle` job, with FSC estimation, using the new parameters. Compared to the previous FSC estimation, we should observe a clear improvement and a resolution around 3.5Å.
+Again, to assess the result, it is recommended to run a new :jobtype:`Reconstruct particle` job, with FSC estimation, using the new parameters. Compared to the previous FSC estimation, we should observe a clear improvement and a resolution around 3.5Å.
 
 
 Tomo refinement cycle
@@ -80,7 +80,7 @@ On the :guitab:`Auto-sampling` tab set:
 
 
 This new 3D refinement spent 1 day in our system (4 GPU cards) and it should report a resolution around 3.4Å, completing the first tomo refinement cycle.
-If a new cycle of :jobtype:`Tomo CTF refinement`, :jobtype:`tomo frame alignment` and :jobtype:`3D auto-refine` is performed, the user should reach around 3.3Å and finally converge to 3.2Å in the third cycle.
+If a new cycle of :jobtype:`CTF refinement`, :jobtype:`tomo frame alignment` and :jobtype:`3D auto-refine` is performed, the user should reach around 3.3Å and finally converge to 3.2Å in the third cycle.
 
 
 .. |optimisation_set| replace:: :ref:`optimisation set <sec_sta_optimisation_set>`

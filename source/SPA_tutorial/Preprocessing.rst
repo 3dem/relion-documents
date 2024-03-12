@@ -12,7 +12,11 @@ We'll call this the project directory. **It is important to always launch the RE
 We like to call this directory ``Movies/`` if all movies are in one directory, or for example ``Movies/15jan16/`` and ``Movies/23jan16/`` if they are in different directories (e.g. because they were collected on different dates).
 If for some reason you do not want to place your movies inside the |RELION| project directory, then inside the project directory you can also make a symbolic link to the directory where your movies are stored.
 
-Single-image micrographs should have a ``.mrc`` extension, movies can have a ``.mrc``, ``.mrcs``, ``.tif``, ``.tiff`` or ``.eer`` extension.
+.. warning::
+    Symbolic links must be made by an absolute path (e.g. ``/storage/data/15jan16``). Use of relative paths (e.g. ``../../storage/data/15jan16``) cancause problems in later steps. Our precalculated example contains a symbolic link from `Movies` to `../Tutorial4.0/Movies/` but please do not follow this practice. Because we don't know where you decompress the archive, we cannot include a link by an absolute path.
+
+Single-image micrographs should have a ``.mrc`` extension, while movies can have a ``.mrc``, ``.mrcs``, ``.tif``, ``.tiff`` or ``.eer`` extension.
+For EER movies, see :ref:`this <eer_movies>` for the details. RELION 5.0 can also read :ref:`MRC movies compressed by bzip2, xz, zstd or gzip <compressed_movies>`.
 When you unpacked the tutorial test data, the (``Movies/``) directory was created.
 It should contain 24 movies in compressed TIFF format, a gain-reference file (``gain.mrc``) and a ``NOTES`` file with information about the experiment.
 
@@ -57,6 +61,11 @@ Select ``Import`` from the job-type browser on the left, and fill in the followi
 
 :Beamtilt in Y (mrad):: 0
 
+
+The MTF file can be obtained from `the Gatan Web site <https://www.gatan.com/techniques/cryo-em#MTF>`_.
+If you are working offline and cannot obtain the file, you can ignore it.
+The MTF correction does not change the final resolution (but changes the B factor).
+You can also apply it in PostProcessing.
 
 On the :guitab:`Others` tab, make sure the following is set:
 
@@ -182,7 +191,7 @@ Fill in the :guitab:`Running` tab as follows:
 
 Executing this program takes approximately 5 minutes when using 12 threads on a reasonably modern machine.
 Note that our own implementation of the |MotionCor2| algorithm does not use a GPU.
-It is however multi-threaded.
+This program is multi-threaded.
 As each thread will work independently on a movie frame, it is optimal to use a number of threads such that the number of movie frames divided by the number threads is an integer number.
 As these movies have 24 frames, using 12 threads will result in 2 frames being processed by each thread.
 You can look at the estimated beam-induced shifts, and their statistics over the entire data set, by selecting the ``out: logfile.pdf`` from the :button:`Display:` button below the run buttons, or you can look at the summed micrographs by selecting `out: corrected_micrographs.star`.
@@ -275,7 +284,7 @@ The next job-type :jobtype:`Manual picking` may be used to manually select parti
 We like to manually select at least several micrographs in order to get familiar with our data.
 Often, the manually selected particles to calculate reference-free 2D class averages, which will then be used as templates for automated particle picking of the entire data set.
 However, as of release 3.0, |RELION| also contains a reference-free auto-picking procedure based on a Laplacian-of-Gaussian (LoG) filter.
-In most cases tested thus far, this procedure provides reasonable starting coordinates, so that the :jobtype:`Manual picking` step may be skipped.
+In many cases, this procedure provides reasonable starting coordinates, so that the :jobtype:`Manual picking` step may be skipped.
 The pre-shipped `Schemes` for on-the-fly processing in the ``relion_it.py`` script make use of this functionality to perform fully automated on-the-fly processing.
 In this tutorial, we will just launch a :jobtype:`Manual picking` job for illustrative purposes, and then proceed with LoG-based :jobtype:`Auto-picking` to generate the first set of particles.
 
@@ -324,18 +333,13 @@ On the :guitab:`I/O` tab of the :jobtype:`Manual picking` job-type, use the :but
 
 :OR use Topaz denoising?:: Yes
 
-     (This is a new feature in |RELION|-4.0 and will make a system call to topaz)
+     (This has been a feature since |RELION|-4.0 and will make a system call to topaz)
 
-:Topaz executable:: /where/ever/it/is/topaz
 
 
 .. note::
 
-   At LMB, we run topaz through the following bash script:
-
-    | #!/bin/bash 
-    | source /public/EM/anaconda3/bin/activate topaz
-    | topaz $@
+   As of |RELION|-5.0, Topaz comes pre-installed in the relion-5 conda environment, which should be picked up automatically by the GUI.
     
 
 

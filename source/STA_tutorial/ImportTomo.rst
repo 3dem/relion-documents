@@ -1,84 +1,66 @@
 .. _sec_sta_importomo:
 
-Import tomograms
-================
+Import
+======
 
-This section shows how to import a data set whose tomograms have already been aligned using IMOD_ and the CTF estimated with CTFFind_ or CtfPlotter_.
+We will now import the raw data into RELION. In the GUI, select :jobtype:`Import` from the jobt-type browser on the top left and fill in the following parameters on the :guitab:`General` tab:
 
-The first step to do is to import the |tomogram_set| into the pipeline.
-To do that, we must first create a description ``.star`` file containing the required information, one row per tomogram.
-The basic fields are the tilt series stack filename, CTF estimated data filename and IMOD_ project folder. As an example, the ``tomograms_descr.star`` file used in this tutorial contains the following fields:
+:Tilt image files: frames/*.mrc
 
-::
 
-    # tomograms_descr.star
+:Movies already motion corrected?: No
+				   
+	(These are 8-frame movies that have not yet been motion-corrected.)	   
 
-    data_
+:mdoc files: mdoc/*.mdoc
 
-    loop_
-    _rlnTomoName
-    _rlnTomoTiltSeriesName
-    _rlnTomoImportCtfFindFile
-    _rlnTomoImportImodDir
-    _rlnTomoImportFractionalDose
+:Optics group name: optics1
 
-     TS_01   tomograms/TS_01/01.mrc   tomograms/TS_01/01_output.txt   tomograms/TS_01   3.0
-     TS_03   tomograms/TS_03/03.mrc   tomograms/TS_03/03_output.txt   tomograms/TS_03   3.0
-     TS_43   tomograms/TS_43/43.mrc   tomograms/TS_43/43_output.txt   tomograms/TS_43   3.1
-     TS_45   tomograms/TS_45/45.mrc   tomograms/TS_45/45_output.txt   tomograms/TS_45   3.1
-     TS_54   tomograms/TS_54/54.mrc   tomograms/TS_54/54_output.txt   tomograms/TS_54   3.0
+	(All imported tomograms will belong to the same optics group with this name. When left empty, each tomogram will be its own optics group, with the tomogram name as the optics group name.)
 
-The ``rlnTomoName`` label is a unique identifier per tomogram, automatically created if not provided in this description file (More information can be found in :ref:`program_tomo_import_tomograms` program help). Note that in this dataset the electron dose is not constant so it should be provided in the description file instead of as a global parameter when importing tomograms.
+:Prefix: \"\" 
 
-In the GUI, select :jobtype:`Tomo import` from the jobt-type browser on the left and fill in the following parameters on the :guitab:`Tomograms` tab:
-
-:Import tomograms?: Yes
-
-:STAR file with tomograms description:: input/tomograms_descr.star
-
-:Append to tomograms set: \
-
-     (This field can be used to add new tomograms to an existing ``tomograms.star``. This is usefull when subsets of tomograms have different values for pixel size, voltage ... )
-
-:Pixel size (Angstrom):: 1.35
+:Pixel size (Angstrom):: 0.675
 
 :Voltage (kV):: 300
 
 :Spherical aberration (mm):: 2.7
 
-:Amplitude contrast:: 0.07
-
-:Frame dose (e/A^2):: \
-
-    (If this value varies among the input tomograms, then specify it using its own column in the description input STAR file.)
-
-:Ordered list:: input/order_list.csv
-
-    (A 2-column, comma-separated file with the frame-order list of the tilt series, where the first column is the frame (image) number (starting at 1) and the second column is the tilt angle (in degrees). If this value varies among the input tomograms, then specify it using its own column in the description input STAR file.)
-
-:Flip YZ?: Yes
-
-:Flip Z?: Yes
-
-:Tilt handedness:: -1
-
-On the :guitab:`Coordinates` tab, make sure the following is set:
-
-:Import coordinates?: No
-
-On the :guitab:`Others` tab, make sure the following is set:
-
-:Import other node types?: No
+:Amplitude contrast:: 0.1
 
 
-You may provide a meaningful alias (for example: `tomograms`) for this job in the white field named ``Current job: Give_alias_here``.
+On the :guitab:`Tilt series` tab:
+
+
+:Dose rate per tile-image: 3
+
+:Is dose rate per movie frame?: No
+
+:Tilt axis angle (deg): 85
+
+			(This is the nominal value for the tilt-axis orientation wrt to the Y-axis (positive is CCW from Y))
+
+:MTF file: \"\"
+
+:Invert defocus handedness?: Yes
+
+		(Specify Yes to flip the handedness of the defocus geometry; the default, Yes, leads to a value of -1 in the STAR file, which is the correct one for the tutorial dataset.)
+	 
+
+On the :guitab:`Running` tab:
+
+:Submit to queue?: No
+
+You may provide a meaningful alias (for example: `tilt_series`) for this job in the white field named ``Current job: Give_alias_here``.
 Clicking the :runbutton:`Run!` button will launch the job.
-A directory called ``ImportTomo/job001/`` will be created, together with a symbolic link to this directory that is called ``ImportTomo/tomograms``.
-Inside the newly created directory a |tomogram_set| ``tomograms.star`` file is created. It contains a table with general tomogram properties and a specific table for each tomogram including projection matrices, astigmatic defocus, cumulative radiation dose and deformations per tilt frame. (See :ref:`program_tomo_import_tomograms` program help).
 
+A directory called ``ImportTomo/job001/`` will be created, together with a symbolic link to this directory that is called ``ImportTomo/tilt_series``.
+Inside the newly created directory a ``tilt_series.star`` file is created. It contains a table with an entry for each tilt series.
+For each tilt series, a separate starfile contains relevant metadata that has been extracted from the input images and mdoc files.
+Have a look at these by typing:
 
+::
 
-.. |tomogram_set| replace:: :ref:`tomogram set <sec_sta_tomogram_set>`
-.. _IMOD: https://bio3d.colorado.edu/imod
-.. _CTFFind: https://grigoriefflab.umassmed.edu/ctffind4
-.. _CtfPlotter: https://bio3d.colorado.edu/imod/doc/man/ctfplotter.html
+    less Import/job001/tilt_series.star
+    less Import/job001/tilt_series/TS_01.star
+

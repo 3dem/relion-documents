@@ -5,15 +5,19 @@ Subtomogram tutorial
    :maxdepth: 2
 
    Introduction
-   Preprocessing
    ImportTomo
-   ImportCoords
-   MakePseudosubtomos
+   MotionCorrection
+   CtfEstimation
+   ExcludeTiltImages
+   AlignTiltSeries
+   ReconstructTomo
+   ParticlePicking
+   ExtractSubtomos
    InitialModel
-   Refine3DIni
    ReconstructPart
-   Refine3D
-   Postprocess
+   Refine3DIni
+   DuplicateParticles
    Class3D
+   Refine3DHighRes
    CtfRefine
-   FrameAlign
+   BayesianPolishing 

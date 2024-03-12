@@ -20,8 +20,7 @@ Running the job
 :Calibrated pixel size:: 1.244
 
      (Sometimes you find out when you start building a model that what you thought was the correct pixel size, in fact was off by several percent.
-     Inside |RELION|, everything up until this point was still consistent. so you do not need to re-refine your map and/or re-classify your data.
-     All you need to do is provide the correct pixel size here for your correct map and final resolution estimation.)
+     Inside |RELION|, everything up until this point was still consistent (provided you aren't at resolutions beyond 2 Angstrom). so you do not need to re-refine your map and/or re-classify your data. All you need to do is provide the correct pixel size here for your correct map and final resolution estimation.)
 
 
 On the :guitab:`ResMap` tab set:
@@ -38,7 +37,7 @@ On the :guitab:`Relion` tab set:
      (This value will be used to also calculate a locally-filtered and sharpened map.
      Probably you want to use a value close to the one determined automatically during the :jobtype:`Post-processing` job.)
 
-:MTF of the detector (STAR file):: \
+:MTF of the detector (STAR file):: mtf_k2_200kV.star
 
      (The same as for the :jobtype:`Post-processing` job.)
 
@@ -61,7 +60,7 @@ Careful inspection of the map may indicate that the handedness is incorrect, e.g
 Remember that it is impossible to determine absolute handedness from a data set without tilting the microscopy stage.
 The SGD algorithm in the :jobtype:`3D initial model` jobtype therefore has a 50 % chance of being in the opposite hand.
 In our precalculated results, this was not the case.
-One may flip the handedness of the postprocessed map as follows:
+One may flip the handedness of the postprocessed map from the command line as follows:
 
 ::
 

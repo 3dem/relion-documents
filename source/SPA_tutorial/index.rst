@@ -15,4 +15,6 @@ Single particle tutorial
    CtfRefine
    Polish
    Validation
+   ModelBuilding
+   Flexibility
    WrappingUp

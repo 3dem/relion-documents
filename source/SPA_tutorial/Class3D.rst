@@ -88,6 +88,10 @@ On the :guitab:`Optimisation` tab set:
      This can also be useful to prevent overfitting.
      Here we don't really need it, but it could have been set to 10-15A anyway.)
 
+:Use Blush regularisation?: Yes
+
+     (Blush regularisation is a new feature in |RELION|-5.0. It switches from the default smoothness prior in Fourier space to a new prior in the form of a denoising convolutional neural network that was trained on many EMDB half-maps. It is particularly powerful when the signal-to-noise ratios in the images is low, e.g. because of small complexes, and standard 3D classification, 3D auto-refinement (see next section of this tutorial), or multi-body refinement suffers from overfitting. This tutorial data set has relatively high signal-to-noise ratios, so using Blush regularisation is probably not necessary. We used it here anyway to make you aware of the option. To run this option, the |RELION|-5 conda environment should be installed and you need CUDA-enabled GPUs to run ``pytorch`` on. If you cannot run this, don't worry and just set the option to ``No``.)
+
 
 On the :guitab:`Sampling` tab one usually does not need to change anything (only for large and highly symmetric particles, like icosahedral viruses, does one typically use a 3.7 degree angular sampling at this point).
 Ignore the :guitab:`Helix` tab, and on the :guitab:`Compute` tab set:
@@ -98,8 +102,6 @@ Ignore the :guitab:`Helix` tab, and on the :guitab:`Compute` tab set:
 :Number of pooled particles:: 30
 
 :Skip padding?: No
-
-:Skip gridding?: Yes
 
 :Pre-read all particles into RAM?: Yes
 
@@ -121,12 +123,12 @@ On the :guitab:`Running` tab, set:
 
 3D classification takes more memory than 2D classification, so often more threads are used.
 However, in this case the images are rather small and RAM-shortage may not be such a big issue.
-On our computer with 4 GPUs, we used 5 MPIs and 6 threads, and this calculation took approximately 6 minutes.
+On our computer with 4 GPUs, we used 5 MPIs and 6 threads, and this calculation took approximately 6 minutes without Blush. Switching Blush on changed this to 13 minutes. The relatively difference will be much smaller for larger data sets that spend most of their time during their E-step, whereas Blush regularisation happens only in the M-step. 
 
-When analysing the resulting class reconstructions, it is extremely useful to also look at them in slices, not only as a thresholded map in for example UCSF :textsc:`chimera`.
+When analysing the resulting class reconstructions, it is useful to also look at them in 2D slices, not only as a thresholded map in for example UCSF :textsc:`chimera`.
 In the slices view you will get a much better impression of unresolved heterogeneity, which will show up as fuzzy or streaked regions in the slices.
 Slices also give a good impression of the flatness of the solvent region.
-Use the :button:`Display:` button and select any of the reconstructions from the last iteration to open a slices-view in |RELION|; you can also see a central slice through all classes simultaneously by selecting the ``run_it025_optimiser.star`` option from the :button:`Display:` button.
+Use the :button:`Display:` button and select any of the reconstructions from the last iteration to open a slices-view in |RELION|; you can also see a central slice through all classes simultaneously by selecting the ``run_it025_optimiser.star`` option from the :button:`Display:` button. We then often reverse sort them on ``rlnClassDistribution``.
 
 When looking at your rendered maps in 3D, e.g. using UCSF :textsc:`chimera`, it is often a good idea to fit them all into the best one, as maps may rotate slightly during refinement.
 In :textsc:`chimera`, we use the ``[Tools]-[Volume Data]-[Fit in Map]`` tool for that.
@@ -145,7 +147,7 @@ Because automated class selection has not been implemented for 3D classification
 
 :Automatically select 2D classes?: No
 
-We selected a single good class, discarding particles from 3 suboptimal classes. We retained over 4700 particles.
+We selected a single good class, discarding particles from 3 suboptimal classes. We retained over 4400 particles. This well-behaved tutorial data set is relatively homogeneous...
 
 Note that this procedure of :jobtype:`3D classification` and :jobtype:`Subset selection` may be repeated several times.
 
@@ -185,4 +187,4 @@ To check whether your run had converged, (as mentioned above) you could also mon
     grep _rlnChangesOptimalClasses Class3D/job016/run_it???_optimiser.star
 
 As you may appreciate by now: the :textsc:`star` files are a very convenient way of handling many different types of input and output data.
-Linux shell commands like ``grep`` and `awk`, possibly combined into scripts like ``relion_star_printtable``, provide you with a flexible and powerful way to analyze your results.
+Linux shell commands like ``grep`` and ``awk``, possibly combined into scripts like ``relion_star_printtable``, provide you with a flexible and powerful way to analyze your results.

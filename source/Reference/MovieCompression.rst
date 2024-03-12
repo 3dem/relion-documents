@@ -32,6 +32,8 @@ The LZW filter is faster but gives larger files.
 
 By converting to TIFF from EER, you can avoid this blob convolution. Keep reading below.
 
+.. _eer_movies:
+
 Falcon4 EER
 -----------
 
@@ -331,6 +333,8 @@ Defective pixels do not carry much information.
 If we round them to nearest integers, the output can be saved as integers, not floating point numbers, and the compression ratio will improve.
 Since the number of defects are very small (1000 to 5000 out of 14 million pixels in K2) and their values are not very accurate anyway, such a slightly-lossy compression scheme probably do not hurt the resolution.
 Implementation and verification of such a strategy is on our TODO list.
+
+.. _compressed_movies:
 
 Compressed MRC files
 --------------------
