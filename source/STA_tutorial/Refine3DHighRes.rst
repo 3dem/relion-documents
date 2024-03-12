@@ -133,7 +133,7 @@ Select the :jobtype:'Post-processing` jobtype, and on the :guitab:`I/O` tab, set
 
 We leave the other fields as they are and run the job. The resulting final resolution we see in our workspace is 3.93Å.
 
-At this moment, this is the best alignment we could reach without applying any specific tomo refinement, as shown in :ref:`sec_sta_ctfrefine` and :ref:`sec_sta_framealign` sections.
+At this moment, this is the best alignment we could reach without applying any specific tomo refinement, as shown in :ref:`sec_sta_ctfrefine` and :ref:`sec_sta_bayesian_polishing` sections.
 
 
 .. |optimisation_set| replace:: :ref:`optimisation set <sec_sta_optimisation_set>`

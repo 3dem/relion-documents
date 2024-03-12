@@ -20,4 +20,4 @@ Subtomogram tutorial
    Class3D
    Refine3DHighRes
    CtfRefine
-   FrameAlign
+   BayesianPolishing 
