@@ -13,7 +13,7 @@ However, as the pseudo-subtomogram files require more memory resources compared 
 Since the first set of pseudo-subtomograms have been extracted at binning factor 6, we will start the 3D refinement using those same particles.
 
 Running the auto-refine job at bin 6
----------------------------
+-----------------------------------------------
 
 On the :guitab:`I/O` tab of the :jobtype:`3D auto-refine` job-type set:
 
@@ -119,7 +119,7 @@ Memory requirements may increase significantly at the final iteration, as all fr
 
 Before pressing the :runbutton:`Run!` button, we give this job the alias ``bin6`` so we can refer to it easily later.
 
-On our computer with 4 GPUs, this calculation took approximately 5 hours. **[TODO: adjust after the last run]**
+On our computer with 4 GPUs, this calculation took approximately 5 hours. 
 
 
 Analysing the results
@@ -167,9 +167,6 @@ The other parameters are the same as in the previous :jobtype:`Extract subtomos`
 With the newly extracted bin 2 particles, we will now proceed to the bin 2 :jobtype:`3D auto-refine` job.
 
 
-
-**[TODO: Generate bin 2 reference map to use below]**
-
 Running the auto-refine job at bin 2
 -----------------------------------------------
 
@@ -183,7 +180,7 @@ On the :guitab:`I/O` tab of the :jobtype:`3D auto-refine` job-type set:
 
 :Reference map:: Refine3D/job011/run_class001.mrc
 
-    (Here we use the resulting map from the bin 6 :jobtype:`3D auto-refine` job. TODO: use the half map and also use the one from Reconstruct particle)
+    (Here we use the resulting map from the bin 6 :jobtype:`3D auto-refine` job.)
 
 On the :guitab:`Reference` tab, set:
 
@@ -216,7 +213,7 @@ We leave the rest of arguments at their default values, except for:
 
 :Use finer angular sampling faster?: Yes
 
-On our computer with 4 GPUs, we used 5 MPIs and 8 threads, and this calculation took approximately 6 hours. **[TODO: adjust time after last run]**. Again, the 3D refinement will have reached Nyquist resolution. 
+On our computer with 4 GPUs, we used 5 MPIs and 8 threads, and this calculation took approximately 6 hours. Again, the 3D refinement will have reached Nyquist resolution. 
 
 Before doing further refinement at binning factor 1, we need to eliminate duplicate particles that would lead to an overestimated resolution, as well as bad particles that do not have sufficient information for high-resolution refinement. We will do this in the next two sections.
 

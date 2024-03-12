@@ -19,6 +19,5 @@ Subtomogram tutorial
    DuplicateParticles
    Class3D
    Refine3DHighRes
-   Postprocess
    CtfRefine
    FrameAlign
