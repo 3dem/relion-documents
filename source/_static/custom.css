@@ -70,15 +70,20 @@ dl.field-list > dd > p:empty {
 }
 
 .runbutton {
-    background-color: rgb(100, 60, 255);
+    background-color: rgb(100, 74, 255);
     border: 1px; border-radius: 3px;
-    padding: 2px 4px 2px 4px;
+    border-style: solid;
+    padding: 3px 5px 3px 5px;
+    font-style: italic;
+    color: black;
 }
 
 .button {
     background-color: rgb(120, 120, 255);
     border: 1px; border-radius: 3px;
+    border-style: solid;
     padding: 2px 4px 2px 4px;
+    color: black;
 }
 
 .joblist {

@@ -4,10 +4,10 @@ Align tilt-series
 =================
 
 Before tomogram reconstruction, each tilt series must be aligned. 
-To do this, RELION 5 implements wrapper to IMOD or AreTomo. For the tutorial dataset, we will use IMOD’s fiducial-based alignment as the raw data contains (10 nm) gold beads as fiducial markers. 
-For your own data, you may want to use various tilt series alignment method and then compare the quality of the tomograms that each produces (see next step).
+To do this, RELION 5 implements a wrapper to IMOD or AreTomo. For the tutorial dataset, we will use IMOD’s fiducial-based alignment as the raw data contains (10 nm) gold beads as fiducial markers. 
+For your own data, you may want to use various tilt series alignment methods and then compare the quality of the tomograms that each method produces (see next step).
  
-Start by selecting the :jobtype:`Align tilt-series` job, and on the :guitab:`I/O` tab set:
+Start by selecting the :jobtype:`Align tilt-series` job, and in the :guitab:`I/O` tab set:
 
 :Input tilt series: ExcludeTiltImages/job004/selected_tilt_series.star
 

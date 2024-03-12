@@ -12,3 +12,12 @@ Subtomogram tutorial
    AlignTiltSeries
    ReconstructTomo
    ParticlePicking
+   ExtractSubtomos
+   InitialModel
+   ReconstructPart
+   Refine3DIni
+   DuplicateParticles
+   Class3D
+   Refine3DHighRes
+   CtfRefine
+   BayesianPolishing 

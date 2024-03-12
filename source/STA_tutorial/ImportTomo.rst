@@ -40,6 +40,8 @@ On the :guitab:`Tilt series` tab:
 
 			(This is the nominal value for the tilt-axis orientation wrt to the Y-axis (positive is CCW from Y))
 
+:MTF file: \"\"
+
 :Invert defocus handedness?: Yes
 
 		(Specify Yes to flip the handedness of the defocus geometry; the default, Yes, leads to a value of -1 in the STAR file, which is the correct one for the tutorial dataset.)
@@ -60,5 +62,5 @@ Have a look at these by typing:
 ::
 
     less Import/job001/tilt_series.star
-    less Import/job001/TS_01/tilt_series.star
+    less Import/job001/tilt_series/TS_01.star
 

@@ -1,6 +1,6 @@
 .. _sec_sta_motioncor:
 
-Motion Correction
+Motion correction
 =================
 
 As the raw data in EMPIAR-10164 are movies, we need to carry out motion correction. If your own raw data are already motion-corrected, you can skip this section provided you have selected ‘Yes’ under ‘Movies already motion corrected?’ in the :jobtype:`Import`
@@ -13,7 +13,7 @@ To start, click the :jobtype:`Motion correction` job type in the job-type browse
 
 :EER fractionation: 32
 
-		    (This dataset was not saved in the EER format. Therefore, we can ignore the EER fractionation field; but don't leave it empty. If your own data are collected in the EER format, the fractionation should be adjusted as described here)
+		    (This dataset was not saved in the EER format. Therefore, we can ignore the EER fractionation field; but don't leave it empty. If your own data are collected in the EER format, the fractionation should be adjusted as described here.)
 
 :Write output in float16?: Yes
 
@@ -64,7 +64,7 @@ On the :guitab:`Motion` tab:
 	(We don't have a file that describes the camera defects for this data set. For your own data, the defect file can be used to mask away broken pixels on the detector. Formats supported in our own implementation and in UCSF motioncor2 are either a text file in UCSF motioncor2 format (each line contains four numbers: x, y, width and height of a defect region); or a defect map (an image in MRC or TIFF format, where 0=good and 1=bad pixels. The coordinate system is the same as the input movie before application of binning, rotation and/or flipping. Note that defect text files produced by SerialEM are NOT supported! However, one can convert a SerialEM-style defect file into a defect map using imod.). 
 
 :Use RELION's own implementation: Yes
-If you prefer to use UCSF MotionCor2, select No, provide the path the executable, the GPU ID(s) of the GPUs you wish to use, and any other MotionCor2 arguments in their respective fields. 
+If you prefer to use UCSF MotionCor2, select No, provide the path to the executable, the GPU ID(s) of the GPUs you wish to use, and any other MotionCor2 arguments in their respective fields. 
 Note that MotionCor2 cannot save images in float16 yet, nor does it write out summed power spectra of movie frames for subsequent CTF estimation.
 
 On the :guitab:`Running` tab:

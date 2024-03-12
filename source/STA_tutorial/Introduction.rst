@@ -2,7 +2,7 @@ Introduction
 ============
 
 .. warning::
-    This tutorial has not yet been updated for the new subtomogram averaging pipeline in |RELION|-5.0. Please be patient while we work on this.
+    We are currently in the process of updating this tutorial for the new subtomogram averaging pipeline in |RELION|-5.0. Please be patient while we work on this.
 
 This tutorial will walk you through the tomography and sub-tomogram averaging pipeline of |RELION|-5.0 . 
 This semi-automated pipeline is designed to carry out all of the steps in a typical subtomogram averaging project from your raw tilt series movies to your final subtomogram average. 
