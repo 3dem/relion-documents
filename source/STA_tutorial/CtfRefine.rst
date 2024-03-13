@@ -3,10 +3,10 @@
 Tomo refinement 1: CTF refinement
 ======================================
 
-In this step we will show how to apply the refinement of the different parameters related to the CTF estimation. That is, tilt series projections defocus and astigmatism, scale and the asymmetrical and symmetrical aberrations.
-For a full description of the arguments, check :ref:`program_tomo_refine_ctf` program.
+In this step we will show how to apply the refinement of the different parameters related to the CTF estimation such as tilt series projection defocus and contrast scale.
+For a full description of the arguments, check the :ref:`program_tomo_refine_ctf` program.
 
-
+If you are running this job without following the tutorial, please note the requirements for the reference map and FSC data as described in :ref:`sec_sta_ctfrefine_refmap`.
 
 Running the job
 ---------------
@@ -17,13 +17,28 @@ In addition, we can use the |optimisation_set| file from a previous job or, in t
 
 Lastly, the reference mask file used in the previous :jobtype:`3D auto-refine` at binning factor 1 is also required by the tomo refinement jobs, which in our case is ``mask_align.mrc``.
 
-On the :guitab:`I/O` tab of the :jobtype:`CTF refinement` job-type set:
+Select the :jobtype:`CTF refinement` job-type and set on the :guitab:`I/O` tab:
 
-:Input optimisation set:: ReconstructParticleTomo/job012/optimisation_set.star
+:Input optimisation set:: ""
 
-:Reference mask (optional):: masks/mask_align.mrc
+:OR\: use direct entries?: Yes
 
-    (If optimisation set does not include it)
+      (Because the previous job run was :jobtype:`Subset selection` to remove duplicate particles, we will use the resulting particles file as the input particle set.
+      Otherwise, we could have used the optimisation set file directly from the previous :jobtype:`3D auto-refine` job.)
+
+:Input particle set:: Select/job035/particles.star
+
+:Input tomogram set:: Tomograms/job007/tomograms.star
+
+:Input trajectory set: ""
+
+	(This is empty in the first tomo refinement cycle, unless :jobtype:`Bayesian polishing` is run first, in which case we would include the generated ``motion.star`` file, unless it already is included in the optimisation set file.)
+
+:One of the 2 reference half-maps:: Reconstruct/job036/half1.mrc
+
+:Reference mask:: mask_align.mrc
+
+:Input postprocess STAR:: PostProcess/job037/postprocess.star
 
 On the :guitab:`Defocus` tab, set:
 
@@ -44,26 +59,21 @@ On the :guitab:`Defocus` tab, set:
 :Refine scale per tomogram?: No
 
 
-On the :guitab:`Aberrations` tab set:
-
-:Refine odd aberrations?: Yes
-:Order of odd aberrations: 3
-
-:Refine even aberrations?: Yes
-:Order of even aberrations: 4
-
-
 On the :guitab:`Running` tab, set:
 
 :Number of MPI procs:: 5
-:Number of threads:: 112
+:Number of threads:: 20 
 
-With these running parameters, the process should take around 10 minutes to finish.
+With these parameters, the job should take around 10 minutes to run.
 
 Analysing the results
 ---------------------
 
-If you check the output folder ``CtfRefineTomo/job013`` you will find new ``tomograms.star`` and ``particles.star`` files with the refined CTF, scale and Zernike aberrations. To assess the result, it is recommended to run a new :jobtype:`Reconstruct particle` job, with FSC estimation, using the new parameters. Note this reference map will also be used as input for the next :jobtype:`Bayesian polishing` run. Compared to the previous FSC estimation, we should observe a slight improvement in the middle and high frequency ranges.
+The output folder ``CtfRefine/job038`` contains a new ``tomograms.star`` file with the refined parameters. 
+To assess the result, run new :jobtype:`Reconstruct particle` and :jobtype:`Post-processing` jobs using the generated ``CtfRefine/job038/optimisation_set.star`` file.
+In our workspace, we see a slight improvement in the resolution to 3.87Å.
+
+These reference map and postprocess files will also be used as inputs for the next :jobtype:`Bayesian polishing` run. 
 
 
 .. |optimisation_set| replace:: :ref:`optimisation set <sec_sta_optimisation_set>`

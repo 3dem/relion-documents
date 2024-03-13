@@ -22,6 +22,10 @@ Before running each of the tomo refinement jobs (:jobtype:`CTF refinement` and :
 
     2. Post-processed FSC data for the reference halfmaps obtained by running :jobtype:`Post-processing`. This is required to estimate the SNR. If not provided, these programs internally calculate it without phase randomization, so SNR will be slightly optimistic. 
 
+    3. Alignment mask file at binning facor 1 
+
+    4. |Optimisation_set| 
+
 Note that, independently of the binning factor of the data in the previous steps, :jobtype:`CTF refinement` and :jobtype:`Bayesian polishing` protocols process data in the original pixel size (binning 1).
 Therefore, the reference map should always be reconstructed at this binning level and proper reference and FSC masks should be used.
 
@@ -58,4 +62,3 @@ After another five full tomo refine cycles, we reached 3.3Å, and depending on t
 
 
 .. |optimisation_set| replace:: :ref:`optimisation set <sec_sta_optimisation_set>`
-.. |trajectory_set| replace:: :ref:`trajectory set <sec_sta_trajectory_set>`
