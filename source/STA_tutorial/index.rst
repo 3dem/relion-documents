@@ -19,5 +19,6 @@ Subtomogram tutorial
    DuplicateParticles
    Class3D
    Refine3DHighRes
+   TomoRefinement
    CtfRefine
    BayesianPolishing 

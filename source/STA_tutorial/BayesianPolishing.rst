@@ -1,7 +1,7 @@
 .. _sec_sta_bayesian_polishing:
 
-Bayesian polishing
-====================
+Tomo refinement 2: Bayesian polishing
+=======================================
 
 |RELION| has also implemented the analogous to :ref:`Bayesian polishing <sec_bayesian_polishing>` in 2D for tomography.
 This procedure refines the projections that map 3D space onto the images of the tilt series. Optionally, the beam-induced motion trajectories of the particles and deformations can also be estimated.
@@ -63,25 +63,3 @@ In the output folder ``FrameAlignTomo/job017`` you will find new ``tomograms.sta
 Again, to assess the result, it is recommended to run a new :jobtype:`Reconstruct particle` job, with FSC estimation, using the new parameters. Compared to the previous FSC estimation, we should observe a clear improvement and a resolution around 3.5Å.
 
 
-Tomo refinement cycle
-----------------------
-
-After running both tomo specific refinement steps, it is still recommended to run a new :jobtype:`3D auto-refine` job to take advantage of the improved tomograms and particles.
-To that end, we need to construct a new set of pseudo-subtomos and reference maps as described in subsection :ref:`sec_sta_refine3d_subtomo`.
-For the new :jobtype:`3D auto-refine` job, same parameter as in subsection :ref:`sec_sta_refine3d_refinebin1` apply except for:
-
-On the :guitab:`Reference` tab, set:
-
-:Initial low-pass filter (A): 3.5
-
-On the :guitab:`Auto-sampling` tab set:
-
-:Initial angular sampling:: 0.9 degrees
-
-
-This new 3D refinement spent 1 day in our system (4 GPU cards) and it should report a resolution around 3.4Å, completing the first tomo refinement cycle.
-If a new cycle of :jobtype:`CTF refinement`, :jobtype:`tomo frame alignment` and :jobtype:`3D auto-refine` is performed, the user should reach around 3.3Å and finally converge to 3.2Å in the third cycle.
-
-
-.. |optimisation_set| replace:: :ref:`optimisation set <sec_sta_optimisation_set>`
-.. |trajectory_set| replace:: :ref:`trajectory set <sec_sta_trajectory_set>`
