@@ -13,7 +13,6 @@ The custom data types used in tomography programs in |RELION| are:
    Datatypes/tomogram_set
    Datatypes/particle_set
    Datatypes/trajectory_set
-   Datatypes/manifold_set
    Datatypes/optimisation_set
 
 
