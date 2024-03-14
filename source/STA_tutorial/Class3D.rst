@@ -106,7 +106,27 @@ You can now safely close the Relion Display GUI windows, and the new particles f
 
 In our workspace, the resulting ``particles.star`` file now contains 10243 particles.
 
-**[TODO: maybe quickly show how to visualise the remaining particles annotated on the tomogram.]**
+
+Visualising the remaining particles
+------------------------------------
+
+To visualise the particles we have left as 3D annotations on the tomograms, we can launch the Napari picker with ``picking mode: particles`` (also see :ref:`sec_sta_particlepicking`), with the additional particles file given as the optional input.
+
+First, make sure that the Relion GUI is running locally, as the Napari plugin is slow over the network. Then, select the :jobtype:`Pick tomograms` job type and set the following fields on the :guitab:`I/O` tab:
+
+:Input tomograms.star:: Tomograms/job007/tomograms.star
+
+:Picking mode:: particles
+
+:Particle spacing(A):: ""
+
+   (Since we selected the ``particles`` picking mode above, this field will be ignored.)
+
+:Input particles.star (optional):: Select/job023/particles.star
+
+   (The particle set file that we want to visualise.)
+
+Running the job will generate the particle annotation files ``Picks/jobXXX/annotations/TS_XX_particles.star`` from the input ``particles.star`` file and start the Napari plugin, where you can visualise the particle annotations and manipulate them as explained in the :ref:`sec_sta_particlepicking` section. After clicking the ``save particles`` button and closing the Napari window, new ``particles.star`` and ``optimisation_set.star`` files will be created, which can be used in subsequent steps.
 
 ----------------------------------
 
