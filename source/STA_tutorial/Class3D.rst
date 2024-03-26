@@ -46,7 +46,7 @@ Leave the fields on the :guitab:`CTF` tab with their default values, then in the
 
 On the :guitab:`Sampling` tab, change the fields:
 
-:Peform image alignment?: Yes
+:Perform image alignment?: Yes
 
 :Angular sampling interval:: 1.8 degrees
 

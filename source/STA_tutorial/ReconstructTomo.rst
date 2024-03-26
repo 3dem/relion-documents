@@ -25,23 +25,22 @@ On the :guitab:`Reconstruct` tab:
 
     (A binned pixel size of 10 Angstrom will suffice for particle picking and denoising. Typically, the larger the pixel size, the faster the tomogram reconstruction and the less space the tomograms occupy on disk.) 
 
-:Generate tomograms for denoising?: No
+:Generate tomograms for denoising?: Yes 
 
-    (The quality of the tutorial tomograms is very good and they don’t need to be denoised; however, for your own data, you may select Yes if you plan to denoise them.)
+    (The quality of the tutorial tomograms is very good and they don’t need to be denoised; however, we set this to ``Yes`` to demonstrate denoising at the next step.
+    This setting requires setting ``Save images for denoising?`` to ``Yes`` in the :jobtype:`Motion correction` job.)
 
 :Tilt angle offset (deg): 0
 
-    (This option allows you to reconstruct all your tomograms according to a pre-set offset for the tilt angle. This may be useful, for example when you have FIB-milled all you lamellae under a know tilt angle.)			  
+    (This option allows you to reconstruct all your tomograms according to a pre-set offset for the tilt angle. This may be useful, for example when you have FIB-milled all you lamellae under a know tilt angle.)
+
 :Reconstruct only this tomogram: \"\"
 
     (This option allows you to reconstruct only one tomogram from the input series, for example because you have tweaked its alignment parameters or because you want to run a quick test. Just specify  the rlnTomoName, e.g. TS_01)
 
 On the :guitab:`Running` tab choose the approriate number of MPIs and Threads and then click on the :runbutton:`Run!` button. 
-With 1 MPI and 12 threads this step took less than 2 minutes on our computer. But denoising tomograms will take more time.
+With 5 MPI and 12 threads this step took less than 3 minutes on our computer. But denoising tomograms will take more time.
 
-The output tomograms are called ``Tomograms/job006/tomograms/rec_TS_01.mrc`` etc. You can visualise them in your favourite viewer, including IMOD's 3dmod or Napari.
-The main objectives of these tomograms are to assess the quality of your sample and to allow particle picking. They do not need to contain high-resolution information at this point.
-
-In the example workspace provided, we have run two :jobtype:`Reconstruct tomograms` jobs, one as described above (with the alias ``withctf``) and one without handling the CTF (with the alias ``noctf``), which can be done by writing ``--noctf`` in the `Additional arguments` box. Either job can be used to pick particles in the :jobtype:`Pick tomograms` job.
-
-
+The output tomograms are called ``Tomograms/job006/tomograms/rec_TS_01.mrc`` etc. if ``Generate tomograms for denoising?`` was set to ``No`` or ``Tomograms/job006/tomograms/rec_TS_01_half<1/2>.mrc`` otherwise. You can visualise them in your favourite viewer, including IMOD's 3dmod or Napari.
+The main objective of these tomograms is to assess the quality of your sample and to allow particle picking. 
+They do not need to contain high-resolution information at this point.

@@ -22,3 +22,4 @@ Subtomogram tutorial
    TomoRefinement
    CtfRefine
    BayesianPolishing 
+   ModelAngelo
