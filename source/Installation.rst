@@ -312,6 +312,7 @@ Use Intel compilers:
 
     Both compilers used to be available free of chage as part of `Intel oneAPI HPC toolkit <https://software.intel.com/content/www/us/en/develop/tools/oneapi/hpc-toolkit.html>`_.
     Unfortunately, the classic compiler was removed in the 2024 release and only the DPC++/C++ compiler is currently distributed.
+    (Apparently older versions seem to be available via YUM/APT, but we do not know how long they remain.)
     We recommend you to use the classic compiler if you have older oneAPI toolkit installers at hand.
 
     To use Intel Classic compiler, run below after sourcing the initialization script (`setvars.sh`)::
@@ -329,12 +330,12 @@ Use Intel compilers:
 
     If you do not have Intel Classic compiler, use the DPC++/C++ compiler from the latest oneAPI release.
     Its performance is being improved.
-    The `cmake` line should be::
+    The ``cmake`` line should be::
 
         cmake .. -DMKLFFT=ON \
         -DCMAKE_C_COMPILER=icx -DCMAKE_CXX_COMPILER=icpx -DMPI_C_COMPILER=mpiicx -DMPI_CXX_COMPILER=mpiicpx \
-        -DCMAKE_C_FLAGS="-O3 -qopenmp-simd -xCORE-AVX512 -qopt-zmm-usage=high -qoverride-limits -restrict " \
-        -DCMAKE_CXX_FLAGS="-O3 -qopenmp-simd -xCORE-AVX512 -qopt-zmm-usage=high -qoverride-limits -restrict "
+        -DCMAKE_C_FLAGS="-O3 -qopenmp-simd -xCORE-AVX512 -qopt-zmm-usage=high -qoverride-limits " \
+        -DCMAKE_CXX_FLAGS="-O3 -qopenmp-simd -xCORE-AVX512 -qopt-zmm-usage=high -qoverride-limits "
 
     If your CPU supports only up to AVX256, use ``-xCORE-AVX2`` instead of ``-xCORE-AVX512``.
 
