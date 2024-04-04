@@ -305,14 +305,17 @@ Enable accelerated CPU code path:
     Note that this is mutually exclusive with GPU acceleration (``-DCUDA=ON``).
     Intel Classic compilers are recommended for this option (see below).
 
-Use Intel Classic compilers:
-    Intel Classic compilers often generate faster binaries for Intel CPUs, especially when combined with the accelerated CPU code path above.
-    Intel Classic compilers are available free of chage as part of `Intel oneAPI HPC toolkit <https://software.intel.com/content/www/us/en/develop/tools/oneapi/hpc-toolkit.html>`_.
-    Note that Intel Classic compilers are being deprecated in favour of LLVM-based new Intel compilers.
-    As of 2023 October, the classic compilers generate faster binaries than newer compilers.
-    We recommend you to keep oneAPI toolkit installers, in case Intel stops the distribution of classic compilers.
+Use Intel compilers:
+    There are two Intel compilers: Intel Classic compiler and Intel oneAPI DPC++/C++ compiler.
+    They often generate faster binaries for Intel CPUs, especially when combined with the accelerated CPU code path above.
+    As of 2024 April, the classic compiler generate faster binaries than the DPC++/C++ compiler.
 
-    To use Intel Classic compilers, run below after sourcing the initialization script (`setvars.sh`)::
+    Both compilers used to be available free of chage as part of `Intel oneAPI HPC toolkit <https://software.intel.com/content/www/us/en/develop/tools/oneapi/hpc-toolkit.html>`_.
+    Unfortunately, the classic compiler was removed in the 2024 release and only the DPC++/C++ compiler is currently distributed.
+    (Apparently older versions seem to be available via YUM/APT, but we do not know how long they remain.)
+    We recommend you to use the classic compiler if you have older oneAPI toolkit installers at hand.
+
+    To use Intel Classic compiler, run below after sourcing the initialization script (`setvars.sh`)::
 
         mkdir build-cpu
         cd build-cpu
@@ -325,9 +328,20 @@ Use Intel Classic compilers:
     This generates binaries optimized with AVX512 instructions.
     If your CPU supports only up to AVX256, use ``-xCORE-AVX2`` instead of ``-xCOMMON-AVX512``.
 
-    If you don't want to use Intel MPI, change ``mpiicc`` and ``mpiicpc`` accordingly.
-    For example, to use OpenMPI with Intel compilers, specify ``mpicc`` and ``mpicxx`` after setting environmental variables ``OMPI_CC=icc`` and ``OMPI_CXX=icpc``.
-    If `cmake` still picks up Intel MPI, specify `MPI_HOME`.
+    If you do not have Intel Classic compiler, use the DPC++/C++ compiler from the latest oneAPI release.
+    Its performance is being improved.
+    The ``cmake`` line should be::
+
+        cmake .. -DMKLFFT=ON \
+        -DCMAKE_C_COMPILER=icx -DCMAKE_CXX_COMPILER=icpx -DMPI_C_COMPILER=mpiicx -DMPI_CXX_COMPILER=mpiicpx \
+        -DCMAKE_C_FLAGS="-O3 -qopenmp-simd -xCORE-AVX512 -qopt-zmm-usage=high -qoverride-limits " \
+        -DCMAKE_CXX_FLAGS="-O3 -qopenmp-simd -xCORE-AVX512 -qopt-zmm-usage=high -qoverride-limits "
+
+    If your CPU supports only up to AVX256, use ``-xCORE-AVX2`` instead of ``-xCORE-AVX512``.
+
+    If you don't want to use Intel MPI, change ``DMPI_C_COMPILER`` and ``DMPI_CXX_COMPILER`` variables accordingly.
+    For example, to use OpenMPI with Intel Classic compiler, specify ``mpicc`` and ``mpicxx`` after setting environmental variables ``OMPI_CC=icc`` and ``OMPI_CXX=icpc``.
+    If ``cmake`` still picks up Intel MPI, specify ``MPI_HOME``.
     See `OpenMPI FAQ <https://www.open-mpi.org/faq/?category=mpi-apps#override-wrappers-after-v1.0>`_ and `FindMPI manual <https://cmake.org/cmake/help/latest/module/FindMPI.html#variables-for-locating-mpi>`_ for details.
 
 
