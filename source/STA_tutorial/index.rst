@@ -11,6 +11,7 @@ Subtomogram tutorial
    ExcludeTiltImages
    AlignTiltSeries
    ReconstructTomo
+   Denoise
    ParticlePicking
    ExtractSubtomos
    InitialModel

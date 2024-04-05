@@ -14,7 +14,7 @@ To do this, go to the :jobtype:`Subset selection` job-type, and on the :guitab:`
 
 :Select classes from job:: ""
 :OR select from micrographs.star:: ""
-:OR select from particles.star:: Refine3D/job013/run_data.star
+:OR select from particles.star:: Refine3D/job015/run_data.star
 
 Leave all the other fields at their default values, except on the :guitab:`Duplicates` tab:
 
@@ -26,4 +26,4 @@ Leave all the other fields at their default values, except on the :guitab:`Dupli
 We give this job the alias ``remove-dups`` and press the :runbutton:`Run!` button.
 The duplicated particles are then removed and the resulting duplicate-free particle set is in ``Select/remove-dups/particles.star``.
 
-In our run, we have removed 8919 from the initial 30577 particles.
+In our workspace, this job removed 8937 duplicated particles from the initial 30596 particles.

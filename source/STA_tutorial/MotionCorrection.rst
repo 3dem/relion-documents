@@ -27,7 +27,7 @@ To start, click the :jobtype:`Motion correction` job type in the job-type browse
 
     (Sums of non-dose weighted power spectra provide better signal for CTF estimation. The power spectra can be used by CTFFIND4. This option is not available for UCSF MotionCor2. You must use this option when writing in float16, as CtfFind4 cannot read images in float16 format.)
 
-:Sum power spectra every n frames: 1
+:Sum power spectra every n frames: 4
 
     (McMullan et al. Ultramicroscopy, 2015 suggest that summing power spectra every 4.0 e/A2 gives optimal Thon rings. One frame will be 3 e/A2.)				   
 
@@ -69,11 +69,11 @@ Note that MotionCor2 cannot save images in float16 yet, nor does it write out su
 
 On the :guitab:`Running` tab:
 
-:Submit to queue?: Yes
-
-:Number of MPI procs: 32
+:Number of MPI procs\:: 32
 
    (We used 32 parallel processes on our computer.)
+
+:Number of threads\:: 4
 
 :Submit to queue?: No
 

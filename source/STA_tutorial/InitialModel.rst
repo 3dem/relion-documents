@@ -14,7 +14,7 @@ However, here we will show how to obtain a *de novo* model without any prior kno
 Running the job
 ---------------
 
-Select the ``Extract/job009/optimisation_set.star`` file on the :guitab:`I/O` tab of the :jobtype:`3D initial reference` jobtype.
+Select the ``Extract/job010/optimisation_set.star`` file on the :guitab:`I/O` tab of the :jobtype:`3D initial reference` jobtype.
 Everything is already in order on the :guitab:`CTF` tab.
 Fill in the :guitab:`Optimisation` tab as follows:
 
@@ -78,8 +78,8 @@ If you didn't get that coffee before, perhaps now is a good time too...
 Analysing the results
 ---------------------
 
-You could look at the output map from the gradient-driven algorithm (``InitialModel/job010/run_it100_class001.mrc``) with a 3D viewer like UCSF :textsc:`chimera`.
+You could look at the output map from the gradient-driven algorithm (``InitialModel/job011/run_it100_class001.mrc``) with a 3D viewer like UCSF :textsc:`chimera`.
 If **Run in C1 and apply symmetry later** was set to ``yes``, 
 you should probably confirm that the symmetry point group was correct and that the symmetry axes were identified correctly.
-If so, the symmetrised output map (``InitialModel/job010/initial_model.mrc``) should look similar to the output map from the gradient-driven algorithm.
+If so, the symmetrised output map (``InitialModel/job011/initial_model.mrc``) should look similar to the output map from the gradient-driven algorithm.
 

@@ -12,7 +12,7 @@ Pseudo-subtomogram particles are described by a |particle_set| star file, as wel
 We will start by extracting pseudo-subtomograms in relatively large boxes with a large (binned) pixel size to speed up the initial calculations for obtaining a *de novo* initial model. Select the :jobtype:`Extract subtomos` jobtype, and on the :guitab:`IO` tab set:
 
 
-:Input optimisation set: Picks/job008/optimisation_set.star
+:Input optimisation set: Picks/job009/optimisation_set.star
 			
     (You can see how this file refers to the inidividual |particle_set| and |tomogram_set| star files using ``cat Picks/job008/optimisation_set.star``.)
 
@@ -38,7 +38,7 @@ On the :guitab:`Reconstruct` tab, we set:
 
     (This is the final box size of the particles. If this value is smaller than the original box size above, then a second cropping operation is performed after the CTF pre-multiplication.) 
 				
-:Maximum dose (2/A^2): 50
+:Maximum dose (e/A^2): 50
 
 	(Tilt series frames with a dose higher than this maximum dose (in electrons per squared Angstroms) will not be included in the 3D pseudo-subtomogram, or in the 2D stack. For 2D stacks, this will reduce disc I/O operations and increase speed.)
 	
@@ -57,13 +57,13 @@ On the :guitab:`Reconstruct` tab, we set:
 On the :guitab:`Running` tab, we aim to saturate the processes on our 112-core CPU node by setting:
 
 :Number of MPI procs: 5
-:Number of threads: 24
+:Number of threads: 12
 
 Note that the MPI versions of this program (and those of :jobtype:`Reconstruct particle`, :jobtype:`CTF refinement` and :jobtype:`Bayesian polishing` are parallelized at the level of individual tomograms. Therefore, the ``Number of MPI processes`` should not exceed the number of tomograms.
 
-Using the settings above, this job took around 13 minutes on our system.
+Using the settings above, this job took around 17 minutes on our system.
 
-Your pseudo-subtomogram 2D stacks will be stored into MRC files in a new directory called ``Extract/job009/Subtomograms/TS_01/1_stack2d.mrcs`` etc. The program will also write out an updated |particle_set| as ``Extract/job009/particles.star`` and a new |optimisation_set| as ``Extract/job009/optimisation_set.star``.
+Your pseudo-subtomogram 2D stacks will be stored into MRC files in a new directory called ``Extract/job010/Subtomograms/TS_01/1_stack2d.mrcs`` etc. The program will also write out an updated |particle_set| as ``Extract/job010/particles.star`` and a new |optimisation_set| as ``Extract/job010/optimisation_set.star``.
 
 
 
