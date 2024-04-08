@@ -11,7 +11,7 @@ If you are running this job without following the tutorial, please note the requ
 Running the job
 ---------------
 
-Since we ran both :jobtype:`Reconstruct particle` and :jobtype:`Post-processing` after the bin 1 refinement step at the end of the :ref:`sec_sta_refine3d` section, we already have the required reference halfmaps (``Reconstruct/job036/half<12>.mrc``) and post-processing FSC data (``PostProcess/job037/postprocess.star``).
+Since we ran both :jobtype:`Reconstruct particle` and :jobtype:`Post-processing` after the bin 1 refinement step at the end of the :ref:`sec_sta_refine3d` section, we already have the required reference halfmaps (``Reconstruct/job025/half<12>.mrc``) and post-processing FSC data (``PostProcess/job026/postprocess.star``).
 
 In addition, we can use the |optimisation_set| file from a previous job or, in this case, the explicit |particle_set| from the duplicate removal step and the separate |tomogram_set| (which would otherwise be included in the optimisation set).
 
@@ -26,19 +26,19 @@ Select the :jobtype:`CTF refinement` job-type and set on the :guitab:`I/O` tab:
       (Because the previous job run was :jobtype:`Subset selection` to remove duplicate particles, we will use the resulting particles file as the input particle set.
       Otherwise, we could have used the optimisation set file directly from the previous :jobtype:`3D auto-refine` job.)
 
-:Input particle set:: Select/job035/particles.star
+:Input particle set:: Select/job024/particles.star
 
-:Input tomogram set:: Tomograms/job007/tomograms.star
+:Input tomogram set:: Denoise/job008/tomograms.star
 
 :Input trajectory set: ""
 
 	(This is empty in the first tomo refinement cycle, unless :jobtype:`Bayesian polishing` is run first, in which case we would include the generated ``motion.star`` file, unless it already is included in the optimisation set file.)
 
-:One of the 2 reference half-maps:: Reconstruct/job036/half1.mrc
+:One of the 2 reference half-maps:: Reconstruct/job025/half1.mrc
 
 :Reference mask:: mask_align.mrc
 
-:Input postprocess STAR:: PostProcess/job037/postprocess.star
+:Input postprocess STAR:: PostProcess/job026/postprocess.star
 
 On the :guitab:`Defocus` tab, set:
 
@@ -62,15 +62,15 @@ On the :guitab:`Defocus` tab, set:
 On the :guitab:`Running` tab, set:
 
 :Number of MPI procs:: 5
-:Number of threads:: 20 
+:Number of threads:: 12
 
 With these parameters, the job should take around 10 minutes to run.
 
 Analysing the results
 ---------------------
 
-The output folder ``CtfRefine/job038`` contains a new ``tomograms.star`` file with the refined parameters. 
-To assess the result, run new :jobtype:`Reconstruct particle` and :jobtype:`Post-processing` jobs using the generated ``CtfRefine/job038/optimisation_set.star`` file.
+The output folder ``CtfRefine/job027`` contains a new ``tomograms.star`` file with the refined parameters. 
+To assess the result, run new :jobtype:`Reconstruct particle` and :jobtype:`Post-processing` jobs using the generated ``CtfRefine/job027/optimisation_set.star`` file.
 In our workspace, we see a slight improvement in the resolution to 3.87Å.
 
 These reference map and postprocess files will also be used as inputs for the next :jobtype:`Bayesian polishing` run. 

@@ -15,15 +15,15 @@ Running the job
 
 Select the :jobtype:`Bayesian polishing` job-type and set on the :guitab:`I/O` tab:
 
-:Input optimisation set:: CtfRefine/job038/optimisation_set.star
+:Input optimisation set:: CtfRefine/job027/optimisation_set.star
 
 :OR\: use direct entries?: No
 
-:One of the 2 reference half-maps:: Reconstruct/job039/half1.mrc
+:One of the 2 reference half-maps:: Reconstruct/job028/half1.mrc
 
 :Reference mask:: mask_align.mrc
 
-:Input postprocess STAR: PostProcess/job040/postprocess.star
+:Input postprocess STAR: PostProcess/job029/postprocess.star
 
 
 On the :guitab:`Polish` tab, set:
@@ -52,7 +52,7 @@ On the :guitab:`Motion` tab, set:
 On the :guitab:`Running` tab, set:
 
 :Number of MPI procs:: 5
-:Number of threads:: 6
+:Number of threads:: 12
 
 Note that the per-particle motion estimation increases the processing time significantly. 
 On our system it took around 2 hours.
@@ -60,9 +60,9 @@ On our system it took around 2 hours.
 Analysing the results
 ---------------------
 
-In the output folder ``Polish/job041`` you will find new ``tomograms.star`` and ``particles.star`` files including the corrected tilt series alignment and particle positions and a |trajectory_set| file ``motion.star`` with particle trajectories.
-Again, to assess the result, run new :jobtype:`Reconstruct particle` and :jobtype:`Post-processing` jobs using the new parameters. 
-Compared to the previous FSC estimation, we observe a clear improvement and a resolution of 3.6Å.
+In the output folder ``Polish/job030`` you will find new ``tomograms.star`` and ``particles.star`` files including the corrected tilt series alignment and particle positions and a |trajectory_set| file ``motion.star`` with particle trajectories.
+To assess the result, we generate new particles with the :jobtype:`Extract subtomos` job using the resulting ``optimisation_set.star`` file, followed by :jobtype:`Reconstruct particle` and :jobtype:`Post-processing`. 
+Compared to the previous FSC estimation, we observe a clear improvement and a resolution of 3.65Å.
 
 
 .. |optimisation_set| replace:: :ref:`optimisation set <sec_sta_optimisation_set>`
