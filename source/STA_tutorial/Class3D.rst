@@ -20,11 +20,11 @@ Select the :jobtype:`3D classification` job-type, and on the :guitab:`I/O` tab, 
 
       (Since we ran the :jobtype:`Subset selection` job to remove the duplicate particles in the previous step, we will now use its output particles file as the particle set instead of the previously used optimisation set. The tomogram set will be the same as the one in the previous optimisation set file.)
 
-:Input particle set:: Select/job018/particles.star
+:Input particle set:: Select/job016/particles.star
 
-:Input tomogram set:: Tomograms/job007/particles.star
+:Input tomogram set:: Denoise/job008/tomograms.star
 
-:Reference map:: Refine3D/job013/run_class001.mrc
+:Reference map:: Refine3D/job015/run_class001.mrc
 
 On the :guitab:`Reference` tab, ensure that the following two fields are set as follows:
 
@@ -46,7 +46,7 @@ Leave the fields on the :guitab:`CTF` tab with their default values, then in the
 
 On the :guitab:`Sampling` tab, change the fields:
 
-:Peform image alignment?: Yes
+:Perform image alignment?: Yes
 
 :Angular sampling interval:: 1.8 degrees
 
@@ -66,7 +66,7 @@ Ignore the :guitab:`Helix` tab and set the fields on the :guitab:`Compute` and :
 
 :Number of threads:: 6
 
-On our computer with 2 GPUs, this job took around 3 hours.
+On our computer with 2 GPUs, this job took around 2 hours for 25 iterations and 21659 particles.
 
 
 Analysing the results of the 3D classification
@@ -88,7 +88,7 @@ as well as the ``Display label?`` field. Finally, press the :button:`Display!` b
 Right-clicking on individual images and selecting ``Show metadata this class`` will open a new window with more information about the class, such as the number of particles in it.
 
 It is also possible to see 2D slices through each class map by going back to the main Relion GUI and clicking on :button:`Display:` and ``out:run_it025_class00X.mrc`` for any class index ``X``. This will open the Relion Display GUI and pressing :button:`Display!` will open a new window with the individual slices through the map.
-Alternatively, the individual map files are located in ``Class3D/job021/run_it025_class001.mrc`` and can be opened with a 3D volume viewer such as UCSF :textsc:`chimera`.
+Alternatively, the individual map files are located in ``Class3D/job017/run_it025_class001.mrc`` and can be opened with a 3D volume viewer such as UCSF :textsc:`chimera`.
 
 
 Discarding the bad particles 
@@ -96,15 +96,15 @@ Discarding the bad particles
 
 Next, we want to only keep in our dataset the particles belonging to the best classes obtained in the 3D classification and discard the rest. To do this, go to the :jobtype:`Subset selection` job-type and in the :guitab:`I/O` tab input the ``_optimiser.star`` file from the previous :jobtype:`3D auto-refine` job into the appropriate field:
 
-:Select classes from job:: Class3D/job021/run_it025_optimiser.star
+:Select classes from job::  Class3D/job017/run_it025_optimiser.star
 
 Leave all the other fields in all tabs set to their default values (set the ``remove duplicates?`` field in the :guitab:`Duplicates` tab to ``No`` if it was set otherwise from the previous job) and press the :runbutton:`Run!` button. This will open the Relion Display GUI, and after setting the fields to the same values as explained above, press the :button:`Display!` button, which will open the window showing all classes side-by-side.
 
 Select the good classes by clicking on the individual class images -- the selected classes will have a red border, then right-click on one of the selected images and select ``Save selected classes``. 
 The output of the job in the main Relion GUI will show a message indicating that the ``particles.star`` file has been saved and the number of selected particles it contains. 
-You can now safely close the Relion Display GUI windows, and the new particles file containing only the particles in the selected classes is ``Select/job023/particles.star``.
+You can now safely close the Relion Display GUI windows, and the new particles file containing only the particles in the selected classes is ``Select/job018/particles.star``.
 
-In our workspace, the resulting ``particles.star`` file now contains 10243 particles.
+In our workspace, the resulting ``particles.star`` file now contains 9442 particles.
 
 
 Visualising the remaining particles
@@ -114,7 +114,7 @@ To visualise the particles we have left as 3D annotations on the tomograms, we c
 
 First, make sure that the Relion GUI is running locally, as the Napari plugin is slow over the network. Then, select the :jobtype:`Pick tomograms` job type and set the following fields on the :guitab:`I/O` tab:
 
-:Input tomograms.star:: Tomograms/job007/tomograms.star
+:Input tomograms.star::  Denoise/job008/tomograms.star
 
 :Picking mode:: particles
 
@@ -122,11 +122,11 @@ First, make sure that the Relion GUI is running locally, as the Napari plugin is
 
    (Since we selected the ``particles`` picking mode above, this field will be ignored.)
 
-:Input particles.star (optional):: Select/job023/particles.star
+:Input particles.star (optional)::  Select/job018/particles.star
 
    (The particle set file that we want to visualise.)
 
-Running the job will generate the particle annotation files ``Picks/jobXXX/annotations/TS_XX_particles.star`` from the input ``particles.star`` file and start the Napari plugin, where you can visualise the particle annotations and manipulate them as explained in the :ref:`sec_sta_particlepicking` section. After clicking the ``save particles`` button and closing the Napari window, new ``particles.star`` and ``optimisation_set.star`` files will be created, which can be used in subsequent steps.
+Running the job will generate the particle annotation files ``Picks/job019/annotations/TS_XX_particles.star`` from the input ``particles.star`` file and start the Napari plugin, where you can visualise the particle annotations and manipulate them as explained in the :ref:`sec_sta_particlepicking` section. After clicking the ``save particles`` button and closing the Napari window, new ``particles.star`` and ``optimisation_set.star`` files will be created, which can be used in subsequent steps.
 
 ----------------------------------
 

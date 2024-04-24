@@ -9,7 +9,7 @@ Alister Burt has written a Napari plug-in to pick particles directly in your tom
 
 To launch the Napari picker, **again make sure you are working on the computer you are actually sitting behind, as Napari performs poorly over remote connections**, and select the :jobtype:`Pick tomograms` job type. On the :guitab:`I/O` tab, set:
 
-:Input tomograms.star: Tomograms/job006/tomograms.star
+:Input tomograms.star: Denoise/job008/tomograms.star
 
 :Picking mode: spheres
 
@@ -61,6 +61,6 @@ Individual particle annotation:
     picking all the tomograms just close the Napari GUI.
 
 
-After the Napari picker is closed, a python script will save the selected annotations to individual annotation files ``*_spheres.star``, ``*_filaments.star`` or ``*_particles.star``, one per tomogram, to the ``Picks/job008/annotations`` directory, and then write out a file called ``Picks/job008/particles.star`` with all particles from all tomograms. This star file contains the coordinates of your particles in 3 dimensions under the headers ``rlnCoordinate<X/Y/Z>``, which are in (unbinned) pixels starting from (1,1,1) in the top corner of the tomogram. We are currently working to write out these coordinates as ``rlnCenteredCoordinate<X/Y/Z>Angst``, which wil be in Angstroms from the centre of the tomogram. Please bear with us as this work is being finished during beta-code development.
+After the Napari picker is closed, a python script will save the selected annotations to individual annotation files ``*_spheres.star``, ``*_filaments.star`` or ``*_particles.star``, one per tomogram, to the ``Picks/job009/annotations`` directory, and then write out a file called ``Picks/job009/particles.star`` with all particles from all tomograms. This star file contains the coordinates of your particles in 3 dimensions under the headers ``rlnCoordinate<X/Y/Z>``, which are in (unbinned) pixels starting from (1,1,1) in the top corner of the tomogram. We are currently working to write out these coordinates as ``rlnCenteredCoordinate<X/Y/Z>Angst``, which wil be in Angstroms from the centre of the tomogram. Please bear with us as this work is being finished during beta-code development.
 
 For your own data, you may also want to try other particle pickers such as TomoTwin, DeePiCt, DeepFinder, CrYOLO, or others. We strongly recommend only picking in tomograms generated in ``ReconstructTomograms`` (or ``Denoise``) jobs, unless you can verify that the coordinates that you picked in tomograms generated outside of RELION match the coordinates of the RELION tomograms perfectly. Future developments in the ccp-em tomography pipeline will hopefully make using third-party pickers easier.

@@ -12,7 +12,7 @@ Running the job
 
 Select the :guitab:`IO` tab from the :jobtype:`Reconstruct particle` jobtype.
 
-:Input optimisation set:: Extract/job009/optimisation_set.star
+:Input optimisation set:: Extract/job010/optimisation_set.star
 :OR\: use direct entries:: No
 :Input particle set:: \ 
 :Input tomogram set:: \
@@ -30,7 +30,7 @@ On the :guitab:`Average` tab, make sure the following is set to reconstruct part
 On the :guitab:`Running` tab, set:
 
 :Number of MPI procs:: 5
-:Number of threads:: 20
+:Number of threads:: 12 
 
 Note that reconstructing from 2D tilt series :ref:`program_tomo_reconstruct_particle` program has 3 thread arguments.
 The number of threads provided here sets both ``--j`` and ``--j_out`` arguments so, to avoid exceeding the available memory resources, the ``--mem`` argument should also be set using around 80-90% to keep a safety margin.
@@ -44,7 +44,7 @@ Using the settings above, this job took less than 5 minutes on our system.
 Analysing the results
 ---------------------
 
-You can look at the output map ``Reconstruct/job010/merged.mrc`` with a 3D viewer like UCSF :textsc:`chimera`.
+You can look at the output map ``Reconstruct/job011/merged.mrc`` with a 3D viewer like UCSF :textsc:`chimera`.
 When random halfsets are specified in the input particles file via the ``rlnRandomSubset`` field, the two halfmaps ``half1.mrc`` and ``half2.mrc`` are also generated.
 
 

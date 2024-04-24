@@ -11,6 +11,7 @@ Subtomogram tutorial
    ExcludeTiltImages
    AlignTiltSeries
    ReconstructTomo
+   Denoise
    ParticlePicking
    ExtractSubtomos
    InitialModel
@@ -22,3 +23,4 @@ Subtomogram tutorial
    TomoRefinement
    CtfRefine
    BayesianPolishing 
+   ModelAngelo

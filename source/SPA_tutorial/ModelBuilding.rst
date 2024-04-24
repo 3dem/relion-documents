@@ -1,3 +1,5 @@
+.. _sec_spa_modelangelo:
+
 ModelAngelo: atomic modelling
 =============================
 
@@ -35,7 +37,7 @@ Analysing the results
 ---------------------
 
 Running with 4 GPUs (relatively old 1080s), this job took approximately 18 minutes.
-The output is a coordinate file called ``ModelAngelo/job032/job032.cif`` that may be used in UCSF :textsc:`chimera` together wit the `Postprocess/job030/postprocess.mrc` map.
+The output is a coordinate file called ``ModelAngelo/job032/job032.cif`` that may be used in UCSF :textsc:`chimera` together wit the ``Postprocess/job030/postprocess.mrc`` map.
 Note that although ``ModelAngelo`` did a very good job on this relatively easy test case, you should always check its results carefully in a program like ``coot`` :cite:`emsley_coot_2010` . You will also need to perform a stereochemical refinement of the coordinates. For this, we like ``servalcat`` :cite:`yamashita_servalcat_2021`.
 
 

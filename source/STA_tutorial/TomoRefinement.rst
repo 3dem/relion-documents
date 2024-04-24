@@ -50,15 +50,15 @@ For the new :jobtype:`3D auto-refine` job, the same parameters as in the :ref:`s
 
 On the :guitab:`Reference` tab, set:
 
-:Initial low-pass filter (A): 3.5
+:Initial low-pass filter (A):: 4
 
 On the :guitab:`Auto-sampling` tab set:
 
 :Initial angular sampling:: 0.9 degrees
 
 
-This new 3D refinement step took just under 2.5 hours on our system (2 GPU cards) and, after :jobtype:`Reconstruct particle` and :jobtype:`Post-processing` with the tight mask, we reached a resolution of 3.6Å, completing the first tomo refinement cycle.
-After another five full tomo refine cycles, we reached 3.3Å, and depending on the quality of the picked particles, it is also possible to obtain 3.2Å.
+This new 3D refinement step took just under 2 hours on our system (2 GPU cards) and, after :jobtype:`Reconstruct particle` and :jobtype:`Post-processing` with the tight mask, we reached a resolution of 3.6Å, completing the first tomo refinement cycle.
+After another four full tomo refine cycles, we reached 3.3Å, and depending on the quality of the picked particles, it is also possible to obtain 3.2Å.
 
 
 .. |optimisation_set| replace:: :ref:`optimisation set <sec_sta_optimisation_set>`

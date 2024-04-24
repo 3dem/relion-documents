@@ -17,8 +17,8 @@ In addition, since the previous job we ran was a :jobtype:`Subset selection` job
 
 :Input optimisation set:: ""
 :OR\: use direct entries?: Yes
-:Input particle set: Select/job023/particles.star
-:Input tomgoram set: Tomograms/job007/tomograms.star
+:Input particle set: Select/job018/particles.star
+:Input tomgoram set: Denoise/job008/tomograms.star
 :Input trajectory set: ""
 
 For 3D refinement at binning factor 1, make sure the following options are properly set on :jobtype:`Extract subtomos` :guitab:`Reconstruct` tab and :jobtype:`Reconstruct particle` :guitab:`Average` tab:
@@ -49,7 +49,7 @@ Thus, recentering the particles can be done from the command-line:
 
 ::
 
-    relion_star_handler --i Extract/job024/particles.star \
+    relion_star_handler --i Extract/job020/particles.star \
     --o Extract/job024/particles2.75.star --center --center_Z 2.75
 
 To check that the capsid within the reference map is aligned with the mask, we can reconstruct it using the :jobtype:`Reconstruct particle` job-type, described in :ref:`Reconstruct particle <sec_sta_reconstructpart>`.
@@ -64,19 +64,19 @@ Running the auto-refine job at bin 1
 
 On the :guitab:`I/O` tab of the :jobtype:`3D auto-refine` job-type set:
 
-:Input optimisation set:: Extract/job024/optimisation_set.star
+:Input optimisation set:: Extract/job020/optimisation_set.star
 
 :OR\: use direct entries:: No
 
       (If a new particles file has been generated in the previous step during recentering, this option should be set to ``Yes`` and the correct input particle set and tomogram set files should be used.)
 
-:Reference map:: Reconstruct/job025/half1.mrc
+:Reference map:: Reconstruct/job021/half1.mrc
 
       (Once we reach a high enough resolution in the refinement process, it is important to keep the two halfsets entirely separate in order to obtain a gold-standard reconstruction. 
       Halfmap files should be used as reference maps for each halfset processed by `relion_refine`, keeping the 3D refinement of both halfsets independent along the whole workflow. 
       To that end, when the reference map file name contains either ``*half?*.mrc`` template, each halfmap is automatically assigned to its halfset.)
 
-:Reference mask (optional):: masks/mask_align.mrc
+:Reference mask (optional):: mask_align.mrc
 
 On the :guitab:`Reference` tab, set:
 
@@ -112,7 +112,7 @@ On the :guitab:`Auto-sampling` tab set:
 
 :Initial angular sampling:: 1.8 degrees
 
-On our system, using 2 GPU cards, it took just under two hours.
+On our system, using 2 GPU cards, this job took around 1.5 hours to run.
 
 We now remove duplicates again by running :jobtype:`Subset selection` with a minimum inter-particle distance of 50Å to ensure that no other particles converged to the same positions, and then generate a new reference map  with :jobtype:`Reconstruct particle`.
 
@@ -121,17 +121,17 @@ We now remove duplicates again by running :jobtype:`Subset selection` with a min
 Post-processing
 ---------------
 
-Finally, the procedure to sharpen a 3D reference map and estimate the gold-standard FSC curves for subtomogram averaging is strictly the same as described in the :ref:`SPA tutorial<sec_postprocess>`.
+Finally, the procedure to sharpen a 3D reference map and estimate the gold-standard FSC curves for subtomogram averaging is the same as described in the :ref:`SPA tutorial<sec_postprocess>`.
 
-Select the :jobtype:'Post-processing` jobtype, and on the :guitab:`I/O` tab, set:
+Select the :jobtype:`Post-processing` jobtype, and on the :guitab:`I/O` tab, set:
 
-:One of the 2 unfiltered half-maps:: Reconstruct/job036/half1.mrc
+:One of the 2 unfiltered half-maps:: Reconstruct/job025/half1.mrc
 
 :Solvent mask:: mask_fsc.mrc
 
 	(This is the tight mask that only includes the central hexamer.)
 
-We leave the other fields as they are and run the job. The resulting final resolution we see in our workspace is 3.93Å.
+We leave the other fields as they are and run the job. The resulting final resolution we see in our workspace is 4Å.
 
 At this point, this is the best alignment we could reach without applying any specific tomo refinement, as shown in the :ref:`sec_sta_tomorefine` section.
 
