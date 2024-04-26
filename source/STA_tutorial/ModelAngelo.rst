@@ -4,7 +4,7 @@
 Model building with ModelAngelo
 ===============================
 
-Building an atomic model using ``ModelAngelo`` :cite:`jamali_automated_2023` is done in the same way as in the :ref:`SPA tutorial<sec_spa_modelangelo>`.
+Building an atomic model using ``ModelAngelo`` :cite:`jamali_automated_2024` is done in the same way as in the :ref:`SPA tutorial<sec_spa_modelangelo>`.
 First, download the protein sequence as a FASTA file from `this link <https://www.rcsb.org/structure/5L93>`_ (``Download Files`` -> ``FASTA Sequence``).
 
 Running the job
