@@ -1,9 +1,6 @@
 Introduction
 ============
 
-.. warning::
-    We are currently in the process of updating this tutorial for the new subtomogram averaging pipeline in |RELION|-5.0. Please be patient while we work on this.
-
 This tutorial will walk you through the tomography and sub-tomogram averaging pipeline of |RELION|-5.0 . 
 This semi-automated pipeline is designed to carry out all of the steps in a typical subtomogram averaging project from your raw tilt series movies to your final subtomogram average. 
 We will use a test data set composed of 5 tomograms of immature HIV-1 dMACANC VLPs, which is available at `EMPIAR-10164 <https://www.ebi.ac.uk/empiar/EMPIAR-10164/>`_.
@@ -16,14 +13,13 @@ Requirements
 
 Getting Organised
 -----------------
-We recommend to create a single directory per project. We’ll call this the project directory. 
+We recommend creating a single directory per project. We’ll call this the project directory. 
 
-To start processing, make your own project directory and then download and unpack the raw data into this directory using the command below:
+To start processing, make your own project directory and download the raw data (frames and mdoc files) corresponding to the five tomograms (``TS_01``, ``TS_03``, ``TS_43``, ``TS_45``, ``TS_54``) from the EMPIAR link above. 
+A RELION project directory containing precalculated results of all the processing steps of this dataset can be downloaded from:
 
-::
-
-    wget ftp://ftp.mrc-lmb.cam.ac.uk/pub/scheres/relion50_sta_tutorial_data.tar
-    tar -xf relion50_sta_tutorial_data.tar
+.. image::  https://zenodo.org/badge/DOI/10.5281/zenodo.11068319.svg
+   :target: https://doi.org/10.5281/zenodo.11068319
 
 We will start by launching the |RELION| GUI.
 **It is important to always launch the RELION graphical user-interface (GUI) from the project directory**. 
