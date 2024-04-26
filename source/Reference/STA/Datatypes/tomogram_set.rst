@@ -21,7 +21,7 @@ Each row corresponds to one tomogram, and it lists the following properties:
 - The **spherical aberration**, given in mm^-1 (``rlnSphericalAberration``)
 - The **amplitude contrast** (``rlnAmplitudeContrast``)
 
-The star file for each tomogram, that ``rlnTomoTiltSeriesStarFile`` points to, contains a single table with the same name as the tomogram. In it, each row corresponds to one tilt image and includes the following properties, among others:
+The star file for each tomogram, to which ``rlnTomoTiltSeriesStarFile`` points, contains a single table with the same name as the tomogram. In it, each row corresponds to one tilt image and includes the following properties, among others:
 
 - The **tilt image rotation angles and shifts** (``rlnTomo<X/Y>Tilt``, ``rlnTomoZRot`` and ``rlnTomo<X/Y>ShiftAngst``)
 - The **astigmatic defocus** (``rlnDefocus<U/V>`` and ``rlnDefocusAngle``)
