@@ -1,12 +1,19 @@
 The team
 ========
 
-Below are the past and present members of the |RELION| team in alphabetical order.
+Below are the past and present members of the |RELION| team in reverse chronological order of joining.
 
 
 Current members
 ---------------
 
+Bogdan Toader
+^^^^^^^^^^^^^^
+
+`Google Scholar <https://scholar.google.com/citations?user=X76IzDMAAAAJ&hl>`__
+
+Bogdan studied Computer Science and Mathematics at the University of Manchester and did a PhD in Mathematics at the University of Oxford. 
+He joined the LMB in January 2024 as a postdoc in both our and Tanmay Bharat's groups to further improve and develop new tools and algoriths for cryo-ET data processing.
 
 
 Kiarash Jamali
