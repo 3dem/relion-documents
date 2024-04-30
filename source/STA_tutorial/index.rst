@@ -14,6 +14,7 @@ Subtomogram tutorial
    Denoise
    ParticlePicking
    ExtractSubtomos
+   ImportCoords
    InitialModel
    ReconstructPart
    Refine3DIni

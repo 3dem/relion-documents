@@ -31,7 +31,8 @@ And click on the :runbutton:`Run!` button to launch the Napari GUI.
 
 
 
-Napari will automatically open the first tomogram on the GUI. Keep down (drag) the left mouse button (``lef-mouse + drag``) to rotate the scene; use the scroll wheel to zoom in/out; use ``Shift + lef-mouse + drag`` on the tomogram plane to move the visualised plane along the Z axis (normal to plane). [We should mention the problem of the viewer getting stuck in perspective mode and what to here...] The ``contrast limits`` slide bar in the top left side of the screen can be used to adjust contrast in the visualised tomogram plane.
+Napari will automatically open the first tomogram on the GUI. Keep down (drag) the left mouse button (``lef-mouse + drag``) to rotate the scene; use the scroll wheel to zoom in/out; use ``Shift + lef-mouse + drag`` on the tomogram plane to move the visualised plane along the Z axis (normal to plane). 
+The ``contrast limits`` slide bar in the top left side of the screen can be used to adjust contrast in the visualised tomogram plane.
 
 Sphere annotation: 
     The first step is to locate the centre of the sphere-like object in the tomogram. In the tutorial data,

@@ -78,6 +78,12 @@ The ``rlnDefocusU`` and ``rlnDefocusV`` columns specify the estimated defocus va
 
 In addition, the ``logfile.pdf`` file contains plots of useful parameters, such as defocus, astigmatism, estimated resolution, etc for all micrographs, and histograms of these values over the entire data set. Analysing these plots may be useful to spot problems in your data acquisition.
 
+Lastly, you can also see the power spectrum of the estimated CTF of each tilt image in a tilt series using the ``relion_dislay`` command:
+
+::
+
+	relion_display --gui --i CtfFind/job003/tilt_series/TS_01.star
+
 Compared to single-particle data, tilt series images tend to have low SNR, particularly at higher tilts. Consequently, the defocus values may vary at higher tilts. 
 Later in this tutorial, we will perform reference-based CTF refinement, during which we can determine better defoci, so as long as the estimated values aren't too far off, we can hope to improve them later on and we need not worry too much at this stage.
 

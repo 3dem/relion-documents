@@ -46,8 +46,7 @@ On the :guitab:`Tilt series` tab:
 
 		(Specify Yes to flip the handedness of the defocus geometry; the default, Yes, leads to a value of -1 in the STAR file, which is the correct one for the tutorial dataset.)
 	 
-
-On the :guitab:`Running` tab:
+We skip the :guitab:`Coordinates` tab for now (we will use it in the :ref:`sec_sta_importcoord` section to import particle coordinates obtained from other programs), and on the :guitab:`Running` tab set:
 
 :Submit to queue?: No
 

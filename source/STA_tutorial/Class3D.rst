@@ -106,6 +106,7 @@ You can now safely close the Relion Display GUI windows, and the new particles f
 
 In our workspace, the resulting ``particles.star`` file now contains 9442 particles.
 
+.. _sec_sta_class3d_visualising:
 
 Visualising the remaining particles
 ------------------------------------

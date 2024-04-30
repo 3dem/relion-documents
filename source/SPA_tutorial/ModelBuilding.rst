@@ -3,7 +3,7 @@
 ModelAngelo: atomic modelling
 =============================
 
-As of release 5.0, |RELION| comes with a machine-learning approach for automated atomic model building called ``ModelAngelo`` :cite:`jamali_automated_2023`. ModelAngelo is a graph neural network that combines information from the cryo-EM map with sequence information of the proteins that are present in the map to build an atomic model.
+As of release 5.0, |RELION| comes with a machine-learning approach for automated atomic model building called ``ModelAngelo`` :cite:`jamali_automated_2024`. ModelAngelo is a graph neural network that combines information from the cryo-EM map with sequence information of the proteins that are present in the map to build an atomic model.
 
 Because we know that the sample in this data set is beta-galactosidase from *E.coli*, we can provide the protein sequence as a ``FASTA`` file. You can download it from ``uniprot`` through `this link <https://www.uniprot.org/uniprotkb/P00722/entry>`_. Save it as ``betagal.fasta`` in the project directory.
 
