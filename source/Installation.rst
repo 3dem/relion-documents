@@ -42,7 +42,6 @@ CUDA, HIP/ROCm, SYCL or oneAPI intel compilers:
 CTFFIND-4.1:
     CTF estimation is not part of |RELION|.
     Instead, |RELION| provides a wrapper to Alexis Rohou and Niko Grigorieff's :textsc:`ctffind` 4 :cite:`rohou_ctffind4:_2015`.
-    Alternatively, you may also use (the closed-source) :textsc:`gctf` by Kai Zhang :cite:`zhang_gctf:_2016`, which may be downloaded from `Kai's website <http://www.mrc-lmb.cam.ac.uk/kzhang/>`_.
 
 Ghostscript:
     RELION uses `Ghostscript <https://www.ghostscript.com/>`_ to generate PDF files.
@@ -514,9 +513,6 @@ You'll need to change all the paths for your own system, and translate the scrip
      # Default CTFFIND-4.1+ executable
      setenv RELION_CTFFIND_EXECUTABLE /public/EM/ctffind/ctffind.exe
      
-     # Default Gctf executable
-     setenv RELION_GCTF_EXECUTABLE /public/EM/Gctf/bin/Gctf
- 
      # Default ResMap executable
      setenv RELION_RESMAP_EXECUTABLE /public/EM/ResMap/ResMap-1.1.4-linux64
      
@@ -539,6 +535,6 @@ You'll need to change all the paths for your own system, and translate the scrip
      # RELION_QSUB_COMMAND: The default for 'Queue submit command'
      # RELION_MINIMUM_DEDICATED: The default for 'Minimum dedicated cores per node'
      # RELION_ALLOW_CHANGE_MINIMUM_DEDICATED: Whether to allow a user to change the 'Minimum dedicated cores per node' field in the GUI
-     # RELION_SHELL: A shell used to launch CTFFIND/GCTF in CtfFind jobs ('csh' by default; only available from 3.1)
+     # RELION_SHELL: A shell used to launch CTFFIND in CtfFind jobs ('csh' by default; only available from 3.1)
      # RELION_SCRATCH_DIR: The default scratch directory in the GUI
      # RELION_STACK_BUFFER: The buffer size used for MRC(S) file I/O, potentially useful on GPFS or Lustre file system. See https://github.com/3dem/relion/pull/783 for details.

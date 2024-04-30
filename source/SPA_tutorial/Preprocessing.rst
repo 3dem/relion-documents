@@ -204,8 +204,9 @@ CTF estimation
 --------------
 
 Next, we will estimate the CTF parameters for each corrected micrograph.
-You can use the :jobtype:`CTF estimation` job-type as a wrapper to Kai Zhang's :textsc:`gctf` to execute on the GPU, or you can also use Alexis Rohou and Niko Grigorieff's |CTFFIND4.1| to execute efficiently on the CPU.
+You can use the :jobtype:`CTF estimation` job-type as a wrapper to Alexis Rohou and Niko Grigorieff's |CTFFIND4.1| to execute efficiently on the CPU.
 We now prefer |CTFFIND4.1|, as it is the only open-source option, and because it allows reading in the movie-averaged power spectra calculation by |RELION|'s own implementation of the |MotionCor2| algorithm.
+Support for GCTF was dropped in RELION 5.0.
 Fill in the settings as follows:
 
 On the :guitab:`I/O`:
@@ -260,10 +261,9 @@ On the :guitab:`CTFFIND-4.1` tab, set:
 :Defocus step size (A):: 500
 
 
-On the :guitab:`Gctf` tab, make sure the option to use :textsc:`gctf` instead is set to No.
 On the :guitab:`Running` tab, use six MPI processes to process the 24 micrographs in parallel.
 This took less than 10 seconds on our machine.
-Once the job finishes there are additional files for each micrograph inside the output ``CtfFind/job003/Movies`` directory: the ``.ctf`` file contains an image in `MRC` format with the computed power spectrum and the fitted CTF model; the ``.log`` file contains the output from :textsc:`ctffind` or :textsc:`gctf`; (only in case of using :textsc:`ctffind`, the `.com` file contains the script that was used to launch :textsc:`ctffind`).
+Once the job finishes there are additional files for each micrograph inside the output ``CtfFind/job003/Movies`` directory: the ``.ctf`` file contains an image in `MRC` format with the computed power spectrum and the fitted CTF model; the ``.log`` file contains the output from :textsc:`ctffind`; the `.com` file contains the script that was used to launch :textsc:`ctffind`.
 
 You can visualise all the Thon-ring images using the :button:`Display` button, selecting ``out: micrographs_ctf.star``.
 The zeros between the Thon rings in the experimental images should coincide with the ones in the model.
