@@ -18,7 +18,7 @@ Select the :guitab:`IO` tab from the :jobtype:`Reconstruct particle` jobtype.
 :Input tomogram set:: \
 :Input trajectory set:: \
 
-On the :guitab:`Average` tab, make sure the following is set to reconstruct particles with a binning factor of 2:
+On the :guitab:`Average` tab, make sure the following is set to reconstruct particles with a binning factor of 6:
 
 :Binning factor:: 6
 :Box size (binned pix):: 192
