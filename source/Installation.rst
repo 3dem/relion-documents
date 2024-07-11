@@ -42,6 +42,8 @@ CUDA, HIP/ROCm, SYCL or oneAPI intel compilers:
 CTFFIND-4.1:
     CTF estimation is not part of |RELION|.
     Instead, |RELION| provides a wrapper to Alexis Rohou and Niko Grigorieff's :textsc:`ctffind` 4 :cite:`rohou_ctffind4:_2015`.
+    Please obtain CTFFIND 4.1.x from `their Web site <https://grigoriefflab.umassmed.edu/ctf_estimation_ctffind_ctftilt>`_.
+    Note that CTFFIND 5.x is not supported.
 
 Ghostscript:
     RELION uses `Ghostscript <https://www.ghostscript.com/>`_ to generate PDF files.
