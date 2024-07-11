@@ -39,6 +39,8 @@ CUDA:
 CTFFIND-4.1:
     CTF estimation is not part of |RELION|.
     Instead, |RELION| provides a wrapper to Alexis Rohou and Niko Grigorieff's :textsc:`ctffind` 4 :cite:`rohou_ctffind4:_2015`.
+    Please obtain CTFFIND 4.1.x from `their Web site <https://grigoriefflab.umassmed.edu/ctf_estimation_ctffind_ctftilt>`_.
+    Note that CTFFIND 5.x is not supported.
     Alternatively, you may also use (the closed-source) :textsc:`gctf` by Kai Zhang :cite:`zhang_gctf:_2016`, which may be downloaded from `Kai's website <http://www.mrc-lmb.cam.ac.uk/kzhang/>`_.
 
 Ghostscript:
