@@ -139,7 +139,7 @@ Setup a conda environment
 -------------------------
 
 To add support for Python modules (e.g. Blush, ModelAngelo and DynaMight) you will have to setup a Python environment with dependencies.
-We recommend installing via `Miniconda3 <https://docs.conda.io/en/latest/miniconda.html>`_.
+We recommend installing via `Miniforge <https://github.com/conda-forge/miniforge>`_ to avoid inadvertently installing packages from the restrictively licensed "default" conda repository.
 
 Once you have conda setup, you can install all the RELION Python dependencies into a new environment by running::
 
