@@ -116,12 +116,11 @@ To do so, use the shell command-line::
 This will create a local Git repository.
 All subsequent git-commands should be run inside this directory.
 
-The `master` branch (default) contains the stable release of |RELION|-4.0.
 By performing::
 
     git checkout ver5.0
 
-you can access the latest (developmental) updates for RELION 5.0x.
+you can access the latest updates for RELION 5.0.x.
 
 The code will be intermittently updated to amend issues.
 To incorporate these changes, use the command-line::
