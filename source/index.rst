@@ -15,7 +15,7 @@ Table of Contents
 -----------------
 
 **These pages refer to RELION-4.0.**
-For RELION-3.1, please see `here <https://relion.readthedocs.io/en/release-3.1/>`_. 
+For RELION-5.0, please see `here <https://relion.readthedocs.io/en/release-5.0/>`_. 
 
 -   :doc:`Whats-new`
 -   :doc:`Team`
