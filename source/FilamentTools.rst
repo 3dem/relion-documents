@@ -4,7 +4,7 @@
 FilamentTools
 =============
 
-While we work on a better documentation of this tool, this hopefully helps to get most people started.
+David Li, while he was an Mphil student in our group, wrote the ``FilamentTools`` script that performs bi-hierarchical classification on filaments and 2D class assignments that is described in our paper on `time-resolved cryo-EM of tau filament formation <https://www.nature.com/articles/s41586-023-06788-w>`__.
 
 You can run the ``FilamentTools`` from the :jobtype:`Subset selection` jobtype on the relion-5 GUI (set option to Yes on Filament tab). The program will take a little while to run. If you have millions of particles, it may fail. If that's the case, please try and divide the data set into multiple smaller subsets.
 
