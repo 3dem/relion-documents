@@ -1,5 +1,9 @@
 .. _sec_filamenttools:
 
+
+FilamentTools
+=============
+
 While we work on a better documentation of this tool, this hopefully helps to get most people started.
 
 You can run the ``FilamentTools`` from the jobtype::`Subset selection` jobtype on the relion-5 GUI (set option to Yes on Filament tab). The program will take a little while to run. If you have millions of particles, it may fail. If that's the case, please try and divide the data set into multiple smaller subsets.
