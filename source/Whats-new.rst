@@ -18,7 +18,7 @@ Kiarash Jamali developed a machine-learning approach for automated atomic model 
 
 **Select subsets of filaments using dendrograms**
 
-David Li developed a useful utility to select subsets of filament particles that belong to the same structural class. It has been implemented on the Helix tab of the Subset selection job type.
+David Li developed a useful utility to select subsets of filament particles that belong to the same structural class. It has been implemented on the Filaments tab of the jobtype:`Subset selection` job type. See :ref:`FilamentTools <sec_filamenttools>` for more details.
 
 **Support for AMD and Intel GPUs (HIP/ROCm and SYCL)**
 
