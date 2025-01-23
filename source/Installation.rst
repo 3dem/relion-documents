@@ -42,6 +42,8 @@ CUDA, HIP/ROCm, SYCL or oneAPI intel compilers:
 CTFFIND-4.1:
     CTF estimation is not part of |RELION|.
     Instead, |RELION| provides a wrapper to Alexis Rohou and Niko Grigorieff's :textsc:`ctffind` 4 :cite:`rohou_ctffind4:_2015`.
+    Please obtain CTFFIND 4.1.x from `their Web site <https://grigoriefflab.umassmed.edu/ctf_estimation_ctffind_ctftilt>`_.
+    Note that CTFFIND 5.x is not supported.
 
 Ghostscript:
     RELION uses `Ghostscript <https://www.ghostscript.com/>`_ to generate PDF files.
@@ -116,11 +118,9 @@ To do so, use the shell command-line::
 This will create a local Git repository.
 All subsequent git-commands should be run inside this directory.
 
-By performing::
+To get access to the latest updates for (stable) release of RELION 5.0x, type::
 
     git checkout ver5.0
-
-you can access the latest updates for RELION 5.0.x.
 
 The code will be intermittently updated to amend issues.
 To incorporate these changes, use the command-line::
@@ -136,7 +136,7 @@ Setup a conda environment
 -------------------------
 
 To add support for Python modules (e.g. Blush, ModelAngelo and DynaMight) you will have to setup a Python environment with dependencies.
-We recommend installing via `Miniconda3 <https://docs.conda.io/en/latest/miniconda.html>`_.
+We recommend installing via `Miniforge <https://github.com/conda-forge/miniforge>`_ to avoid inadvertently installing packages from the restrictively licensed "default" conda repository.
 
 Once you have conda setup, you can install all the RELION Python dependencies into a new environment by running::
 
