@@ -29,7 +29,7 @@ CUDA, HIP/ROCm, SYCL or oneAPI intel compilers:
     Also note that a newer CUDA toolkit requires a newer GPU driver.
     Carefully read the release note and make sure you have a compatible set of GPU driver, C compiler and CUDA toolkit.
     **Importantly, RELION 5.0.x needs CUDA <= 12.8.**
-    A newer CUDA toolkit causes compulation error (c.f. GitHub issue `#1002 <https://github.com/3dem/relion/issues/1002#issuecomment-3064680730>`_, `#1292 <https://github.com/3dem/relion/issues/1292>`_).
+    A newer CUDA toolkit causes compilation error (c.f. GitHub issue `#1002 <https://github.com/3dem/relion/issues/1002#issuecomment-3064680730>`_, `#1292 <https://github.com/3dem/relion/issues/1292>`_).
 
     If you want to compile with HIP/ROCm, you will need
         - `AMD ROCm <https://docs.amd.com/en/docs-5.7.1/deploy/linux/index.html>`_
@@ -148,7 +148,7 @@ Also code in this environment will be updated intermittently. You can incorporat
 
     conda env update -f environment.yml
 
-If you are using NVIDIA GPUs of the Blackwell generation (50x0) or newer, please use ``environmenet_blackwell.yml`` instead.
+If you are using NVIDIA GPUs of the Blackwell generation (50x0) or newer, please use ``environment_blackwell.yml`` instead.
 
 .. warning::
     You should **NOT** activate this ``relion-5.0`` conda environment when compiling and using RELION;
