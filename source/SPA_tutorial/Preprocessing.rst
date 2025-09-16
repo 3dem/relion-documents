@@ -230,8 +230,6 @@ On the :guitab:`I/O`:
 
 On the :guitab:`CTFFIND-4.1` tab, set:
 
-:Use CTFFIND-4.1?: Yes
-
 :CTFFIND-4.1 executable:: /wherever/it/is/ctffind.exe
 
 :Use power spectra from MotionCorr job?: Yes
