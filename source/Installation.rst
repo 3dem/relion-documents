@@ -11,7 +11,7 @@ The sections below explain how to download and install |RELION| on your computer
 Note that |RELION| depends on and uses several external programs and libraries.
 
 C++ compiler:
-    RELION 5.0 requires a C++ compiler that fully supports the C++14 standard.
+    RELION 5.0.1 requires a C++ compiler that fully supports the C++17 standard.
     For GCC, this means `version 5.0 or later <https://gcc.gnu.org/projects/cxx-status.html#cxx14>`_.
     Note that GCC 4.8, which comes with RedHat Enterprise Linux / Cent OS 7.x, is too old.
     You can obtain newer GCC via devtoolset or use free Intel compiler that comes with oneAPI toolkit (see below).
@@ -19,6 +19,11 @@ C++ compiler:
 MPI:
     Your system will need `MPI <https://en.wikipedia.org/wiki/Message_Passing_Interface>`_ runtime (most flavours will do).
     If you don't have an MPI installation already on your system, we recommend installing `OpenMPI <http://www.open-mpi.org/>`_.
+
+CMake:
+    RELION uses `CMake <https://cmake.org/>`_ for compilation.
+    As of RELION 5.0.1, you need **CMake earlier than 3.27**.
+    We will fix `this issue <https://github.com/3dem/relion/pull/1077>`_ in future.
 
 CUDA, HIP/ROCm, SYCL or oneAPI intel compilers:
     If you have GPUs from :textsc:`nvidia`, AMD or Intel, you can accelerate many jobs considerably.
@@ -28,8 +33,9 @@ CUDA, HIP/ROCm, SYCL or oneAPI intel compilers:
     Note that CUDA toolkits support only a limited range of C compilers.
     Also note that a newer CUDA toolkit requires a newer GPU driver.
     Carefully read the release note and make sure you have a compatible set of GPU driver, C compiler and CUDA toolkit.
-    **Importantly, RELION 5.0.x needs CUDA <= 12.8.**
-    A newer CUDA toolkit causes compilation error (c.f. GitHub issue `#1002 <https://github.com/3dem/relion/issues/1002#issuecomment-3064680730>`_, `#1292 <https://github.com/3dem/relion/issues/1292>`_).
+    **Importantly, CUDA >= 13.0 no longer supports Pascal GPUs (e.g. 1080 Ti, P100).**
+    Please use CUDA 12.x if you use them.
+    As of RELION 5.0.1, we test RELION builds with CUDA 11 to 13.
 
     If you want to compile with HIP/ROCm, you will need
         - `AMD ROCm <https://docs.amd.com/en/docs-5.7.1/deploy/linux/index.html>`_
@@ -147,6 +153,10 @@ Once you have conda setup, you can install all the RELION Python dependencies in
 Also code in this environment will be updated intermittently. You can incorporate the latest changes by running::
 
     conda env update -f environment.yml
+
+If you suspect an update is not applied properly, you can delete an existing RELION environment before recreating::
+
+    conda remove -n relion --all
 
 If you are using NVIDIA GPUs of the Blackwell generation (50x0) or newer, please use ``environment_blackwell.yml`` instead.
 
