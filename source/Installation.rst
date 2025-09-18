@@ -156,7 +156,7 @@ Also code in this environment will be updated intermittently. You can incorporat
 
 If you suspect an update is not applied properly, you can delete an existing RELION environment before recreating::
 
-    conda remove -n relion --all
+    conda remove -n relion-5.0 --all
 
 If you are using NVIDIA GPUs of the Blackwell generation (50x0) or newer, please use ``environment_blackwell.yml`` instead.
 
