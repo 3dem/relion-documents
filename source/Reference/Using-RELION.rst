@@ -106,11 +106,11 @@ With the much improved speed of image processing provided by the GPU-acceleratio
 Several options are available on the |RELION| GUI to optimise disk access for your data set and computer setup.
 For :jobtype:`2D classification`, :jobtype:`3D initial model`, :jobtype:`3D classification` and :jobtype:`3D auto-refine` one can choose to `use parallel  disc I/O`.
 When set to `Yes`, all MPI processes will read particles simultaneously from the hard disk.
-Otherwise, only the master will read images and send them through the network to the slaves.
+Otherwise, only the master will read images and send them through the network to the workers.
 Parallel file systems like gluster of fhgfs are good at parallel disc I/O.
-NFS may break with many slaves reading in parallel.
+NFS may break with many workers reading in parallel.
 
-One can also set the `number of pooled particles`.  Particles are processed in individual batches by MPI slaves.
+One can also set the `number of pooled particles`.  Particles are processed in individual batches by MPI workers.
 During each batch, a stack of particle images is only opened and closed once to improve disk access times.
 All particle images of a single batch are read into memory together.
 The size of these batches is at least one particle per thread used.
@@ -124,9 +124,9 @@ This will greatly speed up calculations on systems with relatively slow disk acc
 Because particles are read in float-precision, it will take :math:`\frac{N \times boxsize \times boxsize \times 4}{1024 \times 1024 \times 1024}` gigabytes to read N particles into RAM.
 For 100,000 particles with a 200-pixel boxsize that becomes 15GB, or 60 GB for the same number of particles in a 400-pixel boxsize.
 
-If the data set is too large to pre-read into RAM, but each computing node has a local, fast disk (e.g. a solid-state drive) mounted with the same name, then one can let each MPI slave copy all particles onto the local disk prior to starting the calculations.
+If the data set is too large to pre-read into RAM, but each computing node has a local, fast disk (e.g. a solid-state drive) mounted with the same name, then one can let each MPI worker copy all particles onto the local disk prior to starting the calculations.
 This is done using the ``Copy particles to scratch directory``.
-If multiple slaves will be executed on the same node, only the first slave will copy the particles.
+If multiple workers will be executed on the same node, only the first worker will copy the particles.
 If the local disk is too small to hold the entire data set, those particles that no loner fit on the scratch disk will be read from their original position.
 A sub-directory called ``relion_volatile`` will be created inside the specified directory name.
 For example, if one specifies ``/ssd``, then a directory called ``/ssd/relion_volatile`` will be created.
@@ -139,9 +139,9 @@ Thereby, one can choose to use ``/ssd``, i.e. without a username, as a scratch d
 That way, provided always only a single job is executed by a single user on each computing node, the local disks do not run the risk of filling up with junk when jobs crash and users forget to clean the scratch disk themselves.
 
 Finally, there is an option to ``combine iterations through disc``.
-If set to ``Yes``, at the end of every iteration all MPI slaves will write out a large file with their accumulated results.
+If set to ``Yes``, at the end of every iteration all MPI workers will write out a large file with their accumulated results.
 The MPI master will read in all these files, combine them all, and write out a new file with the combined results.
-All MPI salves will then read in the combined results.
+All MPI workers will then read in the combined results.
 This reduces heavy load on the network, but increases load on the disc I/O.
 This will affect the time it takes between the progress-bar in the expectation step reaching its end (the mouse gets to the cheese) and the start of the ensuing maximisation step.
 It will depend on your system setup which is most efficient.
