@@ -57,10 +57,10 @@ One possibility is to start processing at 4K and coarse slicing and then switch 
 To process an EER dataset, proceed as follows.
 This feature needs RELION >= 3.1.1.
 
-1.  Decide how many (internal) frames to group into a fraction.
+1.  Decide how many (raw) frames to group into a fraction. We call this ``EER fractionation``.
 
-    For example, if you have 1000 internal frames and group them by 30, you will get 33 fractions.
-    The remaining 10 (= 1000 - 30 * 33) frames will be ignored.
+    For example, if you have 1000 raw frames and group them by 30, you will get 33 fractions.
+    The remaining 10 (= 1000 - 30 * 33) last frames will be ignored.
     Too fine slicing leads to very slow processing and out of memory errors.
 
 2.  Calculate how many e/A2 each fraction has.
@@ -75,6 +75,7 @@ This feature needs RELION >= 3.1.1.
 4.  Run motion correction.
 
     - Specify the value decided in the step 1 to ``EER fractionation``.
+      In the example case above, the ``EER fractionation`` value would be 30 (not 33).
     - Specify the dose rate calculated in step 2.
     - Specify the gain reference.
     - ``Group frames`` in the GUI **must be 1** regardless of what you choose in step 1.
