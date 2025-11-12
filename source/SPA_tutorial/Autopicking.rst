@@ -245,15 +245,15 @@ Ignore the :guitab:`Helix` tab, and on the :guitab:`Compute` tab, set:
 
 :Use parallel disc I/O?: Yes
 
-     (This way, all MPI slaves will read their own particles from disc.
+     (This way, all MPI workers will read their own particles from disc.
      Use this option if you have a fast (parallel?) file system.
      Note that non-parallel file systems may not be able to handle parallel access from multiple MPI nodes.
      In such cases one could set this option to No.
-     In that case, only the master MPI node will read in the particles and send them through the network to the MPI slaves.)
+     In that case, only the master MPI node will read in the particles and send them through the network to the MPI workers.)
 
 :Number of pooled particles:: 30
 
-     (Particles are processed in individual batches by MPI slaves.
+     (Particles are processed in individual batches by MPI workers.
      During each batch, a stack of particle images is only opened and closed once to improve disk access times.
      All particle images of a single batch are read into memory together.
      The size of these batches is at least one particle per thread used.
@@ -268,8 +268,8 @@ Ignore the :guitab:`Helix` tab, and on the :guitab:`Compute` tab, set:
      (If set to Yes, all particle images will be read into computer memory, which will greatly speed up calculations on systems with slow disk access.
      *However, one should of course be careful with the amount of RAM available.*
      Because particles are read in double-precision, it will take ( N × box_size × box_size × 4 / (1024 × 1024 × 1024) ) Giga-bytes to read N particles into RAM.
-     If parallel disc I/O is set to Yes, then all MPI slaves will read in all particles.
-     If parallel disc I/O is set to No, then only the master reads all particles into RAM and sends those particles through the network to the MPI slaves during the refinement iterations.)
+     If parallel disc I/O is set to Yes, then all MPI workers will read in all particles.
+     If parallel disc I/O is set to No, then only the master reads all particles into RAM and sends those particles through the network to the MPI workers during the refinement iterations.)
 
 :Copy particles to scratch directory?: \
 
