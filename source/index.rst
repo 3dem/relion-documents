@@ -2,7 +2,7 @@ RELION
 ======
 
 |RELION| (for **RE**\ gularised **LI**\ kelihood **O**\ ptimisatio\ **N**\ , pronounce rely-on) is a software package that employs an empirical Bayesian approach for electron cryo-microscopy (cryo-EM) structure determination. 
-It is developed in the group of `Sjors Scheres <https://www2.mrc-lmb.cam.ac.uk/groups/scheres/>`_ at the `MRC Laboratory of Molecular Biology <https://www2.mrc-lmb.cam.ac.uk>`_.
+It is developed in the group of `Sjors Scheres <https://www2.mrc-lmb.cam.ac.uk/groups/scheres/>`_ at the `MRC Laboratory of Molecular Biology <https://mrclmb.ac.uk>`_.
 
 .. note::
 
