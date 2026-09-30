@@ -14,7 +14,7 @@ It is developed in the group of `Sjors Scheres <https://www2.mrc-lmb.cam.ac.uk/g
 Table of Contents
 -----------------
 
-**These pages refer to RELION-5.0, which is the latest stable release.**
+**These pages refer to RELION-5.1, which is the latest release.**
 
 -   :doc:`Whats-new`
 -   :doc:`Team`

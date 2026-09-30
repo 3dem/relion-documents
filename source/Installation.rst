@@ -11,7 +11,7 @@ The sections below explain how to download and install |RELION| on your computer
 Note that |RELION| depends on and uses several external programs and libraries.
 
 C++ compiler:
-    RELION 5.0 requires a C++ compiler that fully supports the C++14 standard.
+    RELION 5.1 requires a C++ compiler that fully supports the C++14 standard.
     For GCC, this means `version 5.0 or later <https://gcc.gnu.org/projects/cxx-status.html#cxx14>`_.
     Note that GCC 4.8, which comes with RedHat Enterprise Linux / Cent OS 7.x, is too old.
     You can obtain newer GCC via devtoolset or use free Intel compiler that comes with oneAPI toolkit (see below).
@@ -118,9 +118,9 @@ To do so, use the shell command-line::
 This will create a local Git repository.
 All subsequent git-commands should be run inside this directory.
 
-To get access to the latest updates for (stable) release of RELION 5.0x, type::
+To get access to the latest updates for (stable) release of RELION 5.1.x, type::
 
-    git checkout ver5.0
+    git checkout ver5.1
 
 The code will be intermittently updated to amend issues.
 To incorporate these changes, use the command-line::
@@ -147,12 +147,12 @@ Also code in this environment will be updated intermittently. You can incorporat
     conda env update -f environment.yml
 
 .. warning::
-    You should **NOT** activate this ``relion-5.0`` conda environment when compiling and using RELION;
+    You should **NOT** activate this ``relion-5.1`` conda environment when compiling and using RELION;
     RELION activates it automatically only when necessary.
     Otherwise, system-wide installation of compilers/libraries/MPI runtime might get mixed up with those provided by conda, leading to compilation failures or runtime errors.
     The same applies to other software packages that provide their own libraries/MPI runtime, such as CCPEM, CCP4, EMAN2, DIALS, PHENIX.
 
-The ``cmake`` command should automatically detect the ``relion-5.0`` conda environment created above.
+The ``cmake`` command should automatically detect the ``relion-5.1`` conda environment created above.
 If it does not, you can specify ``-DPYTHON_EXE_PATH=path/to/your/conda/python``.
 Additionally, if you intend to make use of automatically downloaded pretrained model weights (used in e.g. Blush, ModelAngelo and class_ranker), it is recommended to explicitly set the destination directory (``TORCH_HOME``) by including the flag ``-DTORCH_HOME_PATH=path/to/torch/home``.
 You have to create this directory before running ``cmake``.
@@ -373,7 +373,7 @@ Note that this is mutually exclusive with other accelerated code paths (e.g. CUD
 Technically speaking, you can build SYCL for AMD and NVIDIA GPUs to make a single binary that runs on NVIDIA, AMD and Intel GPUs,
 but this is highly experimental and not tested well.
 
-For now, this way of building RELION is `explained here: <https://github.com/3dem/relion/blob/ver5.0/README_sycl.md>`_.
+For now, this way of building RELION is `explained here: <https://github.com/3dem/relion/blob/ver5.1/README_sycl.md>`_.
 
 
 Set-up queue job submission
