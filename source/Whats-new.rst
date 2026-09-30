@@ -1,6 +1,19 @@
 What's new?
 ===========
 
+Release 5.1
+-----------
+This release implements new functionality for single-particle processing of amyloid filaments, as described `here <https://doi.org/10.64898/2026.03.17.712386>`_:
+
+    - a new auto-picker that specifically detects the 4.75A signal in the Fourier transform of micrographs
+    - amyprep and amyproc Schemes for the automated pre-processing of amyloid data sets
+    - a retrained version of the Blush regularisation denoising network that is specific for amyloid filaments
+
+This release also implements minor updates to the tomography pipeline, including:
+
+    a wrapper to AreTomo2's tomogram reconstruction algorithm
+    an option to extract real 3D subtomograms (this goes well with the AreTomo2 reconstructions), and to use these for 3D classifications/refinements. (Some people like this for getting initial 3D subtomogram averages.)
+
 Release 5.0
 -----------
 
