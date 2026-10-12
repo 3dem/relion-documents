@@ -168,8 +168,8 @@ The other parameters are the same as in the previous :jobtype:`Extract subtomos`
 Obtaining a 3D reference at bin 2
 ---------------------------------
 
-Having extracted a new set of particles at binning factor 2, we will now obtain a 3D reference map at the same binnig factor.
-Select the :jobtype:`Reconstrcut particle` jobtype on the GUI, and set in the :guitab:`I/O` tab:
+Having extracted a new set of particles at binning factor 2, we will now obtain a 3D reference map at the same binning factor.
+Select the :jobtype:`Reconstruct particle` jobtype on the GUI, and set in the :guitab:`I/O` tab:
 
 :Input optimisation set:: Extract/job013/optimisation_set.star
 :OR\: use direct entries?: No
