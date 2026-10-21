@@ -7,6 +7,11 @@ We can now generate our tomograms. Click on the :jobtype:`Reconstruct tomograms`
 
 :Input tilt series: AlignTiltSeries/job005/aligned_tilt_series.star
 
+:Generate tomograms for denoising?: Yes 
+
+    (The quality of the tutorial tomograms is very good and they don’t need to be denoised; however, we set this to ``Yes`` to demonstrate denoising at the next step.
+    This setting requires setting ``Save images for denoising?`` to ``Yes`` in the :jobtype:`Motion correction` job.)
+
 On the :guitab:`Reconstruct` tab:
 
 :Unbinned tomogram width (Xdim): 4000
@@ -24,11 +29,6 @@ On the :guitab:`Reconstruct` tab:
 :Binned pixel size (A): 10
 
     (A binned pixel size of 10 Angstrom will suffice for particle picking and denoising. Typically, the larger the pixel size, the faster the tomogram reconstruction and the less space the tomograms occupy on disk.) 
-
-:Generate tomograms for denoising?: Yes 
-
-    (The quality of the tutorial tomograms is very good and they don’t need to be denoised; however, we set this to ``Yes`` to demonstrate denoising at the next step.
-    This setting requires setting ``Save images for denoising?`` to ``Yes`` in the :jobtype:`Motion correction` job.)
 
 :Tilt angle offset (deg): 0
 
