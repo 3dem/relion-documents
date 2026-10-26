@@ -199,7 +199,7 @@ On the :guitab:`I/O` tab of the :jobtype:`3D auto-refine` job-type set:
 
 :Reference map::  Reconstruct/job014/half1.mrc
 
-    (Here we use the resulting map from the bin 6 :jobtype:`3D auto-refine` job.)
+    (Here we use the resulting map from the bin 2 :jobtype:`Reconstruct particle` job.)
 
 On the :guitab:`Reference` tab, set:
 
